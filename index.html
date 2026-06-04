@@ -985,31 +985,35 @@ function showFlash(msg) {
 // INIT
 // ═══════════════════════════════════════
 (async function init() {
-  // Comprobar si venimos del callback de Discord
-  if (window.location.hash.includes('access_token') || window.location.href.includes('access_token')) {
+  if (window.location.hash.includes('access_token')) {
     const ok = await handleDiscordCallback();
+    history.replaceState(null, '', window.location.pathname);
     if (ok) {
       updateNavAvatars();
       loadFicha();
       updateHP();
       showPage('home');
-      showFlash('✦ Bienvenido, ' + currentUser.username);
-  
+      setTimeout(() => showFlash('Bienvenido, ' + currentUser.username), 200);
+    } else {
+      showPage('login');
+    }
+    return;
+  }
+
+  const saved = localStorage.getItem('discord_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      updateNavAvatars();
+      loadFicha();
+      updateHP();
+      showPage('home');
+      return;
+    } catch(e) {
+      localStorage.removeItem('discord_user');
     }
   }
 
-  // Comprobar sesión guardada
-  const saved = localStorage.getItem('discord_user');
-  if (saved) {
-    currentUser = JSON.parse(saved);
-    updateNavAvatars();
-    loadFicha();
-    updateHP();
-    showPage('home');
-
-  }
-
-  // Mostrar login
   showPage('login');
 })();
 </script>
