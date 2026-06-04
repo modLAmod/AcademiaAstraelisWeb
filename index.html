@@ -819,7 +819,7 @@
 // CONFIGURACIÓN — REEMPLAZA ESTOS VALORES
 // ═══════════════════════════════════════
 const DISCORD_CONFIG = {
-  client_id: '1506739511969714237'
+  client_id: '1506739511969714237',
   redirect_uri: encodeURIComponent(window.location.href.split('?')[0].split('#')[0]),
   scope: 'identify'
 };
@@ -835,7 +835,7 @@ let currentPage = 'login';
 // ═══════════════════════════════════════
 document.getElementById('btn-discord-login').addEventListener('click', function(e) {
   e.preventDefault();
-  if (!DISCORD_CONFIG.client_id || DISCORD_CONFIG.client_id === '1506739511969714237') {
+  if (false) {
     showFlash('⚠ Configura tu Client ID de Discord en el archivo');
     return;
   }
