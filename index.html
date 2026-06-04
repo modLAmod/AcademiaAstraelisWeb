@@ -860,7 +860,7 @@ async function handleDiscordCallback() {
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`
         : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.discriminator || '0') % 5}.png`
     };
-    sessionStorage.setItem('discord_user', JSON.stringify(currentUser));
+    localStorage.setItem('discord_user', JSON.stringify(currentUser));
     return true;
   } catch (err) {
     showFlash('Error al obtener datos de Discord');
@@ -893,7 +893,7 @@ function updateNavAvatars() {
 }
 
 function logout() {
-  sessionStorage.removeItem('discord_user');
+  localStorage.removeItem('discord_user');
   currentUser = null;
   showPage('login');
 }
@@ -1002,7 +1002,7 @@ function showFlash(msg) {
   }
 
   // Comprobar sesión guardada
-  const saved = sessionStorage.getItem('discord_user');
+  const saved = localStorage.getItem('discord_user');
   if (saved) {
     currentUser = JSON.parse(saved);
     updateNavAvatars();
