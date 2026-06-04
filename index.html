@@ -835,7 +835,7 @@ let currentPage = 'login';
 // ═══════════════════════════════════════
 document.getElementById('btn-discord-login').addEventListener('click', function(e) {
   e.preventDefault();
-  if (DISCORD_CONFIG.client_id === '1506739511969714237') {
+  if (!DISCORD_CONFIG.client_id || DISCORD_CONFIG.client_id === 'TU_CLIENT_ID_AQUI') {
     showFlash('⚠ Configura tu Client ID de Discord en el archivo');
     return;
   }
