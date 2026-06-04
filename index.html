@@ -845,9 +845,6 @@ async function handleDiscordCallback() {
   const token = params.get('access_token');
   if (!token) return false;
 
-  // Limpiar hash de la URL
-  history.replaceState(null, '', window.location.pathname);
-
   try {
     const res = await fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${token}` }
@@ -989,7 +986,7 @@ function showFlash(msg) {
 // ═══════════════════════════════════════
 (async function init() {
   // Comprobar si venimos del callback de Discord
-  if (window.location.hash.includes('access_token')) {
+  if (window.location.hash.includes('access_token') || window.location.href.includes('access_token')) {
     const ok = await handleDiscordCallback();
     if (ok) {
       updateNavAvatars();
