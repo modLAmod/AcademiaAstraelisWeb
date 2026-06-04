@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Astraelis – Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth()" class="dashboard-bg">
+
+    <nav class="navbar">
+        <h2>Academia Astraelis</h2>
+        <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+    </nav>
+
+    <section class="hero">
+        <h1>Bienvenido a la Academia</h1>
+        <p>Tu viaje en el Aether comienza ahora</p>
+    </section>
+
+    <section class="cards">
+        <div class="card">Crear Personaje</div>
+        <div class="card">Ver Lore</div>
+        <div class="card">Casas</div>
+        <div class="card">Pilares</div>
+        <div class="card">Economía</div>
+        <div class="card">Reputación</div>
+        <div class="card">Dados</div>
+    </section>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
