@@ -1,38 +1,89 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Academia Astraelis – Acceso</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+/* ====== ESTILO GENERAL ====== */
 
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Crimson Text', serif;
+    background: radial-gradient(circle at top, #1a0f2e, #0a0612 70%);
+    color: #e8d9ff;
+    min-height: 100vh;
+}
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="style.css">
-</head>
+/* ====== HEADER ====== */
 
-<body>
-    <div id="page-login" class="page active">
-        <div class="login-card">
+.header {
+    text-align: center;
+    padding: 60px 20px 20px;
+}
 
-            <img src="https://i.imgur.com/2Q6F0vE.png" class="login-seal" alt="Sello Astraelis">
+.title {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: #d4b26a;
+    text-shadow: 0 0 15px rgba(212,178,106,0.5);
+}
 
-            <h1 class="login-title">Academia Astraelis</h1>
-            <p class="login-subtitle">Donde el Aether y la Ruina se entrelazan con tu destino.</p>
+.subtitle {
+    font-size: 1.2rem;
+    color: #bfa3ff;
+    margin-top: -10px;
+}
 
-            <p>Accede con tu cuenta para entrar al panel, crear tu personaje y comenzar tu historia.</p>
+/* ====== CONTENEDOR PRINCIPAL ====== */
 
-            <a href="http://localhost:3000/auth/discord" class="btn-discord">
-                <span>Iniciar sesión con Discord</span>
-            </a>
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
 
-            <div class="login-footer">
-                Tu viaje comienza con un solo paso.
-            </div>
-        </div>
-    </div>
+/* ====== TARJETA DE LOGIN ====== */
 
-    <script src="script.js"></script>
-</body>
-</html>
+.login-card {
+    background: rgba(20, 10, 35, 0.7);
+    border: 1px solid rgba(212,178,106,0.4);
+    border-radius: 12px;
+    padding: 30px 40px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(212,178,106,0.2);
+    backdrop-filter: blur(6px);
+}
+
+.login-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: #d4b26a;
+    margin-bottom: 10px;
+}
+
+.login-text {
+    color: #d9caff;
+    margin-bottom: 25px;
+}
+
+/* ====== BOTÓN DISCORD ====== */
+
+.btn-discord {
+    display: block;
+    background: #5865F2;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-discord:hover {
+    background: #4752c4;
+    transform: scale(1.03);
+}
+
+/* ====== TEXTO SEGURO ====== */
+
+.safe-text {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #bfa3ff;
+}
