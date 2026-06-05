@@ -89,69 +89,48 @@
   .form-field select option { background:var(--bg-card); }
   .ficha-actions { margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:flex-end; }
 
-  <!-- ══ ADMIN ══ -->
-<div class="page" id="page-admin">
-  <nav>
-    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
-    <button class="nav-link admin-link active" onclick="navigate('admin')">⚑ Admin</button>
-    <div class="nav-user">
-      <img class="nav-avatar" id="nav4-avatar" src="" alt="Avatar">
-      <span class="nav-username" id="nav4-username">—</span>
-      <button class="nav-logout" onclick="logout()">Salir</button>
-    </div>
-  </nav>
-  <div class="content-wrap">
-    <div class="page-header">
-      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:#a855f7;text-transform:uppercase;display:block;margin-bottom:0.75rem;">Acceso Restringido</span>
-      <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
-    </div>
+  /* CONTENT WRAP */
+  .content-wrap { max-width:1100px; margin:0 auto; padding:3rem 2rem; flex:1; }
 
-    <!-- TABS -->
-    <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchTab('fichas', this)">Fichas</button>
-      <button class="admin-tab" onclick="switchTab('admins', this)">Gestión de Admins</button>
-    </div>
+  /* ADMIN STATS */
+  .admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
+  .admin-stat { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.25rem; text-align:center; }
+  .admin-stat .s-num { display:block; font-family:'Cinzel',serif; font-size:2rem; font-weight:700; color:var(--gold-light); }
+  .admin-stat .s-label { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dim); }
+  .admin-stat.pending .s-num { color:#f0c040; }
+  .admin-stat.accepted .s-num { color:var(--green-light); }
+  .admin-stat.denied .s-num { color:var(--red-light); }
 
-    <!-- TAB: FICHAS -->
-    <div class="admin-tab-content active" id="tab-fichas">
-      <div class="admin-stats" id="admin-stats"></div>
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
-        <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
-        <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
-        <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
-      </div>
-      <div class="ficha-card" style="padding:0;overflow:hidden;">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Personaje</th><th>Raza</th><th>Ocupación</th><th>Estado</th><th>Enviada</th><th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="admin-tbody"></tbody>
-        </table>
-        <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
-      </div>
-    </div>
+  /* FILTER BAR */
+  .filter-bar { display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .filter-btn { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.5rem 1.2rem; background:transparent; border:1px solid var(--border); border-radius:1px; color:var(--text-dim); cursor:pointer; transition:all 0.2s; }
+  .filter-btn:hover { border-color:var(--gold-dim); color:var(--gold-light); }
+  .filter-btn.active { border-color:var(--gold); color:var(--gold-light); background:rgba(201,168,76,0.08); }
 
-    <!-- TAB: ADMINS -->
-    <div class="admin-tab-content" id="tab-admins">
-      <div class="ficha-card">
-        <h3>Administradores del sistema</h3>
-        <p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1.5rem;font-style:italic;">Los IDs marcados como <span style="color:#a855f7;font-family:'Cinzel',serif;font-size:0.75rem;">HARDCODED</span> están fijados en el código y no pueden eliminarse desde aquí. Los demás se guardan en el navegador.</p>
-        <ul class="admin-id-list" id="admin-id-list"></ul>
-        <div class="add-admin-row">
-          <input type="text" id="new-admin-id" placeholder="ID de Discord (ej: 123456789012345678)" maxlength="20">
-          <input type="text" id="new-admin-note" placeholder="Nota / nombre (opcional)" style="max-width:220px;">
-          <button class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.8rem;" onclick="addAdmin()">+ Añadir</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  /* ADMIN TABLE */
+  .admin-table { width:100%; border-collapse:collapse; }
+  .admin-table th { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim); padding:0.75rem 1rem; text-align:left; border-bottom:1px solid var(--border); background:var(--bg-surface); }
+  .admin-table td { padding:0.85rem 1rem; border-bottom:1px solid rgba(201,168,76,0.06); vertical-align:middle; font-size:0.95rem; }
+  .admin-table tr:last-child td { border-bottom:none; }
+  .admin-table tr:hover td { background:rgba(201,168,76,0.03); }
+  .char-name { display:block; font-family:'Cinzel',serif; font-size:0.85rem; color:var(--gold-light); }
+  .char-discord { display:block; font-size:0.78rem; color:var(--text-dim); margin-top:0.1rem; }
+  .badge { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.25rem 0.6rem; border-radius:1px; }
+  .badge-pending { background:rgba(240,192,64,0.12); color:#f0c040; border:1px solid rgba(240,192,64,0.3); }
+  .badge-accepted { background:rgba(61,189,96,0.12); color:var(--green-light); border:1px solid rgba(61,189,96,0.3); }
+  .badge-denied { background:rgba(196,48,48,0.12); color:var(--red-light); border:1px solid rgba(196,48,48,0.3); }
+  .actions-cell { display:flex; gap:0.4rem; flex-wrap:wrap; }
+  .action-btn { font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.08em; padding:0.35rem 0.75rem; border-radius:1px; cursor:pointer; border:1px solid; transition:all 0.2s; white-space:nowrap; }
+  .action-btn-view { color:var(--gold-dim); border-color:rgba(201,168,76,0.25); background:transparent; }
+  .action-btn-view:hover { color:var(--gold-light); border-color:var(--gold-dim); }
+  .action-btn-accept { color:var(--green-light); border-color:rgba(61,189,96,0.3); background:transparent; }
+  .action-btn-accept:hover { background:rgba(61,189,96,0.1); }
+  .action-btn-deny { color:var(--red-light); border-color:rgba(196,48,48,0.3); background:transparent; }
+  .action-btn-deny:hover { background:rgba(196,48,48,0.1); }
+  .action-btn-revert { color:var(--text-dim); border-color:var(--border); background:transparent; }
+  .action-btn-revert:hover { color:var(--text-main); }
+  .action-btn-delete { color:var(--red-light); border-color:rgba(196,48,48,0.3); background:transparent; }
+  .action-btn-delete:hover { background:rgba(196,48,48,0.1); }
 
   /* MODAL */
   .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(8,8,16,0.85); z-index:500; align-items:center; justify-content:center; padding:2rem; }
@@ -186,31 +165,34 @@
   .flash { position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-bright); border-left:3px solid var(--gold); padding:0.75rem 1.25rem; font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; z-index:999; border-radius:1px; opacity:0; transform:translateY(-8px); transition:opacity 0.3s,transform 0.3s; pointer-events:none; }
   .flash.show { opacity:1; transform:translateY(0); }
 
+  /* ADMIN TABS */
+  .admin-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:2rem; }
+  .admin-tab { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.75rem 1.5rem; background:none; border:none; color:var(--text-dim); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all 0.2s; }
+  .admin-tab:hover { color:var(--gold-light); }
+  .admin-tab.active { color:var(--gold-light); border-bottom-color:var(--gold); }
+  .admin-tab-content { display:none; }
+  .admin-tab-content.active { display:block; }
+
+  /* ADMIN IDS */
+  .admin-id-list { list-style:none; margin-bottom:1.5rem; }
+  .admin-id-row { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1rem; border-bottom:1px solid rgba(201,168,76,0.07); font-size:0.9rem; }
+  .admin-id-row:last-child { border-bottom:none; }
+  .admin-id-info { display:flex; flex-direction:column; gap:0.15rem; }
+  .admin-id-val { font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; }
+  .admin-id-note { font-size:0.78rem; color:var(--text-dim); font-style:italic; }
+  .admin-id-hardcoded { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#a855f7; font-family:'Cinzel',serif; }
+  .add-admin-row { display:flex; gap:0.75rem; margin-top:0.5rem; flex-wrap:wrap; }
+  .add-admin-row input { flex:1; min-width:180px; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; transition:border-color 0.2s; }
+  .add-admin-row input:focus { border-color:var(--gold-dim); }
+
+  /* NO-PERMS banner */
+  .no-perms-notice { background:rgba(168,85,247,0.07); border:1px solid rgba(168,85,247,0.25); border-radius:2px; padding:1rem 1.25rem; font-size:0.92rem; color:#c084fc; font-style:italic; margin-bottom:1rem; }
+
   @media(max-width:700px) {
     .admin-stats { grid-template-columns:1fr 1fr; }
     .admin-table th:nth-child(3),.admin-table td:nth-child(3),
     .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
-
-  /* GESTIÓN DE ADMINS */
-.admin-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:2rem; }
-.admin-tab { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.75rem 1.5rem; background:none; border:none; color:var(--text-dim); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all 0.2s; }
-.admin-tab:hover { color:var(--gold-light); }
-.admin-tab.active { color:var(--gold-light); border-bottom-color:var(--gold); }
-.admin-tab-content { display:none; }
-.admin-tab-content.active { display:block; }
-
-.admin-id-list { list-style:none; margin-bottom:1.5rem; }
-.admin-id-row { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1rem; border-bottom:1px solid rgba(201,168,76,0.07); font-size:0.9rem; }
-.admin-id-row:last-child { border-bottom:none; }
-.admin-id-info { display:flex; flex-direction:column; gap:0.15rem; }
-.admin-id-val { font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; }
-.admin-id-note { font-size:0.78rem; color:var(--text-dim); font-style:italic; }
-.admin-id-hardcoded { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#a855f7; font-family:'Cinzel',serif; }
-.add-admin-row { display:flex; gap:0.75rem; margin-top:0.5rem; }
-.add-admin-row input { flex:1; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; transition:border-color 0.2s; }
-.add-admin-row input:focus { border-color:var(--gold-dim); }
-  
 </style>
 </head>
 <body>
@@ -335,7 +317,7 @@
           </div>
           <div class="form-field">
             <label>Ocupación</label>
-            <select id="char-ocupacion" onchange="onOcupacionChange()"><option value="">— Elige —</option><option value="estudiante">Estudiante</option><option value="adulto">Adulto</option><option value="profesor">Profesor</option></select>
+            <select id="char-ocupacion"><option value="">— Elige —</option><option value="estudiante">Estudiante</option><option value="adulto">Adulto</option><option value="profesor">Profesor</option></select>
           </div>
           <div class="form-field" style="margin-bottom:0;">
             <label>Raza <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(debe estar justificada)</span></label>
@@ -399,30 +381,55 @@
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
     </div>
 
-    <div class="admin-stats" id="admin-stats"></div>
-
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
-      <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
-      <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
-      <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('fichas', this)">Fichas</button>
+      <button class="admin-tab" onclick="switchTab('admins', this)">Gestión de Admins</button>
     </div>
 
-    <div class="ficha-card" style="padding:0;overflow:hidden;">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Personaje</th>
-            <th>Raza</th>
-            <th>Ocupación</th>
-            <th>Estado</th>
-            <th>Enviada</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="admin-tbody"></tbody>
-      </table>
-      <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
+    <!-- TAB: FICHAS -->
+    <div class="admin-tab-content active" id="tab-fichas">
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
+        <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
+        <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
+        <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
+      </div>
+      <div class="ficha-card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Personaje</th><th>Raza</th><th>Ocupación</th><th>Estado</th><th>Enviada</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody"></tbody>
+        </table>
+        <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
+      </div>
+    </div>
+
+    <!-- TAB: ADMINS -->
+    <div class="admin-tab-content" id="tab-admins">
+      <div class="ficha-card">
+        <h3>Administradores del sistema</h3>
+        <p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1.5rem;font-style:italic;">
+          Los IDs marcados como <span style="color:#a855f7;font-family:'Cinzel',serif;font-size:0.75rem;">HARDCODED</span> están fijados en el código fuente y no pueden eliminarse.
+          Solo los dos administradores raíz pueden añadir o quitar admins adicionales.
+        </p>
+        <ul class="admin-id-list" id="admin-id-list"></ul>
+        <!-- Este bloque solo se muestra si eres super admin -->
+        <div id="add-admin-section" style="display:none;">
+          <div class="add-admin-row">
+            <input type="text" id="new-admin-id" placeholder="ID de Discord (ej: 123456789012345678)" maxlength="20">
+            <input type="text" id="new-admin-note" placeholder="Nota / nombre (opcional)" style="max-width:220px;">
+            <button class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.8rem;" onclick="addAdmin()">+ Añadir</button>
+          </div>
+        </div>
+        <div id="add-admin-locked" class="no-perms-notice" style="display:none;">
+          Solo los administradores raíz pueden gestionar los accesos de administrador.
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -444,12 +451,12 @@
 
 <script>
 // ═══════════════════════════════════════
-// ★ CONFIGURA AQUÍ LOS ADMINS ★
-// Pon los IDs de Discord de los admins
+// ★ IDs RAÍZ — nunca eliminables desde la web ★
+// Solo estos dos pueden gestionar la lista de admins
 // ═══════════════════════════════════════
-const ADMIN_IDS = [
-  '1129889778691751968',
-  '966402052962017321'
+const HARDCODED_ADMIN_IDS = [
+  '966402052962017321',
+  '1129889778691751968'
 ];
 
 const DISCORD_CONFIG = {
@@ -459,6 +466,33 @@ const DISCORD_CONFIG = {
 };
 
 let currentUser = null;
+
+// ═══════════════════════════════════════
+// GESTIÓN DE ADMINS
+// ═══════════════════════════════════════
+
+/** Admins extra guardados en localStorage */
+function getExtraAdmins() {
+  try { return JSON.parse(localStorage.getItem('extra_admins') || '[]'); } catch(e) { return []; }
+}
+function saveExtraAdmins(list) {
+  localStorage.setItem('extra_admins', JSON.stringify(list));
+}
+
+/** Todos los IDs de admin (hardcoded + extras) */
+function getAllAdminIds() {
+  return [...HARDCODED_ADMIN_IDS, ...getExtraAdmins().map(a => a.id)];
+}
+
+/** ¿Puede acceder al panel admin? */
+function isAdmin() {
+  return currentUser && getAllAdminIds().includes(currentUser.id);
+}
+
+/** ¿Es admin raíz? Solo estos dos pueden tocar la lista de admins */
+function isSuperAdmin() {
+  return currentUser && HARDCODED_ADMIN_IDS.includes(currentUser.id);
+}
 
 // ═══════════════════════════════════════
 // DISCORD OAUTH
@@ -492,12 +526,8 @@ async function handleDiscordCallback() {
   }
 }
 
-function isAdmin() {
-  return currentUser && ADMIN_IDS.includes(currentUser.id);
-}
-
 // ═══════════════════════════════════════
-// FICHAS (almacenadas en localStorage)
+// FICHAS
 // ═══════════════════════════════════════
 function getAllFichas() {
   try { return JSON.parse(localStorage.getItem('all_fichas') || '[]'); } catch(e) { return []; }
@@ -528,10 +558,9 @@ function updateNavAvatars() {
   if (!currentUser) return;
   [['nav-avatar','nav-username'], ['nav2-avatar','nav2-username'], ['nav3-avatar','nav3-username'], ['nav4-avatar','nav4-username']].forEach(([avId, unId]) => {
     const av = document.getElementById(avId), un = document.getElementById(unId);
-    if (av) { av.src = currentUser.avatar; }
+    if (av) av.src = currentUser.avatar;
     if (un) un.textContent = currentUser.username;
   });
-  // Mostrar enlace admin en navs
   ['nav-admin-home','nav-admin-lore','nav-admin-ficha'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = isAdmin() ? 'flex' : 'none';
@@ -547,8 +576,6 @@ function logout() {
 // ═══════════════════════════════════════
 // FICHA DEL JUGADOR
 // ═══════════════════════════════════════
-function onOcupacionChange() {}
-
 function siguientePaso() {
   const ocupacion = document.getElementById('char-ocupacion').value;
   if (!ocupacion) { showFlash('Elige una ocupación primero'); return; }
@@ -602,9 +629,9 @@ function loadFicha() {
   if (!saved) return;
   try {
     const d = JSON.parse(saved);
-    ['discord-id','steam-id','nombre','apellido','fnac','nac','fisica','interp','historia'].forEach(k => {
-      const el = document.getElementById('char-' + k);
-      const key = k.replace('-','_');
+    const fieldMap = { 'discord-id':'discord_id', 'steam-id':'steam_id', 'nombre':'nombre', 'apellido':'apellido', 'fnac':'fnac', 'nac':'nac', 'fisica':'fisica', 'interp':'interp', 'historia':'historia' };
+    Object.entries(fieldMap).forEach(([elSuffix, key]) => {
+      const el = document.getElementById('char-' + elSuffix);
       if (el && d[key]) el.value = d[key];
     });
     if (d.sangre) document.getElementById('char-sangre').value = d.sangre;
@@ -635,13 +662,13 @@ function setFilter(f, btn) {
 function renderAdminPanel() {
   renderAdminStats();
   renderAdminTable();
-  // renderAdminList se llama al entrar en la pestaña
 }
+
 function renderAdminStats() {
   const fichas = getAllFichas();
-  const pending = fichas.filter(f => f.estado === 'pendiente').length;
+  const pending  = fichas.filter(f => f.estado === 'pendiente').length;
   const accepted = fichas.filter(f => f.estado === 'aceptada').length;
-  const denied = fichas.filter(f => f.estado === 'denegada').length;
+  const denied   = fichas.filter(f => f.estado === 'denegada').length;
   document.getElementById('admin-stats').innerHTML = `
     <div class="admin-stat total"><span class="s-num">${fichas.length}</span><span class="s-label">Total</span></div>
     <div class="admin-stat pending"><span class="s-num">${pending}</span><span class="s-label">Pendientes</span></div>
@@ -665,13 +692,13 @@ function renderAdminTable() {
 
   tbody.innerHTML = filtered.map(f => {
     const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
-    const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
+    const badgeText  = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
     const fecha = f.fecha_envio ? new Date(f.fecha_envio).toLocaleDateString('es-ES') : '—';
 
     let actions = `<button class="action-btn action-btn-view" onclick="openModal('${f.id}')">Ver ficha</button>`;
     if (f.estado === 'pendiente') {
       actions = `<button class="action-btn action-btn-accept" onclick="accionFicha('${f.id}','aceptar')">✓ Aceptar</button>
-                 <button class="action-btn action-btn-deny" onclick="accionFicha('${f.id}','denegar')">✗ Denegar</button>
+                 <button class="action-btn action-btn-deny"   onclick="accionFicha('${f.id}','denegar')">✗ Denegar</button>
                  ${actions}`;
     } else {
       actions += ` <button class="action-btn action-btn-revert" onclick="accionFicha('${f.id}','revertir')">↩ Revertir</button>
@@ -715,17 +742,95 @@ function accionFicha(id, accion) {
 
   fichas[idx].estado = nuevoEstado;
   fichas[idx].historial = fichas[idx].historial || [];
-  fichas[idx].historial.push({
-    accion: accionLabel,
-    por: currentUser.username,
-    fecha: new Date().toISOString(),
-    mensaje
-  });
+  fichas[idx].historial.push({ accion: accionLabel, por: currentUser.username, fecha: new Date().toISOString(), mensaje });
   saveAllFichas(fichas);
 
   closeModal();
   showFlash(`Ficha ${accionLabel.toLowerCase()} correctamente.`);
   renderAdminPanel();
+}
+
+// ═══════════════════════════════════════
+// GESTIÓN DE ADMINS — solo super admins
+// ═══════════════════════════════════════
+function addAdmin() {
+  if (!isSuperAdmin()) { showFlash('Sin permisos para gestionar admins'); return; }
+
+  const idEl   = document.getElementById('new-admin-id');
+  const noteEl = document.getElementById('new-admin-note');
+  const id   = idEl.value.trim();
+  const note = noteEl.value.trim();
+
+  if (!id) { showFlash('Introduce un ID de Discord'); return; }
+  if (!/^\d{17,20}$/.test(id)) { showFlash('El ID debe ser numérico (17-20 dígitos)'); return; }
+  if (getAllAdminIds().includes(id)) { showFlash('Ese ID ya es admin'); return; }
+
+  const extras = getExtraAdmins();
+  extras.push({ id, note: note || '', addedBy: currentUser.username, addedAt: new Date().toISOString() });
+  saveExtraAdmins(extras);
+  idEl.value = ''; noteEl.value = '';
+  showFlash('Admin añadido correctamente');
+  renderAdminList();
+}
+
+function removeAdmin(id) {
+  if (!isSuperAdmin()) { showFlash('Sin permisos para gestionar admins'); return; }
+  if (!confirm('¿Quitar a este admin?')) return;
+  const extras = getExtraAdmins().filter(a => a.id !== id);
+  saveExtraAdmins(extras);
+  showFlash('Admin eliminado');
+  renderAdminList();
+}
+
+function renderAdminList() {
+  const extras = getExtraAdmins();
+  const ul = document.getElementById('admin-id-list');
+  if (!ul) return;
+
+  // Mostrar / ocultar el formulario de añadir según permisos
+  const addSection  = document.getElementById('add-admin-section');
+  const lockNotice  = document.getElementById('add-admin-locked');
+  if (isSuperAdmin()) {
+    addSection.style.display = 'block';
+    lockNotice.style.display = 'none';
+  } else {
+    addSection.style.display = 'none';
+    lockNotice.style.display = 'block';
+  }
+
+  const hardcodedRows = HARDCODED_ADMIN_IDS.map(id => `
+    <li class="admin-id-row">
+      <div class="admin-id-info">
+        <span class="admin-id-val">${id}</span>
+        <span class="admin-id-hardcoded">⚑ Raíz — no eliminable</span>
+      </div>
+    </li>`).join('');
+
+  const extraRows = extras.length === 0
+    ? `<li class="admin-id-row"><span style="color:var(--text-dim);font-style:italic;font-size:0.9rem;">No hay admins adicionales.</span></li>`
+    : extras.map(a => {
+        const fecha = a.addedAt ? new Date(a.addedAt).toLocaleDateString('es-ES') : '—';
+        const deleteBtn = isSuperAdmin()
+          ? `<button class="action-btn action-btn-delete" onclick="removeAdmin('${a.id}')">✕ Quitar</button>`
+          : '';
+        return `<li class="admin-id-row">
+          <div class="admin-id-info">
+            <span class="admin-id-val">${a.id}</span>
+            <span class="admin-id-note">${a.note ? a.note + ' · ' : ''}Añadido por ${a.addedBy} el ${fecha}</span>
+          </div>
+          ${deleteBtn}
+        </li>`;
+      }).join('');
+
+  ul.innerHTML = hardcodedRows + extraRows;
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'admins') renderAdminList();
 }
 
 // ═══════════════════════════════════════
@@ -736,7 +841,7 @@ function openModal(id) {
   if (!f) return;
 
   const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
-  const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
+  const badgeText  = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
 
   document.getElementById('modal-title').innerHTML = `${f.nombre || '—'} ${f.apellido || ''} <span class="badge ${badgeClass}" style="font-size:0.65rem;vertical-align:middle;margin-left:0.5rem;">${badgeText}</span>`;
 
@@ -764,9 +869,9 @@ function openModal(id) {
       <div class="modal-row"><span class="ml">Estatus sangre</span><span class="mv">${f.sangre || '—'}</span></div>
       <div class="modal-row"><span class="ml">Ocupación</span><span class="mv" style="text-transform:capitalize;">${f.ocupacion || '—'}</span></div>
     </div>
-    ${f.fisica ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
-    ${f.interp ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
-    ${f.historia ? `<div class="modal-section"><h4>Historia</h4><p class="modal-text">${f.historia}</p></div>` : ''}
+    ${f.fisica  ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
+    ${f.interp  ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
+    ${f.historia? `<div class="modal-section"><h4>Historia</h4><p class="modal-text">${f.historia}</p></div>` : ''}
     <div class="modal-section">
       <h4>Historial de Acciones</h4>
       ${historialHTML || '<p style="color:var(--text-dim);font-style:italic;">Sin historial.</p>'}
@@ -787,14 +892,12 @@ function openModal(id) {
     `;
   }
   document.getElementById('modal-footer').innerHTML = footerHTML;
-
   document.getElementById('modal-backdrop').classList.add('open');
 }
 
 function accionFichaConMsg(id, accion) {
   const msgEl = document.getElementById('modal-admin-msg');
   const mensaje = msgEl ? msgEl.value.trim() : '';
-
   const fichas = getAllFichas();
   const idx = fichas.findIndex(f => f.id === id);
   if (idx === -1) return;
@@ -861,94 +964,6 @@ function showFlash(msg) {
   }
   showPage('login');
 })();
-
-  // ═══════════════════════════════════════
-// GESTIÓN DE ADMINS
-// ═══════════════════════════════════════
-
-// IDs fijados en código — nunca se pueden borrar desde la web
-const HARDCODED_ADMIN_IDS = [
-  '1129889778691751968',
-  '966402052962017321'
-];
-
-function getExtraAdmins() {
-  try { return JSON.parse(localStorage.getItem('extra_admins') || '[]'); } catch(e) { return []; }
-}
-function saveExtraAdmins(list) {
-  localStorage.setItem('extra_admins', JSON.stringify(list));
-}
-
-// Sobreescribe ADMIN_IDS original con la lista combinada
-function getAllAdminIds() {
-  return [...HARDCODED_ADMIN_IDS, ...getExtraAdmins().map(a => a.id)];
-}
-
-// Reemplaza la función isAdmin original
-function isAdmin() {
-  return currentUser && getAllAdminIds().includes(currentUser.id);
-}
-
-function addAdmin() {
-  const idEl = document.getElementById('new-admin-id');
-  const noteEl = document.getElementById('new-admin-note');
-  const id = idEl.value.trim();
-  const note = noteEl.value.trim();
-
-  if (!id) { showFlash('Introduce un ID de Discord'); return; }
-  if (!/^\d{17,20}$/.test(id)) { showFlash('El ID debe ser numérico (17-20 dígitos)'); return; }
-  if (getAllAdminIds().includes(id)) { showFlash('Ese ID ya es admin'); return; }
-
-  const extras = getExtraAdmins();
-  extras.push({ id, note: note || '', addedBy: currentUser.username, addedAt: new Date().toISOString() });
-  saveExtraAdmins(extras);
-  idEl.value = ''; noteEl.value = '';
-  showFlash('Admin añadido correctamente');
-  renderAdminList();
-}
-
-function removeAdmin(id) {
-  if (!confirm('¿Quitar a este admin?')) return;
-  const extras = getExtraAdmins().filter(a => a.id !== id);
-  saveExtraAdmins(extras);
-  showFlash('Admin eliminado');
-  renderAdminList();
-}
-
-function renderAdminList() {
-  const extras = getExtraAdmins();
-  const ul = document.getElementById('admin-id-list');
-  if (!ul) return;
-
-  const hardcodedRows = HARDCODED_ADMIN_IDS.map(id => `
-    <li class="admin-id-row">
-      <div class="admin-id-info">
-        <span class="admin-id-val">${id}</span>
-        <span class="admin-id-hardcoded">⚑ Hardcoded — no eliminable</span>
-      </div>
-    </li>`).join('');
-
-  const extraRows = extras.length === 0 ? '' : extras.map(a => {
-    const fecha = a.addedAt ? new Date(a.addedAt).toLocaleDateString('es-ES') : '—';
-    return `<li class="admin-id-row">
-      <div class="admin-id-info">
-        <span class="admin-id-val">${a.id}</span>
-        <span class="admin-id-note">${a.note ? a.note + ' · ' : ''}Añadido por ${a.addedBy} el ${fecha}</span>
-      </div>
-      <button class="action-btn action-btn-delete" onclick="removeAdmin('${a.id}')">✕ Quitar</button>
-    </li>`;
-  }).join('');
-
-  ul.innerHTML = hardcodedRows + (extraRows || `<li class="admin-id-row"><span style="color:var(--text-dim);font-style:italic;font-size:0.9rem;">No hay admins adicionales.</span></li>`);
-}
-
-function switchTab(tab, btn) {
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-  if (tab === 'admins') renderAdminList();
-}
 </script>
 </body>
 </html>
