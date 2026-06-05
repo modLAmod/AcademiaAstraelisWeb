@@ -170,6 +170,22 @@ const CASAS = {
 
 let quizCasaResultado = null;
 
+// Actualiza la barra de progreso al marcar una opción
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.name && e.target.name.match(/^q\d$/)) {
+    updateQuizProgress();
+  }
+});
+
+function updateQuizProgress() {
+  for (let i = 1; i <= 6; i++) {
+    const dot = document.getElementById('qdot-' + i);
+    if (!dot) continue;
+    const answered = document.querySelector(`input[name="q${i}"]:checked`);
+    dot.className = 'quiz-progress-dot' + (answered ? ' answered' : '');
+  }
+}
+
 function calcularQuiz() {
   const conteo = { A: 0, B: 0, C: 0 };
   let sinResponder = false;
@@ -183,6 +199,7 @@ function calcularQuiz() {
   const errorEl = document.getElementById('quiz-error');
   if (sinResponder) {
     errorEl.style.display = 'block';
+    errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
   errorEl.style.display = 'none';
@@ -194,10 +211,12 @@ function calcularQuiz() {
 
   document.getElementById('quiz-resultado-inner').innerHTML = `
     <div class="quiz-casa-header">
+      <span class="quiz-casa-eyebrow">Tu Casa es</span>
       <span class="quiz-casa-emoji">${casa.emoji}</span>
       <span class="quiz-casa-nombre">${casa.nombre}</span>
       <span class="quiz-casa-lema">${casa.lema}</span>
     </div>
+    <div class="quiz-casa-divider">✦</div>
     <p class="quiz-casa-desc">${casa.desc}</p>
   `;
 
@@ -205,20 +224,21 @@ function calcularQuiz() {
   document.getElementById('btn-quiz-calcular').style.display = 'none';
   document.getElementById('btn-quiz-enviar').style.display = 'inline-flex';
 
-  // Scroll suave al resultado
   document.getElementById('quiz-resultado').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function resetQuiz() {
   for (let i = 1; i <= 6; i++) {
-    const sel = document.querySelector(`input[name="q${i}"]:checked`);
-    if (sel) sel.checked = false;
+    const radios = document.querySelectorAll(`input[name="q${i}"]`);
+    radios.forEach(r => r.checked = false);
+    const dot = document.getElementById('qdot-' + i);
+    if (dot) dot.className = 'quiz-progress-dot';
   }
   quizCasaResultado = null;
   const res = document.getElementById('quiz-resultado');
   if (res) res.style.display = 'none';
   const calcBtn = document.getElementById('btn-quiz-calcular');
-  if (calcBtn) { calcBtn.style.display = 'inline-flex'; }
+  if (calcBtn) calcBtn.style.display = 'inline-flex';
   const envBtn = document.getElementById('btn-quiz-enviar');
   if (envBtn) envBtn.style.display = 'none';
   const errorEl = document.getElementById('quiz-error');
