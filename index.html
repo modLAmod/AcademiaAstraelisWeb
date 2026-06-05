@@ -696,116 +696,126 @@
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Ficha de Personaje</h1>
     </div>
 
-    <div class="ficha-grid">
-      <!-- Columna izquierda -->
-      <div>
-        <div class="ficha-card" style="margin-bottom:1rem;">
-          <div class="avatar-circle" id="avatar-btn" title="Cambiar imagen" onclick="document.getElementById('avatar-input').click()">
-            <span id="avatar-icon">⚔</span>
-            <img id="avatar-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:50%;">
+    <!-- PASO 1: Ficha principal -->
+    <div id="ficha-paso1">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+
+        <!-- Bloque IDs -->
+        <div class="ficha-card" style="grid-column:1/-1;margin-bottom:0;">
+          <h3>Identificación</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-field" style="margin-bottom:0;">
+              <label>ID de Discord</label>
+              <input type="text" id="char-discord-id" placeholder="Tu ID de Discord">
+            </div>
+            <div class="form-field" style="margin-bottom:0;">
+              <label>ID de Steam</label>
+              <input type="text" id="char-steam-id" placeholder="Tu ID de Steam">
+            </div>
           </div>
-          <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="handleAvatar(event)">
-          <p style="text-align:center;font-size:0.75rem;color:var(--text-dim);margin-top:-0.5rem;margin-bottom:1.2rem;">Toca para subir imagen</p>
+        </div>
+
+        <!-- Bloque datos personales -->
+        <div class="ficha-card">
+          <h3>Datos del Personaje</h3>
           <div class="form-field">
             <label>Nombre</label>
-            <input type="text" id="char-name" placeholder="Tu nombre en el mundo…">
+            <input type="text" id="char-nombre" placeholder="Juliette">
           </div>
           <div class="form-field">
-            <label>Clase</label>
-            <select id="char-class">
-              <option value="">— Elige clase —</option>
-              <option>Guerrero</option>
-              <option>Mago</option>
-              <option>Pícaro</option>
-              <option>Clérigo</option>
-              <option>Paladín</option>
-              <option>Druida</option>
-              <option>Bárbaro</option>
-              <option>Explorador</option>
-            </select>
+            <label>Apellido(s)</label>
+            <input type="text" id="char-apellido" placeholder="Hollow">
           </div>
           <div class="form-field">
-            <label>Raza</label>
-            <select id="char-race">
-              <option value="">— Elige raza —</option>
-              <option>Humano</option>
-              <option>Elfo</option>
-              <option>Enano</option>
-              <option>Mediano</option>
-              <option>Semiorco</option>
-              <option>Tiefling</option>
-              <option>Genasi</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label>Nivel</label>
-            <input type="number" id="char-level" min="1" max="20" value="1" style="width:80px;">
-          </div>
-        </div>
-
-        <!-- HP -->
-        <div class="ficha-card">
-          <h3>Puntos de Vida</h3>
-          <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
-            <div style="flex:1;">
-              <label style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.15em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.3rem;">Actuales</label>
-              <input type="number" id="hp-cur" value="15" min="0" oninput="updateHP()" style="background:var(--bg-surface);border:1px solid var(--border);border-radius:1px;padding:0.5rem;font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold-light);text-align:center;width:100%;outline:none;">
-            </div>
-            <div style="align-self:center;color:var(--text-dim);font-size:1.2rem;">/</div>
-            <div style="flex:1;">
-              <label style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.15em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.3rem;">Máximos</label>
-              <input type="number" id="hp-max" value="20" min="1" oninput="updateHP()" style="background:var(--bg-surface);border:1px solid var(--border);border-radius:1px;padding:0.5rem;font-family:'Cinzel',serif;font-size:1.1rem;color:var(--text-dim);text-align:center;width:100%;outline:none;">
-            </div>
-          </div>
-          <div class="hp-bar"><div class="hp-fill" id="hp-fill"></div></div>
-        </div>
-      </div>
-
-      <!-- Columna derecha -->
-      <div>
-        <!-- Atributos -->
-        <div class="ficha-card" style="margin-bottom:1rem;">
-          <h3>Atributos</h3>
-          <div class="stats-grid">
-            <div class="stat-box"><span class="s-name">Fuerza</span><input type="number" value="10" min="1" max="30"></div>
-            <div class="stat-box"><span class="s-name">Destreza</span><input type="number" value="10" min="1" max="30"></div>
-            <div class="stat-box"><span class="s-name">Constitución</span><input type="number" value="10" min="1" max="30"></div>
-            <div class="stat-box"><span class="s-name">Inteligencia</span><input type="number" value="10" min="1" max="30"></div>
-            <div class="stat-box"><span class="s-name">Sabiduría</span><input type="number" value="10" min="1" max="30"></div>
-            <div class="stat-box"><span class="s-name">Carisma</span><input type="number" value="10" min="1" max="30"></div>
-          </div>
-        </div>
-
-        <!-- Historia -->
-        <div class="ficha-card" style="margin-bottom:1rem;">
-          <h3>Trasfondo</h3>
-          <div class="form-field">
-            <label>Origen / Historia</label>
-            <textarea id="char-bg" placeholder="¿De dónde vienes? ¿Qué te empujó a la aventura?"></textarea>
-          </div>
-          <div class="form-field">
-            <label>Rasgos de Personalidad</label>
-            <textarea id="char-traits" placeholder="¿Cómo actúas? ¿Cuáles son tus manías o virtudes?"></textarea>
-          </div>
-        </div>
-
-        <!-- Equipo -->
-        <div class="ficha-card">
-          <h3>Inventario & Notas</h3>
-          <div class="form-field">
-            <label>Objetos y equipo</label>
-            <textarea id="char-inv" placeholder="Espada larga, armadura de cuero, antorcha…"></textarea>
+            <label>Fecha de Nacimiento</label>
+            <input type="text" id="char-fnac" placeholder="DD/MM/AAAA">
           </div>
           <div class="form-field" style="margin-bottom:0;">
-            <label>Notas adicionales</label>
-            <textarea id="char-notes" placeholder="Misiones activas, deudas, aliados…"></textarea>
+            <label>Nacionalidad</label>
+            <input type="text" id="char-nac" placeholder="Noruega">
           </div>
         </div>
 
-        <div class="ficha-actions">
-          <button class="btn-outline" onclick="clearFicha()">Limpiar</button>
-          <button class="btn-primary" onclick="saveFicha()">Guardar Ficha</button>
+        <!-- Bloque clasificación -->
+        <div class="ficha-card">
+          <h3>Clasificación</h3>
+          <div class="form-field">
+            <label>Estatus de Sangre</label>
+            <select id="char-sangre">
+              <option value="">— Elige —</option>
+              <option>Mestiza</option>
+              <option>Puro</option>
+              <option>Nacido de No Mágicos</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Ocupación</label>
+            <select id="char-ocupacion" onchange="onOcupacionChange()">
+              <option value="">— Elige —</option>
+              <option value="estudiante">Estudiante</option>
+              <option value="adulto">Adulto</option>
+              <option value="profesor">Profesor</option>
+            </select>
+          </div>
+          <div class="form-field" style="margin-bottom:0;">
+            <label>Raza <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(debe estar justificada en tu ficha)</span></label>
+            <select id="char-raza">
+              <option value="">— Elige —</option>
+              <option>Mago/Bruja</option>
+              <option>Licántropo</option>
+              <option>Vampiro/a</option>
+              <option>Kitsune</option>
+              <option>Cambia-Formas</option>
+              <option>Nereida</option>
+              <option>Elfo/a</option>
+            </select>
+          </div>
         </div>
+
+        <!-- Bloque descripción -->
+        <div class="ficha-card" style="grid-column:1/-1;">
+          <h3>Descripción & Historia</h3>
+          <div class="form-field">
+            <label>Descripción Física</label>
+            <textarea id="char-fisica" placeholder="Mujer de piel pálida, rostro fino…" style="min-height:90px;"></textarea>
+          </div>
+          <div class="form-field">
+            <label>Interpretación del Personaje</label>
+            <textarea id="char-interp" placeholder="Mi personaje es leal, tímida…" style="min-height:90px;"></textarea>
+          </div>
+          <div class="form-field" style="margin-bottom:0;">
+            <label>Historia</label>
+            <textarea id="char-historia" placeholder="Juliette nació en Noruega…" style="min-height:120px;"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ficha-actions">
+        <button class="btn-outline" onclick="clearFicha()">Limpiar</button>
+        <button class="btn-primary" onclick="siguientePaso()">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- PASO 2a: Estudiante -->
+    <div id="ficha-paso-estudiante" style="display:none;">
+      <div class="ficha-card">
+        <h3>Solicitud de Estudiante</h3>
+        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Esto se hará luego.</p>
+      </div>
+      <div class="ficha-actions">
+        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+      </div>
+    </div>
+
+    <!-- PASO 2b: Postulación a Profesorado -->
+    <div id="ficha-paso-profesor" style="display:none;">
+      <div class="ficha-card">
+        <h3>Postulación a Profesorado</h3>
+        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Postulación a profesorado.</p>
+      </div>
+      <div class="ficha-actions">
+        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
       </div>
     </div>
   </div>
@@ -898,42 +908,48 @@ function logout() {
 // ═══════════════════════════════════════
 // FICHA PERSONAJE
 // ═══════════════════════════════════════
-function updateHP() {
-  const cur = parseInt(document.getElementById('hp-cur').value) || 0;
-  const max = parseInt(document.getElementById('hp-max').value) || 1;
-  const pct = Math.min(100, Math.max(0, (cur / max) * 100));
-  document.getElementById('hp-fill').style.width = pct + '%';
+function updateHP() {}
+
+function onOcupacionChange() {}
+
+function siguientePaso() {
+  const ocupacion = document.getElementById('char-ocupacion').value;
+  if (!ocupacion) { showFlash('Elige una ocupación primero'); return; }
+  document.getElementById('ficha-paso1').style.display = 'none';
+  if (ocupacion === 'estudiante') {
+    document.getElementById('ficha-paso-estudiante').style.display = 'block';
+  } else if (ocupacion === 'profesor') {
+    document.getElementById('ficha-paso-profesor').style.display = 'block';
+  } else {
+    // Adulto: guardar y mostrar confirmación
+    saveFicha();
+    showFlash('Ficha enviada correctamente');
+    document.getElementById('ficha-paso1').style.display = 'block';
+  }
 }
 
-function handleAvatar(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev) {
-    const img = document.getElementById('avatar-img');
-    const icon = document.getElementById('avatar-icon');
-    img.src = ev.target.result;
-    img.style.display = 'block';
-    icon.style.display = 'none';
-  };
-  reader.readAsDataURL(file);
+function volverFicha() {
+  document.getElementById('ficha-paso-estudiante').style.display = 'none';
+  document.getElementById('ficha-paso-profesor').style.display = 'none';
+  document.getElementById('ficha-paso1').style.display = 'block';
 }
 
 function saveFicha() {
   const data = {
-    name: document.getElementById('char-name').value,
-    class: document.getElementById('char-class').value,
-    race: document.getElementById('char-race').value,
-    level: document.getElementById('char-level').value,
-    bg: document.getElementById('char-bg').value,
-    traits: document.getElementById('char-traits').value,
-    inv: document.getElementById('char-inv').value,
-    notes: document.getElementById('char-notes').value,
-    hp_cur: document.getElementById('hp-cur').value,
-    hp_max: document.getElementById('hp-max').value,
+    discord_id: document.getElementById('char-discord-id').value,
+    steam_id: document.getElementById('char-steam-id').value,
+    nombre: document.getElementById('char-nombre').value,
+    apellido: document.getElementById('char-apellido').value,
+    fnac: document.getElementById('char-fnac').value,
+    nac: document.getElementById('char-nac').value,
+    sangre: document.getElementById('char-sangre').value,
+    ocupacion: document.getElementById('char-ocupacion').value,
+    raza: document.getElementById('char-raza').value,
+    fisica: document.getElementById('char-fisica').value,
+    interp: document.getElementById('char-interp').value,
+    historia: document.getElementById('char-historia').value,
   };
   localStorage.setItem('ficha_personaje', JSON.stringify(data));
-  showFlash('✦ Ficha guardada con éxito');
 }
 
 function loadFicha() {
@@ -941,34 +957,31 @@ function loadFicha() {
   if (!saved) return;
   try {
     const d = JSON.parse(saved);
-    if (d.name) document.getElementById('char-name').value = d.name;
-    if (d.class) document.getElementById('char-class').value = d.class;
-    if (d.race) document.getElementById('char-race').value = d.race;
-    if (d.level) document.getElementById('char-level').value = d.level;
-    if (d.bg) document.getElementById('char-bg').value = d.bg;
-    if (d.traits) document.getElementById('char-traits').value = d.traits;
-    if (d.inv) document.getElementById('char-inv').value = d.inv;
-    if (d.notes) document.getElementById('char-notes').value = d.notes;
-    if (d.hp_cur) document.getElementById('hp-cur').value = d.hp_cur;
-    if (d.hp_max) document.getElementById('hp-max').value = d.hp_max;
-    updateHP();
+    if (d.discord_id) document.getElementById('char-discord-id').value = d.discord_id;
+    if (d.steam_id) document.getElementById('char-steam-id').value = d.steam_id;
+    if (d.nombre) document.getElementById('char-nombre').value = d.nombre;
+    if (d.apellido) document.getElementById('char-apellido').value = d.apellido;
+    if (d.fnac) document.getElementById('char-fnac').value = d.fnac;
+    if (d.nac) document.getElementById('char-nac').value = d.nac;
+    if (d.sangre) document.getElementById('char-sangre').value = d.sangre;
+    if (d.ocupacion) document.getElementById('char-ocupacion').value = d.ocupacion;
+    if (d.raza) document.getElementById('char-raza').value = d.raza;
+    if (d.fisica) document.getElementById('char-fisica').value = d.fisica;
+    if (d.interp) document.getElementById('char-interp').value = d.interp;
+    if (d.historia) document.getElementById('char-historia').value = d.historia;
   } catch(e) {}
 }
 
 function clearFicha() {
   if (!confirm('¿Limpiar todos los datos del personaje?')) return;
   localStorage.removeItem('ficha_personaje');
-  document.getElementById('char-name').value = '';
-  document.getElementById('char-class').value = '';
-  document.getElementById('char-race').value = '';
-  document.getElementById('char-level').value = '1';
-  document.getElementById('char-bg').value = '';
-  document.getElementById('char-traits').value = '';
-  document.getElementById('char-inv').value = '';
-  document.getElementById('char-notes').value = '';
-  document.getElementById('hp-cur').value = '15';
-  document.getElementById('hp-max').value = '20';
-  updateHP();
+  ['char-discord-id','char-steam-id','char-nombre','char-apellido','char-fnac',
+   'char-nac','char-fisica','char-interp','char-historia'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('char-sangre').value = '';
+  document.getElementById('char-ocupacion').value = '';
+  document.getElementById('char-raza').value = '';
 }
 
 // ═══════════════════════════════════════
