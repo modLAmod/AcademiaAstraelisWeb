@@ -1,4 +1,3 @@
-
 // ═══════════════════════════════════════
 // ★ IDs RAÍZ — nunca eliminables desde la web ★
 // Solo estos dos pueden gestionar la lista de admins
