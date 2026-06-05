@@ -185,3 +185,105 @@
     .admin-table th:nth-child(3),.admin-table td:nth-child(3),
     .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
+/* ═══════════════════════════════════════
+   QUIZ DE CASA
+═══════════════════════════════════════ */
+.quiz-pregunta {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.quiz-pregunta:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+}
+.quiz-enunciado {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+.quiz-num {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+.quiz-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.quiz-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.97rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.quiz-opcion:hover {
+  border-color: var(--gold-dim);
+  color: var(--text-main);
+}
+.quiz-opcion input[type="radio"] {
+  width: auto;
+  margin-top: 0.2rem;
+  accent-color: var(--gold);
+  flex-shrink: 0;
+}
+.quiz-opcion:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.07);
+  color: var(--text-main);
+}
+
+/* Resultado */
+.quiz-resultado-card {
+  border-color: var(--border-bright);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.4s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.quiz-casa-header {
+  text-align: center;
+  padding: 1.5rem 0 1rem;
+}
+.quiz-casa-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.quiz-casa-nombre {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.quiz-casa-lema {
+  font-style: italic;
+  color: var(--gold-dim);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+.quiz-casa-desc {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 1rem 1.5rem 0.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
