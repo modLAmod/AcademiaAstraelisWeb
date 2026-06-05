@@ -89,49 +89,69 @@
   .form-field select option { background:var(--bg-card); }
   .ficha-actions { margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:flex-end; }
 
-  /* ADMIN PAGE */
-  #page-admin .content-wrap { max-width:1100px; margin:0 auto; padding:3rem 2rem; flex:1; }
-  .admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
-  .admin-stat { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.2rem 1.5rem; text-align:center; }
-  .admin-stat .s-num { font-family:'Cinzel',serif; font-size:2rem; font-weight:700; display:block; }
-  .admin-stat .s-label { font-size:0.75rem; letter-spacing:0.15em; color:var(--text-dim); text-transform:uppercase; display:block; margin-top:0.25rem; }
-  .admin-stat.pending .s-num { color:#f59e0b; }
-  .admin-stat.accepted .s-num { color:var(--green-light); }
-  .admin-stat.denied .s-num { color:var(--red-light); }
-  .admin-stat.total .s-num { color:var(--gold-light); }
+  <!-- ══ ADMIN ══ -->
+<div class="page" id="page-admin">
+  <nav>
+    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
+    <button class="nav-link" onclick="navigate('home')">Inicio</button>
+    <button class="nav-link" onclick="navigate('lore')">Lore</button>
+    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link admin-link active" onclick="navigate('admin')">⚑ Admin</button>
+    <div class="nav-user">
+      <img class="nav-avatar" id="nav4-avatar" src="" alt="Avatar">
+      <span class="nav-username" id="nav4-username">—</span>
+      <button class="nav-logout" onclick="logout()">Salir</button>
+    </div>
+  </nav>
+  <div class="content-wrap">
+    <div class="page-header">
+      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:#a855f7;text-transform:uppercase;display:block;margin-bottom:0.75rem;">Acceso Restringido</span>
+      <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
+    </div>
 
-  .filter-bar { display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; }
-  .filter-btn { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.45rem 1rem; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; border-radius:1px; transition:all 0.2s; }
-  .filter-btn:hover,.filter-btn.active { border-color:var(--gold-dim); color:var(--gold-light); background:rgba(201,168,76,0.07); }
-  .filter-btn.active { border-color:var(--gold); }
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('fichas', this)">Fichas</button>
+      <button class="admin-tab" onclick="switchTab('admins', this)">Gestión de Admins</button>
+    </div>
 
-  .admin-table { width:100%; border-collapse:collapse; }
-  .admin-table thead tr { border-bottom:1px solid var(--border-bright); }
-  .admin-table th { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-dim); padding:0.75rem 1rem; text-align:left; background:var(--bg-card); }
-  .admin-table td { padding:0.9rem 1rem; border-bottom:1px solid rgba(201,168,76,0.07); font-size:0.95rem; vertical-align:middle; }
-  .admin-table tbody tr { background:var(--bg-card); transition:background 0.15s; }
-  .admin-table tbody tr:hover { background:var(--bg-surface); }
-  .admin-table .char-name { font-family:'Cinzel',serif; font-size:0.9rem; color:var(--gold-light); display:block; }
-  .admin-table .char-discord { font-size:0.78rem; color:var(--text-dim); display:block; font-style:italic; }
+    <!-- TAB: FICHAS -->
+    <div class="admin-tab-content active" id="tab-fichas">
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
+        <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
+        <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
+        <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
+      </div>
+      <div class="ficha-card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Personaje</th><th>Raza</th><th>Ocupación</th><th>Estado</th><th>Enviada</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody"></tbody>
+        </table>
+        <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
+      </div>
+    </div>
 
-  .badge { display:inline-block; font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.25rem 0.65rem; border-radius:1px; border:1px solid; }
-  .badge-pending { color:#f59e0b; border-color:rgba(245,158,11,0.3); background:rgba(245,158,11,0.08); }
-  .badge-accepted { color:var(--green-light); border-color:rgba(61,189,96,0.3); background:rgba(61,189,96,0.08); }
-  .badge-denied { color:var(--red-light); border-color:rgba(196,48,48,0.3); background:rgba(196,48,48,0.08); }
-
-  .action-btn { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:1px; cursor:pointer; border:1px solid; transition:all 0.2s; background:transparent; }
-  .action-btn-accept { color:var(--green-light); border-color:rgba(61,189,96,0.3); }
-  .action-btn-accept:hover { background:rgba(61,189,96,0.12); border-color:var(--green-light); }
-  .action-btn-deny { color:var(--red-light); border-color:rgba(196,48,48,0.3); }
-  .action-btn-deny:hover { background:rgba(196,48,48,0.12); border-color:var(--red-light); }
-  .action-btn-view { color:var(--text-dim); border-color:var(--border); }
-  .action-btn-view:hover { color:var(--gold-light); border-color:var(--gold-dim); }
-  .action-btn-delete { color:var(--red-light); border-color:rgba(196,48,48,0.3); }
-  .action-btn-delete:hover { background:rgba(196,48,48,0.12); }
-  .action-btn-revert { color:var(--text-dim); border-color:var(--border); }
-  .action-btn-revert:hover { color:var(--gold-light); border-color:var(--gold-dim); }
-
-  .actions-cell { display:flex; gap:0.4rem; flex-wrap:wrap; }
+    <!-- TAB: ADMINS -->
+    <div class="admin-tab-content" id="tab-admins">
+      <div class="ficha-card">
+        <h3>Administradores del sistema</h3>
+        <p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1.5rem;font-style:italic;">Los IDs marcados como <span style="color:#a855f7;font-family:'Cinzel',serif;font-size:0.75rem;">HARDCODED</span> están fijados en el código y no pueden eliminarse desde aquí. Los demás se guardan en el navegador.</p>
+        <ul class="admin-id-list" id="admin-id-list"></ul>
+        <div class="add-admin-row">
+          <input type="text" id="new-admin-id" placeholder="ID de Discord (ej: 123456789012345678)" maxlength="20">
+          <input type="text" id="new-admin-note" placeholder="Nota / nombre (opcional)" style="max-width:220px;">
+          <button class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.8rem;" onclick="addAdmin()">+ Añadir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   /* MODAL */
   .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(8,8,16,0.85); z-index:500; align-items:center; justify-content:center; padding:2rem; }
@@ -408,8 +428,8 @@
 // Pon los IDs de Discord de los admins
 // ═══════════════════════════════════════
 const ADMIN_IDS = [
-  '123456789012345678',   // ← reemplaza con el ID real
-  '987654321098765432'    // ← añade más si necesitas
+  '1129889778691751968',
+  '966402052962017321'
 ];
 
 const DISCORD_CONFIG = {
