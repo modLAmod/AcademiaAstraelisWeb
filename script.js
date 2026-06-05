@@ -141,6 +141,88 @@ function volverFicha() {
   document.getElementById('ficha-paso-estudiante').style.display = 'none';
   document.getElementById('ficha-paso-profesor').style.display = 'none';
   document.getElementById('ficha-paso1').style.display = 'block';
+  resetQuiz();
+}
+
+// ═══════════════════════════════════════
+// QUIZ DE CASA (Estudiante)
+// ═══════════════════════════════════════
+const CASAS = {
+  A: {
+    emoji: '🦌',
+    nombre: 'ELENARË',
+    lema: '"En la naturaleza hallamos verdad"',
+    desc: 'Sabiduría, armonía y conexión con la naturaleza definen tu camino. Eres una persona reflexiva, paciente y empática, que busca comprender antes de actuar. Tu fortaleza reside en la observación y el conocimiento profundo.'
+  },
+  B: {
+    emoji: '🦂',
+    nombre: 'CARAXES',
+    lema: '"La astucia forja el destino"',
+    desc: 'La determinación y la ambición impulsan tus pasos. Afrontas los desafíos de frente, piensas estratégicamente y rara vez te rindes. Tu capacidad para convertir obstáculos en oportunidades te distingue.'
+  },
+  C: {
+    emoji: '🐺',
+    nombre: 'VARNËTHIR',
+    lema: '"Unidos en equilibrio, fuertes en lealtad"',
+    desc: 'La lealtad, el honor y la justicia son tus pilares. Valoras a tu comunidad, defiendes lo que consideras correcto y sabes trabajar en equipo para alcanzar objetivos comunes.'
+  }
+};
+
+let quizCasaResultado = null;
+
+function calcularQuiz() {
+  const conteo = { A: 0, B: 0, C: 0 };
+  let sinResponder = false;
+
+  for (let i = 1; i <= 6; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if (!sel) { sinResponder = true; break; }
+    conteo[sel.value]++;
+  }
+
+  const errorEl = document.getElementById('quiz-error');
+  if (sinResponder) {
+    errorEl.style.display = 'block';
+    return;
+  }
+  errorEl.style.display = 'none';
+
+  // Casa ganadora (en empate, orden de prioridad A > C > B)
+  const ganadora = ['A','C','B'].reduce((best, cur) => conteo[cur] > conteo[best] ? cur : best, 'A');
+  quizCasaResultado = ganadora;
+  const casa = CASAS[ganadora];
+
+  document.getElementById('quiz-resultado-inner').innerHTML = `
+    <div class="quiz-casa-header">
+      <span class="quiz-casa-emoji">${casa.emoji}</span>
+      <span class="quiz-casa-nombre">${casa.nombre}</span>
+      <span class="quiz-casa-lema">${casa.lema}</span>
+    </div>
+    <p class="quiz-casa-desc">${casa.desc}</p>
+  `;
+
+  document.getElementById('quiz-resultado').style.display = 'block';
+  document.getElementById('btn-quiz-calcular').style.display = 'none';
+  document.getElementById('btn-quiz-enviar').style.display = 'inline-flex';
+
+  // Scroll suave al resultado
+  document.getElementById('quiz-resultado').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() {
+  for (let i = 1; i <= 6; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if (sel) sel.checked = false;
+  }
+  quizCasaResultado = null;
+  const res = document.getElementById('quiz-resultado');
+  if (res) res.style.display = 'none';
+  const calcBtn = document.getElementById('btn-quiz-calcular');
+  if (calcBtn) { calcBtn.style.display = 'inline-flex'; }
+  const envBtn = document.getElementById('btn-quiz-enviar');
+  if (envBtn) envBtn.style.display = 'none';
+  const errorEl = document.getElementById('quiz-error');
+  if (errorEl) errorEl.style.display = 'none';
 }
 
 function enviarFicha() {
@@ -159,6 +241,8 @@ function enviarFicha() {
     fisica: document.getElementById('char-fisica').value,
     interp: document.getElementById('char-interp').value,
     historia: document.getElementById('char-historia').value,
+    casa: quizCasaResultado ? CASAS[quizCasaResultado].nombre : '',
+    casa_emoji: quizCasaResultado ? CASAS[quizCasaResultado].emoji : '',
     estado: 'pendiente',
     fecha_envio: new Date().toISOString(),
     historial: [{ accion: 'Enviada', por: currentUser?.username || 'Jugador', fecha: new Date().toISOString(), mensaje: '' }]
@@ -416,6 +500,7 @@ function openModal(id) {
       <div class="modal-row"><span class="ml">Raza</span><span class="mv">${f.raza || '—'}</span></div>
       <div class="modal-row"><span class="ml">Estatus sangre</span><span class="mv">${f.sangre || '—'}</span></div>
       <div class="modal-row"><span class="ml">Ocupación</span><span class="mv" style="text-transform:capitalize;">${f.ocupacion || '—'}</span></div>
+      ${f.casa ? `<div class="modal-row"><span class="ml">Casa</span><span class="mv">${f.casa_emoji || ''} ${f.casa}</span></div>` : ''}
     </div>
     ${f.fisica  ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
     ${f.interp  ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
