@@ -150,13 +150,94 @@
     </div>
 
     <div id="ficha-paso-estudiante" style="display:none;">
-      <div class="ficha-card">
-        <h3>Solicitud de Estudiante</h3>
-        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Esto se hará luego.</p>
-      </div>
-      <div class="ficha-actions">
-        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
-        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
+      <div id="quiz-seccion">
+        <div class="ficha-card" style="margin-bottom:1.5rem;">
+          <h3>Test de Personalidad — Tu Casa te Espera</h3>
+          <p class="quiz-intro">Responde con sinceridad. No hay respuestas correctas o incorrectas;<br>cada elección revela quién eres verdaderamente.</p>
+
+          <!-- Barra de progreso -->
+          <div class="quiz-progress" id="quiz-progress">
+            <div class="quiz-progress-dot active" id="qdot-1"></div>
+            <div class="quiz-progress-dot" id="qdot-2"></div>
+            <div class="quiz-progress-dot" id="qdot-3"></div>
+            <div class="quiz-progress-dot" id="qdot-4"></div>
+            <div class="quiz-progress-dot" id="qdot-5"></div>
+            <div class="quiz-progress-dot" id="qdot-6"></div>
+          </div>
+
+          <!-- Pregunta 1 -->
+          <div class="quiz-pregunta" data-q="1">
+            <p class="quiz-enunciado"><span class="quiz-num">I</span> Encuentras un antiguo libro lleno de secretos. ¿Qué haces?</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q1" value="A"><span class="quiz-letra">A</span><span>Lo estudias con calma para comprender toda su sabiduría.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q1" value="B"><span class="quiz-letra">B</span><span>Buscas rápidamente cómo aprovechar su conocimiento para obtener ventaja.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q1" value="C"><span class="quiz-letra">C</span><span>Lo compartes con tus compañeros para investigarlo juntos.</span></label>
+            </div>
+          </div>
+
+          <!-- Pregunta 2 -->
+          <div class="quiz-pregunta" data-q="2">
+            <p class="quiz-enunciado"><span class="quiz-num">II</span> Surge un conflicto entre dos amigos.</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q2" value="A"><span class="quiz-letra">A</span><span>Escuchas ambas partes antes de intervenir.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q2" value="B"><span class="quiz-letra">B</span><span>Tomas una decisión firme para resolverlo cuanto antes.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q2" value="C"><span class="quiz-letra">C</span><span>Intentas mediar para que ambos lleguen a un acuerdo.</span></label>
+            </div>
+          </div>
+
+          <!-- Pregunta 3 -->
+          <div class="quiz-pregunta" data-q="3">
+            <p class="quiz-enunciado"><span class="quiz-num">III</span> ¿Qué te motiva más?</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q3" value="A"><span class="quiz-letra">A</span><span>Comprender el mundo y crecer como persona.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q3" value="B"><span class="quiz-letra">B</span><span>Alcanzar grandes metas y superar desafíos.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q3" value="C"><span class="quiz-letra">C</span><span>Proteger a las personas que te importan.</span></label>
+            </div>
+          </div>
+
+          <!-- Pregunta 4 -->
+          <div class="quiz-pregunta" data-q="4">
+            <p class="quiz-enunciado"><span class="quiz-num">IV</span> Ante una decisión importante, normalmente...</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q4" value="A"><span class="quiz-letra">A</span><span>Reflexionas durante bastante tiempo antes de actuar.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q4" value="B"><span class="quiz-letra">B</span><span>Analizas las opciones y eliges la más efectiva.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q4" value="C"><span class="quiz-letra">C</span><span>Consideras cómo afectará a los demás.</span></label>
+            </div>
+          </div>
+
+          <!-- Pregunta 5 -->
+          <div class="quiz-pregunta" data-q="5">
+            <p class="quiz-enunciado"><span class="quiz-num">V</span> ¿Cuál de estos lugares te atrae más?</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q5" value="A"><span class="quiz-letra">A</span><span>Un bosque antiguo lleno de misterio.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q5" value="B"><span class="quiz-letra">B</span><span>Una fortaleza poderosa desde la que dirigir estrategias.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q5" value="C"><span class="quiz-letra">C</span><span>Una gran sala donde amigos y aliados se reúnen.</span></label>
+            </div>
+          </div>
+
+          <!-- Pregunta 6 -->
+          <div class="quiz-pregunta" data-q="6">
+            <p class="quiz-enunciado"><span class="quiz-num">VI</span> Si fueras líder de un grupo, ¿qué cualidad destacarías?</p>
+            <div class="quiz-opciones">
+              <label class="quiz-opcion"><input type="radio" name="q6" value="A"><span class="quiz-letra">A</span><span>Sabiduría y comprensión.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q6" value="B"><span class="quiz-letra">B</span><span>Determinación y ambición.</span></label>
+              <label class="quiz-opcion"><input type="radio" name="q6" value="C"><span class="quiz-letra">C</span><span>Justicia y lealtad.</span></label>
+            </div>
+          </div>
+
+          <div class="quiz-error-msg" id="quiz-error">✦ Responde todas las preguntas antes de revelar tu casa ✦</div>
+        </div>
+
+        <!-- Resultado del quiz -->
+        <div id="quiz-resultado" style="display:none;" class="quiz-resultado-card">
+          <div id="quiz-resultado-inner"></div>
+        </div>
+
+        <div class="ficha-actions">
+          <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+          <button class="btn-primary" id="btn-quiz-calcular" onclick="calcularQuiz()">Revelar mi Casa ✦</button>
+          <button class="btn-primary" id="btn-quiz-enviar" style="display:none;" onclick="enviarFicha()">Enviar Solicitud ✦</button>
+        </div>
       </div>
     </div>
 
