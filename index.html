@@ -21,587 +21,163 @@
     --border-bright: rgba(201,168,76,0.5);
     --red-accent: #8b2020;
     --red-light: #c43030;
+    --green: #2a7a40;
+    --green-light: #3dbd60;
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Crimson Text',Georgia,serif; background:var(--bg-deep); color:var(--text-main); min-height:100vh; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background: radial-gradient(ellipse 80% 50% at 50% -10%,rgba(100,60,10,0.15) 0%,transparent 60%), radial-gradient(ellipse 60% 40% at 80% 110%,rgba(60,20,80,0.12) 0%,transparent 55%); pointer-events:none; z-index:0; }
+  .page { display:none; position:relative; z-index:1; min-height:100vh; }
+  .page.active { display:flex; flex-direction:column; }
+  .ornament { text-align:center; color:var(--gold-dim); font-size:1.2rem; letter-spacing:0.5rem; margin:1.5rem 0; opacity:0.6; }
+  .ornament::before,.ornament::after { content:'──────'; color:var(--gold-dim); margin:0 0.5rem; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* LOGIN */
+  #page-login { align-items:center; justify-content:center; text-align:center; padding:2rem; }
+  .login-seal { width:120px; height:120px; margin:0 auto 2rem; }
+  .login-title { font-family:'Cinzel',serif; font-size:clamp(2rem,6vw,3.5rem); font-weight:700; color:var(--gold-light); letter-spacing:0.08em; text-shadow:0 0 40px rgba(201,168,76,0.3); margin-bottom:0.5rem; }
+  .login-subtitle { font-family:'Crimson Text',serif; font-size:1.2rem; font-style:italic; color:var(--text-dim); margin-bottom:3rem; letter-spacing:0.05em; }
+  .login-card { background:var(--bg-card); border:1px solid var(--border); border-top:1px solid var(--border-bright); border-radius:2px; padding:2.5rem 3rem; max-width:420px; width:100%; margin:0 auto; position:relative; }
+  .login-card::before,.login-card::after { content:'✦'; position:absolute; top:-0.6rem; color:var(--gold); font-size:1rem; background:var(--bg-deep); padding:0 0.3rem; }
+  .login-card::before { left:1.5rem; } .login-card::after { right:1.5rem; }
+  .login-card p { font-size:1.05rem; color:var(--text-dim); margin-bottom:2rem; line-height:1.6; }
+  .btn-discord { display:inline-flex; align-items:center; gap:0.75rem; background:#5865F2; color:#fff; font-family:'Cinzel',serif; font-size:0.95rem; font-weight:600; letter-spacing:0.08em; padding:0.9rem 2rem; border:none; border-radius:2px; cursor:pointer; text-decoration:none; transition:background 0.2s,transform 0.15s; width:100%; justify-content:center; }
+  .btn-discord:hover { background:#4752c4; transform:translateY(-1px); }
+  .login-footer { margin-top:1.5rem; font-size:0.85rem; color:var(--text-dim); font-style:italic; }
 
-  body {
-    font-family: 'Crimson Text', Georgia, serif;
-    background: var(--bg-deep);
-    color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* NAV */
+  nav { background:rgba(8,8,16,0.9); border-bottom:1px solid var(--border); backdrop-filter:blur(8px); padding:0 2rem; display:flex; align-items:center; height:60px; position:sticky; top:0; z-index:100; }
+  .nav-brand { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:700; color:var(--gold); letter-spacing:0.08em; margin-right:auto; cursor:pointer; }
+  .nav-link { font-family:'Cinzel',serif; font-size:0.8rem; font-weight:600; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; padding:0 1.25rem; height:100%; display:flex; align-items:center; cursor:pointer; border:none; background:none; transition:color 0.2s; position:relative; }
+  .nav-link::after { content:''; position:absolute; bottom:0; left:1.25rem; right:1.25rem; height:2px; background:var(--gold); transform:scaleX(0); transition:transform 0.2s; }
+  .nav-link:hover { color:var(--gold-light); }
+  .nav-link:hover::after,.nav-link.active::after { transform:scaleX(1); }
+  .nav-link.active { color:var(--gold-light); }
+  .nav-link.admin-link { color:#a855f7; }
+  .nav-link.admin-link:hover { color:#c084fc; }
+  .nav-link.admin-link::after { background:#a855f7; }
+  .nav-user { display:flex; align-items:center; gap:0.6rem; margin-left:1.5rem; padding-left:1.5rem; border-left:1px solid var(--border); }
+  .nav-avatar { width:32px; height:32px; border-radius:50%; border:1px solid var(--border-bright); object-fit:cover; }
+  .nav-username { font-family:'Cinzel',serif; font-size:0.78rem; color:var(--text-dim); letter-spacing:0.05em; }
+  .nav-logout { font-size:0.75rem; color:var(--text-dim); cursor:pointer; background:none; border:none; font-family:inherit; padding:0.25rem 0.5rem; transition:color 0.2s; }
+  .nav-logout:hover { color:var(--red-light); }
 
-  /* ── BACKGROUND TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(100,60,10,0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(60,20,80,0.12) 0%, transparent 55%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  /* BUTTONS */
+  .btn-primary { font-family:'Cinzel',serif; font-size:0.85rem; font-weight:600; letter-spacing:0.12em; color:var(--bg-deep); background:var(--gold); border:none; padding:0.85rem 2.2rem; cursor:pointer; border-radius:1px; transition:background 0.2s,transform 0.15s; text-transform:uppercase; }
+  .btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
+  .btn-outline { font-family:'Cinzel',serif; font-size:0.85rem; font-weight:600; letter-spacing:0.12em; color:var(--gold); background:transparent; border:1px solid var(--border-bright); padding:0.85rem 2.2rem; cursor:pointer; border-radius:1px; transition:border-color 0.2s,color 0.2s,transform 0.15s; text-transform:uppercase; }
+  .btn-outline:hover { border-color:var(--gold); color:var(--gold-light); transform:translateY(-1px); }
 
-  /* ── PAGES ── */
-  .page { display: none; position: relative; z-index: 1; min-height: 100vh; }
-  .page.active { display: flex; flex-direction: column; }
+  /* HERO */
+  .hero { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:4rem 2rem; }
+  .hero-eyebrow { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:1.5rem; }
+  .hero-title { font-family:'Cinzel',serif; font-size:clamp(2.5rem,8vw,5rem); font-weight:700; color:var(--gold-light); letter-spacing:0.05em; line-height:1.1; margin-bottom:1rem; text-shadow:0 0 60px rgba(201,168,76,0.2); }
+  .hero-body { font-size:1.25rem; font-style:italic; color:var(--text-dim); max-width:600px; line-height:1.8; margin-bottom:3rem; }
+  .hero-cta-row { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .page-header { margin-bottom:3rem; }
+  .page-header .eyebrow { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; display:block; margin-bottom:0.75rem; }
+  .page-header h1 { font-family:'Cinzel',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--gold-light); letter-spacing:0.06em; }
 
-  /* ── DIVIDER ORNAMENTS ── */
-  .ornament {
-    text-align: center;
-    color: var(--gold-dim);
-    font-size: 1.2rem;
-    letter-spacing: 0.5rem;
-    margin: 1.5rem 0;
-    opacity: 0.6;
-  }
-  .ornament::before, .ornament::after {
-    content: '──────';
-    color: var(--gold-dim);
-    margin: 0 0.5rem;
-  }
+  /* FICHA */
+  .ficha-card { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.5rem; }
+  .ficha-card h3 { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.25em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:1.2rem; border-bottom:1px solid var(--border); padding-bottom:0.6rem; }
+  .form-field { margin-bottom:1.2rem; }
+  .form-field label { display:block; font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:0.4rem; }
+  .form-field input,.form-field select,.form-field textarea { width:100%; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; transition:border-color 0.2s; }
+  .form-field input:focus,.form-field select:focus,.form-field textarea:focus { border-color:var(--gold-dim); }
+  .form-field textarea { resize:vertical; min-height:80px; }
+  .form-field select option { background:var(--bg-card); }
+  .ficha-actions { margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:flex-end; }
 
-  /* ══════════════════════════════
-     LOGIN PAGE
-  ══════════════════════════════ */
-  #page-login {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-  }
+  /* ADMIN PAGE */
+  #page-admin .content-wrap { max-width:1100px; margin:0 auto; padding:3rem 2rem; flex:1; }
+  .admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
+  .admin-stat { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.2rem 1.5rem; text-align:center; }
+  .admin-stat .s-num { font-family:'Cinzel',serif; font-size:2rem; font-weight:700; display:block; }
+  .admin-stat .s-label { font-size:0.75rem; letter-spacing:0.15em; color:var(--text-dim); text-transform:uppercase; display:block; margin-top:0.25rem; }
+  .admin-stat.pending .s-num { color:#f59e0b; }
+  .admin-stat.accepted .s-num { color:var(--green-light); }
+  .admin-stat.denied .s-num { color:var(--red-light); }
+  .admin-stat.total .s-num { color:var(--gold-light); }
 
-  .login-seal {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 2rem;
-    position: relative;
-  }
-  .login-seal svg { width: 100%; height: 100%; }
+  .filter-bar { display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .filter-btn { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.45rem 1rem; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; border-radius:1px; transition:all 0.2s; }
+  .filter-btn:hover,.filter-btn.active { border-color:var(--gold-dim); color:var(--gold-light); background:rgba(201,168,76,0.07); }
+  .filter-btn.active { border-color:var(--gold); }
 
-  .login-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 700;
-    color: var(--gold-light);
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 40px rgba(201,168,76,0.3);
-    margin-bottom: 0.5rem;
-  }
-  .login-subtitle {
-    font-family: 'Crimson Text', serif;
-    font-size: 1.2rem;
-    font-style: italic;
-    color: var(--text-dim);
-    margin-bottom: 3rem;
-    letter-spacing: 0.05em;
-  }
+  .admin-table { width:100%; border-collapse:collapse; }
+  .admin-table thead tr { border-bottom:1px solid var(--border-bright); }
+  .admin-table th { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-dim); padding:0.75rem 1rem; text-align:left; background:var(--bg-card); }
+  .admin-table td { padding:0.9rem 1rem; border-bottom:1px solid rgba(201,168,76,0.07); font-size:0.95rem; vertical-align:middle; }
+  .admin-table tbody tr { background:var(--bg-card); transition:background 0.15s; }
+  .admin-table tbody tr:hover { background:var(--bg-surface); }
+  .admin-table .char-name { font-family:'Cinzel',serif; font-size:0.9rem; color:var(--gold-light); display:block; }
+  .admin-table .char-discord { font-size:0.78rem; color:var(--text-dim); display:block; font-style:italic; }
 
-  .login-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-top: 1px solid var(--border-bright);
-    border-radius: 2px;
-    padding: 2.5rem 3rem;
-    max-width: 420px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-  }
-  .login-card::before, .login-card::after {
-    content: '✦';
-    position: absolute;
-    top: -0.6rem;
-    color: var(--gold);
-    font-size: 1rem;
-    background: var(--bg-deep);
-    padding: 0 0.3rem;
-  }
-  .login-card::before { left: 1.5rem; }
-  .login-card::after { right: 1.5rem; }
+  .badge { display:inline-block; font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.25rem 0.65rem; border-radius:1px; border:1px solid; }
+  .badge-pending { color:#f59e0b; border-color:rgba(245,158,11,0.3); background:rgba(245,158,11,0.08); }
+  .badge-accepted { color:var(--green-light); border-color:rgba(61,189,96,0.3); background:rgba(61,189,96,0.08); }
+  .badge-denied { color:var(--red-light); border-color:rgba(196,48,48,0.3); background:rgba(196,48,48,0.08); }
 
-  .login-card p {
-    font-size: 1.05rem;
-    color: var(--text-dim);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
+  .action-btn { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:1px; cursor:pointer; border:1px solid; transition:all 0.2s; background:transparent; }
+  .action-btn-accept { color:var(--green-light); border-color:rgba(61,189,96,0.3); }
+  .action-btn-accept:hover { background:rgba(61,189,96,0.12); border-color:var(--green-light); }
+  .action-btn-deny { color:var(--red-light); border-color:rgba(196,48,48,0.3); }
+  .action-btn-deny:hover { background:rgba(196,48,48,0.12); border-color:var(--red-light); }
+  .action-btn-view { color:var(--text-dim); border-color:var(--border); }
+  .action-btn-view:hover { color:var(--gold-light); border-color:var(--gold-dim); }
+  .action-btn-delete { color:var(--red-light); border-color:rgba(196,48,48,0.3); }
+  .action-btn-delete:hover { background:rgba(196,48,48,0.12); }
+  .action-btn-revert { color:var(--text-dim); border-color:var(--border); }
+  .action-btn-revert:hover { color:var(--gold-light); border-color:var(--gold-dim); }
 
-  .btn-discord {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: #5865F2;
-    color: #fff;
-    font-family: 'Cinzel', serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    padding: 0.9rem 2rem;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-    width: 100%;
-    justify-content: center;
-  }
-  .btn-discord:hover { background: #4752c4; transform: translateY(-1px); }
-  .btn-discord:active { transform: translateY(0); }
-  .btn-discord svg { flex-shrink: 0; }
+  .actions-cell { display:flex; gap:0.4rem; flex-wrap:wrap; }
 
-  .login-footer {
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    font-style: italic;
-  }
+  /* MODAL */
+  .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(8,8,16,0.85); z-index:500; align-items:center; justify-content:center; padding:2rem; }
+  .modal-backdrop.open { display:flex; }
+  .modal { background:var(--bg-card); border:1px solid var(--border-bright); border-radius:2px; width:100%; max-width:720px; max-height:85vh; overflow-y:auto; position:relative; }
+  .modal-header { padding:1.5rem 2rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:var(--bg-card); z-index:1; }
+  .modal-header h2 { font-family:'Cinzel',serif; font-size:1.1rem; color:var(--gold-light); font-weight:700; }
+  .modal-close { background:none; border:none; color:var(--text-dim); font-size:1.5rem; cursor:pointer; line-height:1; padding:0.25rem; transition:color 0.2s; }
+  .modal-close:hover { color:var(--gold-light); }
+  .modal-body { padding:1.5rem 2rem; }
+  .modal-section { margin-bottom:1.5rem; }
+  .modal-section h4 { font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:0.75rem; border-bottom:1px solid var(--border); padding-bottom:0.4rem; }
+  .modal-row { display:flex; gap:1rem; margin-bottom:0.5rem; font-size:0.95rem; }
+  .modal-row .ml { color:var(--text-dim); min-width:130px; font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .modal-row .mv { color:var(--text-main); }
+  .modal-text { font-size:1rem; line-height:1.7; color:var(--text-main); font-style:italic; border-left:2px solid var(--gold-dim); padding-left:1rem; }
+  .modal-footer { padding:1rem 2rem; border-top:1px solid var(--border); display:flex; gap:0.75rem; justify-content:flex-end; background:var(--bg-card); position:sticky; bottom:0; }
 
-  /* ══════════════════════════════
-     NAV
-  ══════════════════════════════ */
-  nav {
-    background: rgba(8,8,16,0.9);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(8px);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+  /* ADMIN MESSAGE */
+  .admin-msg-wrap { margin-top:1rem; }
+  .admin-msg-wrap label { font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; display:block; margin-bottom:0.4rem; }
+  .admin-msg-wrap textarea { width:100%; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; resize:vertical; min-height:70px; }
 
-  .nav-brand {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-    margin-right: auto;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  /* HISTORIAL */
+  .history-entry { padding:0.6rem 0; border-bottom:1px solid rgba(201,168,76,0.06); font-size:0.88rem; }
+  .history-entry:last-child { border-bottom:none; }
+  .history-entry .h-action { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.08em; }
+  .history-entry .h-by { color:var(--text-dim); font-size:0.8rem; }
+  .history-entry .h-msg { font-style:italic; color:var(--text-dim); margin-top:0.2rem; }
 
-  .nav-link {
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    padding: 0 1.25rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    background: none;
-    transition: color 0.2s;
-    position: relative;
-    text-decoration: none;
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 1.25rem; right: 1.25rem;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.2s;
-  }
-  .nav-link:hover { color: var(--gold-light); }
-  .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
-  .nav-link.active { color: var(--gold-light); }
+  /* FLASH */
+  .flash { position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-bright); border-left:3px solid var(--gold); padding:0.75rem 1.25rem; font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; z-index:999; border-radius:1px; opacity:0; transform:translateY(-8px); transition:opacity 0.3s,transform 0.3s; pointer-events:none; }
+  .flash.show { opacity:1; transform:translateY(0); }
 
-  .nav-user {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-left: 1.5rem;
-    padding-left: 1.5rem;
-    border-left: 1px solid var(--border);
+  @media(max-width:700px) {
+    .admin-stats { grid-template-columns:1fr 1fr; }
+    .admin-table th:nth-child(3),.admin-table td:nth-child(3),
+    .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
-  .nav-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border-bright);
-    object-fit: cover;
-  }
-  .nav-username {
-    font-family: 'Cinzel', serif;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    letter-spacing: 0.05em;
-  }
-  .nav-logout {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: inherit;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.2s;
-  }
-  .nav-logout:hover { color: var(--red-light); }
-
-  /* ══════════════════════════════
-     HOME PAGE
-  ══════════════════════════════ */
-  #page-home .hero {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 4rem 2rem;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 700;
-    color: var(--gold-light);
-    letter-spacing: 0.05em;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 60px rgba(201,168,76,0.2);
-  }
-
-  .hero-body {
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--text-dim);
-    max-width: 600px;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  .hero-cta-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn-primary {
-    font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: var(--bg-deep);
-    background: var(--gold);
-    border: none;
-    padding: 0.85rem 2.2rem;
-    cursor: pointer;
-    border-radius: 1px;
-    transition: background 0.2s, transform 0.15s;
-    text-transform: uppercase;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-
-  .btn-outline {
-    font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    background: transparent;
-    border: 1px solid var(--border-bright);
-    padding: 0.85rem 2.2rem;
-    cursor: pointer;
-    border-radius: 1px;
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    text-transform: uppercase;
-  }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); transform: translateY(-1px); }
-
-  /* ══════════════════════════════
-     LORE PAGE
-  ══════════════════════════════ */
-  #page-lore .content-wrap {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    flex: 1;
-  }
-
-  .page-header {
-    margin-bottom: 3rem;
-  }
-  .page-header .eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-  .page-header h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    color: var(--gold-light);
-    letter-spacing: 0.06em;
-  }
-
-  .lore-text {
-    font-size: 1.15rem;
-    line-height: 1.9;
-    color: var(--text-main);
-    font-style: italic;
-    border-left: 2px solid var(--gold-dim);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-  }
-
-  .lore-placeholder {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 2.5rem;
-    text-align: center;
-  }
-  .lore-placeholder p {
-    font-size: 1.1rem;
-    color: var(--text-dim);
-    font-style: italic;
-  }
-
-  /* ══════════════════════════════
-     FICHA PAGE
-  ══════════════════════════════ */
-  #page-ficha .content-wrap {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    flex: 1;
-  }
-
-  .ficha-grid {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  @media (max-width: 700px) {
-    .ficha-grid { grid-template-columns: 1fr; }
-  }
-
-  .ficha-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 1.5rem;
-  }
-  .ficha-card h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.6rem;
-  }
-
-  .avatar-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--bg-surface);
-    border: 2px solid var(--border-bright);
-    margin: 0 auto 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: var(--gold-dim);
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .avatar-circle:hover { border-color: var(--gold); }
-  .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-  .ficha-name {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    color: var(--gold-light);
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-  }
-  .ficha-class {
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    font-style: italic;
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.45rem 0;
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-    font-size: 0.9rem;
-  }
-  .stat-row:last-child { border-bottom: none; }
-  .stat-label { color: var(--text-dim); }
-  .stat-val {
-    font-family: 'Cinzel', serif;
-    color: var(--gold-light);
-    font-size: 0.85rem;
-  }
-
-  .form-field {
-    margin-bottom: 1.2rem;
-  }
-  .form-field label {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-  .form-field input,
-  .form-field select,
-  .form-field textarea {
-    width: 100%;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 1px;
-    padding: 0.6rem 0.85rem;
-    font-family: 'Crimson Text', serif;
-    font-size: 1rem;
-    color: var(--text-main);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-field input:focus,
-  .form-field select:focus,
-  .form-field textarea:focus { border-color: var(--gold-dim); }
-  .form-field textarea { resize: vertical; min-height: 80px; }
-  .form-field select option { background: var(--bg-card); }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
-  .stat-box {
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 0.75rem 0.5rem;
-    text-align: center;
-  }
-  .stat-box .s-name {
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-  .stat-box input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    border-radius: 0;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 1.3rem;
-    color: var(--gold-light);
-    padding: 0.1rem 0;
-    width: 100%;
-    outline: none;
-  }
-  .stat-box input:focus { border-bottom-color: var(--gold); }
-
-  .hp-bar-wrap {
-    margin-top: 0.75rem;
-  }
-  .hp-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-  }
-  .hp-labels span:first-child { color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.15em; }
-  .hp-labels span:last-child { color: var(--gold-light); font-family: 'Cinzel', serif; }
-  .hp-bar {
-    height: 6px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 1px;
-    overflow: hidden;
-  }
-  .hp-fill {
-    height: 100%;
-    background: var(--red-light);
-    width: 75%;
-    transition: width 0.3s;
-  }
-
-  .ficha-actions {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 0.75rem;
-    justify-content: flex-end;
-  }
-
-  /* ── FLASH ── */
-  .flash {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-bright);
-    border-left: 3px solid var(--gold);
-    padding: 0.75rem 1.25rem;
-    font-family: 'Cinzel', serif;
-    font-size: 0.8rem;
-    color: var(--gold-light);
-    letter-spacing: 0.05em;
-    z-index: 999;
-    border-radius: 1px;
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-  }
-  .flash.show { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<!-- ══ LOGIN PAGE ══ -->
+<!-- ══ LOGIN ══ -->
 <div class="page active" id="page-login">
-  <div class="hero" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;">
     <div class="login-seal">
       <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
         <polygon points="60,8 72,44 110,44 80,67 91,103 60,82 29,103 40,67 10,44 48,44" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
@@ -610,16 +186,12 @@
         <text x="60" y="66" text-anchor="middle" fill="#c9a84c" font-family="serif" font-size="20" opacity="0.8">✦</text>
       </svg>
     </div>
-
     <h1 class="login-title">Crónicas del Vacío</h1>
     <p class="login-subtitle">— El mundo aguarda a sus héroes —</p>
-
     <div class="login-card">
       <p>Identifícate ante las puertas del reino para acceder a los archivos prohibidos y las crónicas del mundo.</p>
       <a href="#" class="btn-discord" id="btn-discord-login">
-        <svg width="20" height="20" viewBox="0 0 71 55" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M60.1 4.9A58.6 58.6 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A39 39 0 0 0 25.6.4 58.5 58.5 0 0 0 11 5C1.6 18.8-1 32.3.3 45.7a59 59 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.4 38.4 0 0 1-6-2.9l1.5-1.1a42 42 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44 44 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C72.3 30.1 68.4 16.7 60.1 4.9ZM23.8 37.6c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/>
-        </svg>
+        <svg width="20" height="20" viewBox="0 0 71 55" fill="white"><path d="M60.1 4.9A58.6 58.6 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A39 39 0 0 0 25.6.4 58.5 58.5 0 0 0 11 5C1.6 18.8-1 32.3.3 45.7a59 59 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.4 38.4 0 0 1-6-2.9l1.5-1.1a42 42 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44 44 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C72.3 30.1 68.4 16.7 60.1 4.9ZM23.8 37.6c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/></svg>
         Entrar con Discord
       </a>
       <p class="login-footer">Tus datos son seguros. Solo usamos tu nombre e imagen de Discord.</p>
@@ -627,20 +199,21 @@
   </div>
 </div>
 
-<!-- ══ HOME PAGE ══ -->
+<!-- ══ HOME ══ -->
 <div class="page" id="page-home">
-  <nav>
+  <nav id="nav-home-bar">
     <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link active" id="nav-home" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" id="nav-lore" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" id="nav-ficha" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link active" onclick="navigate('home')">Inicio</button>
+    <button class="nav-link" onclick="navigate('lore')">Lore</button>
+    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link admin-link" id="nav-admin-home" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
     <div class="nav-user">
       <img class="nav-avatar" id="nav-avatar" src="" alt="Avatar">
       <span class="nav-username" id="nav-username">—</span>
       <button class="nav-logout" onclick="logout()">Salir</button>
     </div>
   </nav>
-  <div class="hero" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;">
+  <div class="hero">
     <p class="hero-eyebrow">Bienvenido, Aventurero</p>
     <h1 class="hero-title">Texto a modificar<br>a luego</h1>
     <p class="hero-body">Texto a modificar a luego. Aquí irá la introducción al mundo, la bienvenida o el anuncio más reciente de la campaña.</p>
@@ -651,153 +224,97 @@
   </div>
 </div>
 
-<!-- ══ LORE PAGE ══ -->
+<!-- ══ LORE ══ -->
 <div class="page" id="page-lore">
   <nav>
     <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" id="nav2-home" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link active" id="nav2-lore" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" id="nav2-ficha" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link" onclick="navigate('home')">Inicio</button>
+    <button class="nav-link active" onclick="navigate('lore')">Lore</button>
+    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link admin-link" id="nav-admin-lore" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
     <div class="nav-user">
       <img class="nav-avatar" id="nav2-avatar" src="" alt="Avatar">
       <span class="nav-username" id="nav2-username">—</span>
       <button class="nav-logout" onclick="logout()">Salir</button>
     </div>
   </nav>
-  <div class="content-wrap" style="max-width:780px;margin:0 auto;padding:4rem 2rem;flex:1;">
+  <div style="max-width:780px;margin:0 auto;padding:4rem 2rem;flex:1;">
     <div class="page-header">
       <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.75rem;">Archivos del Reino</span>
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Lore</h1>
     </div>
     <div class="ornament">✦</div>
-    <div class="lore-placeholder">
-      <p>Texto a modificar a luego.<br><br>Aquí irá la historia del mundo, las facciones, los dioses, los reinos y todo el trasfondo de la campaña.</p>
+    <div class="ficha-card" style="text-align:center;padding:2.5rem;">
+      <p style="font-size:1.1rem;color:var(--text-dim);font-style:italic;">Texto a modificar a luego.<br><br>Aquí irá la historia del mundo, las facciones, los dioses, los reinos y todo el trasfondo de la campaña.</p>
     </div>
     <div class="ornament">✦</div>
   </div>
 </div>
 
-<!-- ══ FICHA PAGE ══ -->
+<!-- ══ FICHA ══ -->
 <div class="page" id="page-ficha">
   <nav>
     <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" id="nav3-home" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" id="nav3-lore" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link active" id="nav3-ficha" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link" onclick="navigate('home')">Inicio</button>
+    <button class="nav-link" onclick="navigate('lore')">Lore</button>
+    <button class="nav-link active" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link admin-link" id="nav-admin-ficha" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
     <div class="nav-user">
       <img class="nav-avatar" id="nav3-avatar" src="" alt="Avatar">
       <span class="nav-username" id="nav3-username">—</span>
       <button class="nav-logout" onclick="logout()">Salir</button>
     </div>
   </nav>
-  <div class="content-wrap" style="max-width:960px;margin:0 auto;padding:3rem 2rem;flex:1;">
+  <div style="max-width:960px;margin:0 auto;padding:3rem 2rem;flex:1;">
     <div class="page-header">
       <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.75rem;">Tu Aventurero</span>
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Ficha de Personaje</h1>
     </div>
 
-    <!-- PASO 1: Ficha principal -->
     <div id="ficha-paso1">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-
-        <!-- Bloque IDs -->
-        <div class="ficha-card" style="grid-column:1/-1;margin-bottom:0;">
+        <div class="ficha-card" style="grid-column:1/-1;">
           <h3>Identificación</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <div class="form-field" style="margin-bottom:0;">
-              <label>ID de Discord</label>
-              <input type="text" id="char-discord-id" placeholder="Tu ID de Discord">
-            </div>
-            <div class="form-field" style="margin-bottom:0;">
-              <label>ID de Steam</label>
-              <input type="text" id="char-steam-id" placeholder="Tu ID de Steam">
-            </div>
+            <div class="form-field" style="margin-bottom:0;"><label>ID de Discord</label><input type="text" id="char-discord-id" placeholder="Tu ID de Discord"></div>
+            <div class="form-field" style="margin-bottom:0;"><label>ID de Steam</label><input type="text" id="char-steam-id" placeholder="Tu ID de Steam"></div>
           </div>
         </div>
-
-        <!-- Bloque datos personales -->
         <div class="ficha-card">
           <h3>Datos del Personaje</h3>
-          <div class="form-field">
-            <label>Nombre</label>
-            <input type="text" id="char-nombre" placeholder="Juliette">
-          </div>
-          <div class="form-field">
-            <label>Apellido(s)</label>
-            <input type="text" id="char-apellido" placeholder="Hollow">
-          </div>
-          <div class="form-field">
-            <label>Fecha de Nacimiento</label>
-            <input type="text" id="char-fnac" placeholder="DD/MM/AAAA">
-          </div>
-          <div class="form-field" style="margin-bottom:0;">
-            <label>Nacionalidad</label>
-            <input type="text" id="char-nac" placeholder="Noruega">
-          </div>
+          <div class="form-field"><label>Nombre</label><input type="text" id="char-nombre" placeholder="Juliette"></div>
+          <div class="form-field"><label>Apellido(s)</label><input type="text" id="char-apellido" placeholder="Hollow"></div>
+          <div class="form-field"><label>Fecha de Nacimiento</label><input type="text" id="char-fnac" placeholder="DD/MM/AAAA"></div>
+          <div class="form-field" style="margin-bottom:0;"><label>Nacionalidad</label><input type="text" id="char-nac" placeholder="Noruega"></div>
         </div>
-
-        <!-- Bloque clasificación -->
         <div class="ficha-card">
           <h3>Clasificación</h3>
           <div class="form-field">
             <label>Estatus de Sangre</label>
-            <select id="char-sangre">
-              <option value="">— Elige —</option>
-              <option>Mestiza</option>
-              <option>Puro</option>
-              <option>Nacido de No Mágicos</option>
-            </select>
+            <select id="char-sangre"><option value="">— Elige —</option><option>Mestiza</option><option>Puro</option><option>Nacido de No Mágicos</option></select>
           </div>
           <div class="form-field">
             <label>Ocupación</label>
-            <select id="char-ocupacion" onchange="onOcupacionChange()">
-              <option value="">— Elige —</option>
-              <option value="estudiante">Estudiante</option>
-              <option value="adulto">Adulto</option>
-              <option value="profesor">Profesor</option>
-            </select>
+            <select id="char-ocupacion" onchange="onOcupacionChange()"><option value="">— Elige —</option><option value="estudiante">Estudiante</option><option value="adulto">Adulto</option><option value="profesor">Profesor</option></select>
           </div>
           <div class="form-field" style="margin-bottom:0;">
-            <label>Raza <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(debe estar justificada en tu ficha)</span></label>
-            <select id="char-raza">
-              <option value="">— Elige —</option>
-              <option>Mago/Bruja</option>
-              <option>Licántropo</option>
-              <option>Vampiro/a</option>
-              <option>Kitsune</option>
-              <option>Cambia-Formas</option>
-              <option>Nereida</option>
-              <option>Elfo/a</option>
-            </select>
+            <label>Raza <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(debe estar justificada)</span></label>
+            <select id="char-raza"><option value="">— Elige —</option><option>Mago/Bruja</option><option>Licántropo</option><option>Vampiro/a</option><option>Kitsune</option><option>Cambia-Formas</option><option>Nereida</option><option>Elfo/a</option></select>
           </div>
         </div>
-
-        <!-- Bloque descripción -->
         <div class="ficha-card" style="grid-column:1/-1;">
           <h3>Descripción & Historia</h3>
-          <div class="form-field">
-            <label>Descripción Física</label>
-            <textarea id="char-fisica" placeholder="Mujer de piel pálida, rostro fino…" style="min-height:90px;"></textarea>
-          </div>
-          <div class="form-field">
-            <label>Interpretación del Personaje</label>
-            <textarea id="char-interp" placeholder="Mi personaje es leal, tímida…" style="min-height:90px;"></textarea>
-          </div>
-          <div class="form-field" style="margin-bottom:0;">
-            <label>Historia</label>
-            <textarea id="char-historia" placeholder="Juliette nació en Noruega…" style="min-height:120px;"></textarea>
-          </div>
+          <div class="form-field"><label>Descripción Física</label><textarea id="char-fisica" placeholder="Mujer de piel pálida, rostro fino…" style="min-height:90px;"></textarea></div>
+          <div class="form-field"><label>Interpretación del Personaje</label><textarea id="char-interp" placeholder="Mi personaje es leal, tímida…" style="min-height:90px;"></textarea></div>
+          <div class="form-field" style="margin-bottom:0;"><label>Historia</label><textarea id="char-historia" placeholder="Juliette nació en Noruega…" style="min-height:120px;"></textarea></div>
         </div>
-
       </div>
-
       <div class="ficha-actions">
         <button class="btn-outline" onclick="clearFicha()">Limpiar</button>
         <button class="btn-primary" onclick="siguientePaso()">Siguiente →</button>
       </div>
     </div>
 
-    <!-- PASO 2a: Estudiante -->
     <div id="ficha-paso-estudiante" style="display:none;">
       <div class="ficha-card">
         <h3>Solicitud de Estudiante</h3>
@@ -805,10 +322,10 @@
       </div>
       <div class="ficha-actions">
         <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
       </div>
     </div>
 
-    <!-- PASO 2b: Postulación a Profesorado -->
     <div id="ficha-paso-profesor" style="display:none;">
       <div class="ficha-card">
         <h3>Postulación a Profesorado</h3>
@@ -816,29 +333,92 @@
       </div>
       <div class="ficha-actions">
         <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Flash notification -->
+<!-- ══ ADMIN ══ -->
+<div class="page" id="page-admin">
+  <nav>
+    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
+    <button class="nav-link" onclick="navigate('home')">Inicio</button>
+    <button class="nav-link" onclick="navigate('lore')">Lore</button>
+    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
+    <button class="nav-link admin-link active" onclick="navigate('admin')">⚑ Admin</button>
+    <div class="nav-user">
+      <img class="nav-avatar" id="nav4-avatar" src="" alt="Avatar">
+      <span class="nav-username" id="nav4-username">—</span>
+      <button class="nav-logout" onclick="logout()">Salir</button>
+    </div>
+  </nav>
+  <div class="content-wrap">
+    <div class="page-header">
+      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:#a855f7;text-transform:uppercase;display:block;margin-bottom:0.75rem;">Acceso Restringido</span>
+      <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
+    </div>
+
+    <div class="admin-stats" id="admin-stats"></div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
+      <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
+      <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
+      <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
+    </div>
+
+    <div class="ficha-card" style="padding:0;overflow:hidden;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Personaje</th>
+            <th>Raza</th>
+            <th>Ocupación</th>
+            <th>Estado</th>
+            <th>Enviada</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+      <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL DETALLE ══ -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal-ficha">
+    <div class="modal-header">
+      <h2 id="modal-title">Ficha de Personaje</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- Flash -->
 <div class="flash" id="flash"></div>
 
 <script>
 // ═══════════════════════════════════════
-// CONFIGURACIÓN — REEMPLAZA ESTOS VALORES
+// ★ CONFIGURA AQUÍ LOS ADMINS ★
+// Pon los IDs de Discord de los admins
 // ═══════════════════════════════════════
+const ADMIN_IDS = [
+  '123456789012345678',   // ← reemplaza con el ID real
+  '987654321098765432'    // ← añade más si necesitas
+];
+
 const DISCORD_CONFIG = {
   client_id: '1506739511969714237',
   redirect_uri: encodeURIComponent(window.location.href.split('?')[0].split('#')[0]),
   scope: 'identify'
 };
 
-// ═══════════════════════════════════════
-// ESTADO
-// ═══════════════════════════════════════
 let currentUser = null;
-let currentPage = 'login';
 
 // ═══════════════════════════════════════
 // DISCORD OAUTH
@@ -854,11 +434,8 @@ async function handleDiscordCallback() {
   const params = new URLSearchParams(hash);
   const token = params.get('access_token');
   if (!token) return false;
-
   try {
-    const res = await fetch('https://discord.com/api/users/@me', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${token}` } });
     const user = await res.json();
     currentUser = {
       id: user.id,
@@ -869,10 +446,27 @@ async function handleDiscordCallback() {
     };
     localStorage.setItem('discord_user', JSON.stringify(currentUser));
     return true;
-  } catch (err) {
+  } catch(err) {
     showFlash('Error al obtener datos de Discord');
     return false;
   }
+}
+
+function isAdmin() {
+  return currentUser && ADMIN_IDS.includes(currentUser.id);
+}
+
+// ═══════════════════════════════════════
+// FICHAS (almacenadas en localStorage)
+// ═══════════════════════════════════════
+function getAllFichas() {
+  try { return JSON.parse(localStorage.getItem('all_fichas') || '[]'); } catch(e) { return []; }
+}
+function saveAllFichas(fichas) {
+  localStorage.setItem('all_fichas', JSON.stringify(fichas));
+}
+function getFichaById(id) {
+  return getAllFichas().find(f => f.id === id);
 }
 
 // ═══════════════════════════════════════
@@ -881,21 +475,26 @@ async function handleDiscordCallback() {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  currentPage = name;
 }
 
 function navigate(name) {
+  if (name === 'admin' && !isAdmin()) { showFlash('Acceso denegado'); return; }
   updateNavAvatars();
   showPage(name);
+  if (name === 'admin') renderAdminPanel();
 }
 
 function updateNavAvatars() {
   if (!currentUser) return;
-  ['', '2-', '3-'].forEach(prefix => {
-    const av = document.getElementById('nav' + prefix + 'avatar');
-    const un = document.getElementById('nav' + prefix + 'username');
-    if (av) { av.src = currentUser.avatar; av.style.display = 'block'; }
+  [['nav-avatar','nav-username'], ['nav2-avatar','nav2-username'], ['nav3-avatar','nav3-username'], ['nav4-avatar','nav4-username']].forEach(([avId, unId]) => {
+    const av = document.getElementById(avId), un = document.getElementById(unId);
+    if (av) { av.src = currentUser.avatar; }
     if (un) un.textContent = currentUser.username;
+  });
+  // Mostrar enlace admin en navs
+  ['nav-admin-home','nav-admin-lore','nav-admin-ficha'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = isAdmin() ? 'flex' : 'none';
   });
 }
 
@@ -906,10 +505,8 @@ function logout() {
 }
 
 // ═══════════════════════════════════════
-// FICHA PERSONAJE
+// FICHA DEL JUGADOR
 // ═══════════════════════════════════════
-function updateHP() {}
-
 function onOcupacionChange() {}
 
 function siguientePaso() {
@@ -921,10 +518,7 @@ function siguientePaso() {
   } else if (ocupacion === 'profesor') {
     document.getElementById('ficha-paso-profesor').style.display = 'block';
   } else {
-    // Adulto: guardar y mostrar confirmación
-    saveFicha();
-    showFlash('Ficha enviada correctamente');
-    document.getElementById('ficha-paso1').style.display = 'block';
+    enviarFicha();
   }
 }
 
@@ -934,9 +528,11 @@ function volverFicha() {
   document.getElementById('ficha-paso1').style.display = 'block';
 }
 
-function saveFicha() {
+function enviarFicha() {
   const data = {
-    discord_id: document.getElementById('char-discord-id').value,
+    id: 'ficha_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    discord_id: document.getElementById('char-discord-id').value || currentUser?.id || '',
+    discord_username: currentUser?.username || '',
     steam_id: document.getElementById('char-steam-id').value,
     nombre: document.getElementById('char-nombre').value,
     apellido: document.getElementById('char-apellido').value,
@@ -948,8 +544,17 @@ function saveFicha() {
     fisica: document.getElementById('char-fisica').value,
     interp: document.getElementById('char-interp').value,
     historia: document.getElementById('char-historia').value,
+    estado: 'pendiente',
+    fecha_envio: new Date().toISOString(),
+    historial: [{ accion: 'Enviada', por: currentUser?.username || 'Jugador', fecha: new Date().toISOString(), mensaje: '' }]
   };
+  if (!data.nombre || !data.ocupacion) { showFlash('Completa al menos nombre y ocupación'); return; }
+  const fichas = getAllFichas();
+  fichas.push(data);
+  saveAllFichas(fichas);
   localStorage.setItem('ficha_personaje', JSON.stringify(data));
+  showFlash('¡Ficha enviada! Los administradores la revisarán pronto.');
+  volverFicha();
 }
 
 function loadFicha() {
@@ -957,35 +562,227 @@ function loadFicha() {
   if (!saved) return;
   try {
     const d = JSON.parse(saved);
-    if (d.discord_id) document.getElementById('char-discord-id').value = d.discord_id;
-    if (d.steam_id) document.getElementById('char-steam-id').value = d.steam_id;
-    if (d.nombre) document.getElementById('char-nombre').value = d.nombre;
-    if (d.apellido) document.getElementById('char-apellido').value = d.apellido;
-    if (d.fnac) document.getElementById('char-fnac').value = d.fnac;
-    if (d.nac) document.getElementById('char-nac').value = d.nac;
+    ['discord-id','steam-id','nombre','apellido','fnac','nac','fisica','interp','historia'].forEach(k => {
+      const el = document.getElementById('char-' + k);
+      const key = k.replace('-','_');
+      if (el && d[key]) el.value = d[key];
+    });
     if (d.sangre) document.getElementById('char-sangre').value = d.sangre;
     if (d.ocupacion) document.getElementById('char-ocupacion').value = d.ocupacion;
     if (d.raza) document.getElementById('char-raza').value = d.raza;
-    if (d.fisica) document.getElementById('char-fisica').value = d.fisica;
-    if (d.interp) document.getElementById('char-interp').value = d.interp;
-    if (d.historia) document.getElementById('char-historia').value = d.historia;
   } catch(e) {}
 }
 
 function clearFicha() {
   if (!confirm('¿Limpiar todos los datos del personaje?')) return;
   localStorage.removeItem('ficha_personaje');
-  ['char-discord-id','char-steam-id','char-nombre','char-apellido','char-fnac',
-   'char-nac','char-fisica','char-interp','char-historia'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('char-sangre').value = '';
-  document.getElementById('char-ocupacion').value = '';
-  document.getElementById('char-raza').value = '';
+  ['char-discord-id','char-steam-id','char-nombre','char-apellido','char-fnac','char-nac','char-fisica','char-interp','char-historia'].forEach(id => { document.getElementById(id).value = ''; });
+  ['char-sangre','char-ocupacion','char-raza'].forEach(id => { document.getElementById(id).value = ''; });
 }
 
 // ═══════════════════════════════════════
-// FLASH NOTIFICATION
+// PANEL ADMIN
+// ═══════════════════════════════════════
+let adminFilter = 'all';
+
+function setFilter(f, btn) {
+  adminFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAdminTable();
+}
+
+function renderAdminPanel() {
+  renderAdminStats();
+  renderAdminTable();
+}
+
+function renderAdminStats() {
+  const fichas = getAllFichas();
+  const pending = fichas.filter(f => f.estado === 'pendiente').length;
+  const accepted = fichas.filter(f => f.estado === 'aceptada').length;
+  const denied = fichas.filter(f => f.estado === 'denegada').length;
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="admin-stat total"><span class="s-num">${fichas.length}</span><span class="s-label">Total</span></div>
+    <div class="admin-stat pending"><span class="s-num">${pending}</span><span class="s-label">Pendientes</span></div>
+    <div class="admin-stat accepted"><span class="s-num">${accepted}</span><span class="s-label">Aceptadas</span></div>
+    <div class="admin-stat denied"><span class="s-num">${denied}</span><span class="s-label">Denegadas</span></div>
+  `;
+}
+
+function renderAdminTable() {
+  const fichas = getAllFichas();
+  const filtered = adminFilter === 'all' ? fichas : fichas.filter(f => f.estado === adminFilter);
+  const tbody = document.getElementById('admin-tbody');
+  const empty = document.getElementById('admin-empty');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map(f => {
+    const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
+    const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
+    const fecha = f.fecha_envio ? new Date(f.fecha_envio).toLocaleDateString('es-ES') : '—';
+
+    let actions = `<button class="action-btn action-btn-view" onclick="openModal('${f.id}')">Ver ficha</button>`;
+    if (f.estado === 'pendiente') {
+      actions = `<button class="action-btn action-btn-accept" onclick="accionFicha('${f.id}','aceptar')">✓ Aceptar</button>
+                 <button class="action-btn action-btn-deny" onclick="accionFicha('${f.id}','denegar')">✗ Denegar</button>
+                 ${actions}`;
+    } else {
+      actions += ` <button class="action-btn action-btn-revert" onclick="accionFicha('${f.id}','revertir')">↩ Revertir</button>
+                   <button class="action-btn action-btn-delete" onclick="accionFicha('${f.id}','eliminar')">🗑 Eliminar</button>`;
+    }
+
+    return `<tr>
+      <td><span class="char-name">${f.nombre || '—'} ${f.apellido || ''}</span><span class="char-discord">@${f.discord_username || f.discord_id || '—'}</span></td>
+      <td>${f.raza || '—'}</td>
+      <td style="text-transform:capitalize;">${f.ocupacion || '—'}</td>
+      <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+      <td style="font-size:0.85rem;color:var(--text-dim);">${fecha}</td>
+      <td><div class="actions-cell">${actions}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+function accionFicha(id, accion) {
+  const fichas = getAllFichas();
+  const idx = fichas.findIndex(f => f.id === id);
+  if (idx === -1) return;
+
+  if (accion === 'eliminar') {
+    if (!confirm('¿Eliminar esta ficha permanentemente? Esta acción no se puede deshacer.')) return;
+    fichas.splice(idx, 1);
+    saveAllFichas(fichas);
+    closeModal();
+    showFlash('Ficha eliminada.');
+    renderAdminPanel();
+    return;
+  }
+
+  let mensaje = '';
+  if (accion === 'denegar') {
+    mensaje = prompt('Motivo de denegación (opcional):') || '';
+  }
+  if (accion === 'aceptar' && !confirm('¿Aceptar esta ficha?')) return;
+
+  const nuevoEstado = accion === 'aceptar' ? 'aceptada' : accion === 'denegar' ? 'denegada' : 'pendiente';
+  const accionLabel = accion === 'aceptar' ? 'Aceptada' : accion === 'denegar' ? 'Denegada' : 'Revertida a pendiente';
+
+  fichas[idx].estado = nuevoEstado;
+  fichas[idx].historial = fichas[idx].historial || [];
+  fichas[idx].historial.push({
+    accion: accionLabel,
+    por: currentUser.username,
+    fecha: new Date().toISOString(),
+    mensaje
+  });
+  saveAllFichas(fichas);
+
+  closeModal();
+  showFlash(`Ficha ${accionLabel.toLowerCase()} correctamente.`);
+  renderAdminPanel();
+}
+
+// ═══════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════
+function openModal(id) {
+  const f = getFichaById(id);
+  if (!f) return;
+
+  const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
+  const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
+
+  document.getElementById('modal-title').innerHTML = `${f.nombre || '—'} ${f.apellido || ''} <span class="badge ${badgeClass}" style="font-size:0.65rem;vertical-align:middle;margin-left:0.5rem;">${badgeText}</span>`;
+
+  const historialHTML = (f.historial || []).slice().reverse().map(h => {
+    const d = new Date(h.fecha).toLocaleString('es-ES');
+    return `<div class="history-entry">
+      <span class="h-action">${h.accion}</span>
+      <span class="h-by"> · por ${h.por} · <span style="font-size:0.75rem;">${d}</span></span>
+      ${h.mensaje ? `<div class="h-msg">"${h.mensaje}"</div>` : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <h4>Identificación</h4>
+      <div class="modal-row"><span class="ml">Discord</span><span class="mv">@${f.discord_username || '—'} (${f.discord_id || '—'})</span></div>
+      <div class="modal-row"><span class="ml">Steam ID</span><span class="mv">${f.steam_id || '—'}</span></div>
+    </div>
+    <div class="modal-section">
+      <h4>Datos del Personaje</h4>
+      <div class="modal-row"><span class="ml">Nombre</span><span class="mv">${f.nombre || '—'} ${f.apellido || ''}</span></div>
+      <div class="modal-row"><span class="ml">Nacimiento</span><span class="mv">${f.fnac || '—'}</span></div>
+      <div class="modal-row"><span class="ml">Nacionalidad</span><span class="mv">${f.nac || '—'}</span></div>
+      <div class="modal-row"><span class="ml">Raza</span><span class="mv">${f.raza || '—'}</span></div>
+      <div class="modal-row"><span class="ml">Estatus sangre</span><span class="mv">${f.sangre || '—'}</span></div>
+      <div class="modal-row"><span class="ml">Ocupación</span><span class="mv" style="text-transform:capitalize;">${f.ocupacion || '—'}</span></div>
+    </div>
+    ${f.fisica ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
+    ${f.interp ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
+    ${f.historia ? `<div class="modal-section"><h4>Historia</h4><p class="modal-text">${f.historia}</p></div>` : ''}
+    <div class="modal-section">
+      <h4>Historial de Acciones</h4>
+      ${historialHTML || '<p style="color:var(--text-dim);font-style:italic;">Sin historial.</p>'}
+    </div>
+    ${f.estado === 'pendiente' ? `<div class="admin-msg-wrap"><label>Mensaje al jugador (al aceptar/denegar)</label><textarea id="modal-admin-msg" placeholder="Bienvenido al servidor…"></textarea></div>` : ''}
+  `;
+
+  let footerHTML = `<button class="btn-outline" onclick="closeModal()">Cerrar</button>`;
+  if (f.estado === 'pendiente') {
+    footerHTML += `
+      <button class="btn-outline" style="border-color:rgba(196,48,48,0.5);color:var(--red-light);" onclick="accionFichaConMsg('${f.id}','denegar')">✗ Denegar</button>
+      <button class="btn-primary" onclick="accionFichaConMsg('${f.id}','aceptar')">✓ Aceptar</button>
+    `;
+  } else {
+    footerHTML += `
+      <button class="btn-outline" onclick="accionFicha('${f.id}','revertir')">↩ Revertir</button>
+      <button class="btn-outline" style="border-color:rgba(196,48,48,0.5);color:var(--red-light);" onclick="accionFicha('${f.id}','eliminar')">🗑 Eliminar</button>
+    `;
+  }
+  document.getElementById('modal-footer').innerHTML = footerHTML;
+
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function accionFichaConMsg(id, accion) {
+  const msgEl = document.getElementById('modal-admin-msg');
+  const mensaje = msgEl ? msgEl.value.trim() : '';
+
+  const fichas = getAllFichas();
+  const idx = fichas.findIndex(f => f.id === id);
+  if (idx === -1) return;
+
+  if (accion === 'denegar') {
+    const motivo = mensaje || (prompt('Motivo de denegación (opcional):') || '');
+    fichas[idx].estado = 'denegada';
+    fichas[idx].historial = fichas[idx].historial || [];
+    fichas[idx].historial.push({ accion: 'Denegada', por: currentUser.username, fecha: new Date().toISOString(), mensaje: motivo });
+  } else {
+    fichas[idx].estado = 'aceptada';
+    fichas[idx].historial = fichas[idx].historial || [];
+    fichas[idx].historial.push({ accion: 'Aceptada', por: currentUser.username, fecha: new Date().toISOString(), mensaje });
+  }
+
+  saveAllFichas(fichas);
+  closeModal();
+  showFlash(`Ficha ${accion === 'aceptar' ? 'aceptada' : 'denegada'} correctamente.`);
+  renderAdminPanel();
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-backdrop')) return;
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+// ═══════════════════════════════════════
+// FLASH
 // ═══════════════════════════════════════
 function showFlash(msg) {
   const el = document.getElementById('flash');
@@ -1004,7 +801,6 @@ function showFlash(msg) {
     if (ok) {
       updateNavAvatars();
       loadFicha();
-      updateHP();
       showPage('home');
       setTimeout(() => showFlash('Bienvenido, ' + currentUser.username), 200);
     } else {
@@ -1019,14 +815,10 @@ function showFlash(msg) {
       currentUser = JSON.parse(saved);
       updateNavAvatars();
       loadFicha();
-      updateHP();
       showPage('home');
       return;
-    } catch(e) {
-      localStorage.removeItem('discord_user');
-    }
+    } catch(e) { localStorage.removeItem('discord_user'); }
   }
-
   showPage('login');
 })();
 </script>
