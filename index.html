@@ -191,6 +191,26 @@
     .admin-table th:nth-child(3),.admin-table td:nth-child(3),
     .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
+
+  /* GESTIÓN DE ADMINS */
+.admin-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:2rem; }
+.admin-tab { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.75rem 1.5rem; background:none; border:none; color:var(--text-dim); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all 0.2s; }
+.admin-tab:hover { color:var(--gold-light); }
+.admin-tab.active { color:var(--gold-light); border-bottom-color:var(--gold); }
+.admin-tab-content { display:none; }
+.admin-tab-content.active { display:block; }
+
+.admin-id-list { list-style:none; margin-bottom:1.5rem; }
+.admin-id-row { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1rem; border-bottom:1px solid rgba(201,168,76,0.07); font-size:0.9rem; }
+.admin-id-row:last-child { border-bottom:none; }
+.admin-id-info { display:flex; flex-direction:column; gap:0.15rem; }
+.admin-id-val { font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; }
+.admin-id-note { font-size:0.78rem; color:var(--text-dim); font-style:italic; }
+.admin-id-hardcoded { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#a855f7; font-family:'Cinzel',serif; }
+.add-admin-row { display:flex; gap:0.75rem; margin-top:0.5rem; }
+.add-admin-row input { flex:1; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; transition:border-color 0.2s; }
+.add-admin-row input:focus { border-color:var(--gold-dim); }
+  
 </style>
 </head>
 <body>
@@ -615,8 +635,8 @@ function setFilter(f, btn) {
 function renderAdminPanel() {
   renderAdminStats();
   renderAdminTable();
+  // renderAdminList se llama al entrar en la pestaña
 }
-
 function renderAdminStats() {
   const fichas = getAllFichas();
   const pending = fichas.filter(f => f.estado === 'pendiente').length;
@@ -841,6 +861,94 @@ function showFlash(msg) {
   }
   showPage('login');
 })();
+
+  // ═══════════════════════════════════════
+// GESTIÓN DE ADMINS
+// ═══════════════════════════════════════
+
+// IDs fijados en código — nunca se pueden borrar desde la web
+const HARDCODED_ADMIN_IDS = [
+  '1129889778691751968',
+  '966402052962017321'
+];
+
+function getExtraAdmins() {
+  try { return JSON.parse(localStorage.getItem('extra_admins') || '[]'); } catch(e) { return []; }
+}
+function saveExtraAdmins(list) {
+  localStorage.setItem('extra_admins', JSON.stringify(list));
+}
+
+// Sobreescribe ADMIN_IDS original con la lista combinada
+function getAllAdminIds() {
+  return [...HARDCODED_ADMIN_IDS, ...getExtraAdmins().map(a => a.id)];
+}
+
+// Reemplaza la función isAdmin original
+function isAdmin() {
+  return currentUser && getAllAdminIds().includes(currentUser.id);
+}
+
+function addAdmin() {
+  const idEl = document.getElementById('new-admin-id');
+  const noteEl = document.getElementById('new-admin-note');
+  const id = idEl.value.trim();
+  const note = noteEl.value.trim();
+
+  if (!id) { showFlash('Introduce un ID de Discord'); return; }
+  if (!/^\d{17,20}$/.test(id)) { showFlash('El ID debe ser numérico (17-20 dígitos)'); return; }
+  if (getAllAdminIds().includes(id)) { showFlash('Ese ID ya es admin'); return; }
+
+  const extras = getExtraAdmins();
+  extras.push({ id, note: note || '', addedBy: currentUser.username, addedAt: new Date().toISOString() });
+  saveExtraAdmins(extras);
+  idEl.value = ''; noteEl.value = '';
+  showFlash('Admin añadido correctamente');
+  renderAdminList();
+}
+
+function removeAdmin(id) {
+  if (!confirm('¿Quitar a este admin?')) return;
+  const extras = getExtraAdmins().filter(a => a.id !== id);
+  saveExtraAdmins(extras);
+  showFlash('Admin eliminado');
+  renderAdminList();
+}
+
+function renderAdminList() {
+  const extras = getExtraAdmins();
+  const ul = document.getElementById('admin-id-list');
+  if (!ul) return;
+
+  const hardcodedRows = HARDCODED_ADMIN_IDS.map(id => `
+    <li class="admin-id-row">
+      <div class="admin-id-info">
+        <span class="admin-id-val">${id}</span>
+        <span class="admin-id-hardcoded">⚑ Hardcoded — no eliminable</span>
+      </div>
+    </li>`).join('');
+
+  const extraRows = extras.length === 0 ? '' : extras.map(a => {
+    const fecha = a.addedAt ? new Date(a.addedAt).toLocaleDateString('es-ES') : '—';
+    return `<li class="admin-id-row">
+      <div class="admin-id-info">
+        <span class="admin-id-val">${a.id}</span>
+        <span class="admin-id-note">${a.note ? a.note + ' · ' : ''}Añadido por ${a.addedBy} el ${fecha}</span>
+      </div>
+      <button class="action-btn action-btn-delete" onclick="removeAdmin('${a.id}')">✕ Quitar</button>
+    </li>`;
+  }).join('');
+
+  ul.innerHTML = hardcodedRows + (extraRows || `<li class="admin-id-row"><span style="color:var(--text-dim);font-style:italic;font-size:0.9rem;">No hay admins adicionales.</span></li>`);
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'admins') renderAdminList();
+}
 </script>
 </body>
 </html>
