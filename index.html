@@ -1,347 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crónicas del Vacío</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crónicas del Vacío – Academia Astraelis</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- ══ LOGIN ══ -->
-<div class="page active" id="page-login">
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;">
-    <div class="login-seal">
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="60,8 72,44 110,44 80,67 91,103 60,82 29,103 40,67 10,44 48,44" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity="0.6"/>
-        <circle cx="60" cy="60" r="28" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
-        <circle cx="60" cy="60" r="18" fill="rgba(201,168,76,0.08)" stroke="#c9a84c" stroke-width="0.5"/>
-        <text x="60" y="66" text-anchor="middle" fill="#c9a84c" font-family="serif" font-size="20" opacity="0.8">✦</text>
-      </svg>
-    </div>
-    <h1 class="login-title">Crónicas del Vacío</h1>
-    <p class="login-subtitle">— El mundo aguarda a sus héroes —</p>
-    <div class="login-card">
-      <p>Identifícate ante las puertas del reino para acceder a los archivos prohibidos y las crónicas del mundo.</p>
-      <a href="#" class="btn-discord" id="btn-discord-login">
-        <svg width="20" height="20" viewBox="0 0 71 55" fill="white"><path d="M60.1 4.9A58.6 58.6 0 0 0 45.5.4a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A39 39 0 0 0 25.6.4 58.5 58.5 0 0 0 11 5C1.6 18.8-1 32.3.3 45.7a59 59 0 0 0 18 9.1 44 44 0 0 0 3.8-6.2 38.4 38.4 0 0 1-6-2.9l1.5-1.1a42 42 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44 44 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C72.3 30.1 68.4 16.7 60.1 4.9ZM23.8 37.6c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/></svg>
-        Entrar con Discord
-      </a>
-      <p class="login-footer">Tus datos son seguros. Solo usamos tu nombre e imagen de Discord.</p>
-    </div>
-  </div>
-</div>
+    <header class="header">
+        <h1 class="title">Crónicas del Vacío</h1>
+        <h2 class="subtitle">El mundo aguarda a sus héroes</h2>
+    </header>
 
-<!-- ══ HOME ══ -->
-<div class="page" id="page-home">
-  <nav id="nav-home-bar">
-    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link active" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
-    <button class="nav-link admin-link" id="nav-admin-home" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
-    <div class="nav-user">
-      <img class="nav-avatar" id="nav-avatar" src="" alt="Avatar">
-      <span class="nav-username" id="nav-username">—</span>
-      <button class="nav-logout" onclick="logout()">Salir</button>
-    </div>
-  </nav>
-  <div class="hero">
-    <p class="hero-eyebrow">Bienvenido, Aventurero</p>
-    <h1 class="hero-title">Texto a modificar<br>a luego</h1>
-    <p class="hero-body">Texto a modificar a luego. Aquí irá la introducción al mundo, la bienvenida o el anuncio más reciente de la campaña.</p>
-    <div class="hero-cta-row">
-      <button class="btn-primary" onclick="navigate('lore')">Explorar el Lore</button>
-      <button class="btn-outline" onclick="navigate('ficha')">Crear Personaje</button>
-    </div>
-  </div>
-</div>
+    <main class="container">
 
-<!-- ══ LORE ══ -->
-<div class="page" id="page-lore">
-  <nav>
-    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link active" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
-    <button class="nav-link admin-link" id="nav-admin-lore" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
-    <div class="nav-user">
-      <img class="nav-avatar" id="nav2-avatar" src="" alt="Avatar">
-      <span class="nav-username" id="nav2-username">—</span>
-      <button class="nav-logout" onclick="logout()">Salir</button>
-    </div>
-  </nav>
-  <div style="max-width:780px;margin:0 auto;padding:4rem 2rem;flex:1;">
-    <div class="page-header">
-      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.75rem;">Archivos del Reino</span>
-      <h1 style="font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Lore</h1>
-    </div>
-    <div class="ornament">✦</div>
-    <div class="ficha-card" style="text-align:center;padding:2.5rem;">
-      <p style="font-size:1.1rem;color:var(--text-dim);font-style:italic;">Texto a modificar a luego.<br><br>Aquí irá la historia del mundo, las facciones, los dioses, los reinos y todo el trasfondo de la campaña.</p>
-    </div>
-    <div class="ornament">✦</div>
-  </div>
-</div>
+        <section class="login-card">
+            <h3 class="login-title">Identifícate</h3>
+            <p class="login-text">
+                Accede para entrar a los archivos prohibidos y explorar el mundo.
+            </p>
 
-<!-- ══ FICHA ══ -->
-<div class="page" id="page-ficha">
-  <nav>
-    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link active" onclick="navigate('ficha')">Ficha de Personaje</button>
-    <button class="nav-link admin-link" id="nav-admin-ficha" style="display:none;" onclick="navigate('admin')">⚑ Admin</button>
-    <div class="nav-user">
-      <img class="nav-avatar" id="nav3-avatar" src="" alt="Avatar">
-      <span class="nav-username" id="nav3-username">—</span>
-      <button class="nav-logout" onclick="logout()">Salir</button>
-    </div>
-  </nav>
-  <div style="max-width:960px;margin:0 auto;padding:3rem 2rem;flex:1;">
-    <div class="page-header">
-      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.75rem;">Tu Aventurero</span>
-      <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Ficha de Personaje</h1>
-    </div>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=TU_ID&redirect_uri=TU_REDIRECT&response_type=code&scope=identify"
+               class="btn-discord">
+                Entrar con Discord
+            </a>
 
-    <div id="ficha-paso1">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-        <div class="ficha-card" style="grid-column:1/-1;">
-          <h3>Identificación</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <div class="form-field" style="margin-bottom:0;"><label>ID de Discord</label><input type="text" id="char-discord-id" placeholder="Tu ID de Discord"></div>
-            <div class="form-field" style="margin-bottom:0;"><label>ID de Steam</label><input type="text" id="char-steam-id" placeholder="Tu ID de Steam"></div>
-          </div>
-        </div>
-        <div class="ficha-card">
-          <h3>Datos del Personaje</h3>
-          <div class="form-field"><label>Nombre</label><input type="text" id="char-nombre" placeholder="Juliette"></div>
-          <div class="form-field"><label>Apellido(s)</label><input type="text" id="char-apellido" placeholder="Hollow"></div>
-          <div class="form-field"><label>Fecha de Nacimiento</label><input type="text" id="char-fnac" placeholder="DD/MM/AAAA"></div>
-          <div class="form-field" style="margin-bottom:0;"><label>Nacionalidad</label><input type="text" id="char-nac" placeholder="Noruega"></div>
-        </div>
-        <div class="ficha-card">
-          <h3>Clasificación</h3>
-          <div class="form-field">
-            <label>Estatus de Sangre</label>
-            <select id="char-sangre"><option value="">— Elige —</option><option>Mestiza</option><option>Puro</option><option>Nacido de No Mágicos</option></select>
-          </div>
-          <div class="form-field">
-            <label>Ocupación</label>
-            <select id="char-ocupacion"><option value="">— Elige —</option><option value="estudiante">Estudiante</option><option value="adulto">Adulto</option><option value="profesor">Profesor</option></select>
-          </div>
-          <div class="form-field" style="margin-bottom:0;">
-            <label>Raza <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(debe estar justificada)</span></label>
-            <select id="char-raza"><option value="">— Elige —</option><option>Mago/Bruja</option><option>Licántropo</option><option>Vampiro/a</option><option>Kitsune</option><option>Cambia-Formas</option><option>Nereida</option><option>Elfo/a</option></select>
-          </div>
-        </div>
-        <div class="ficha-card" style="grid-column:1/-1;">
-          <h3>Descripción & Historia</h3>
-          <div class="form-field"><label>Descripción Física</label><textarea id="char-fisica" placeholder="Mujer de piel pálida, rostro fino…" style="min-height:90px;"></textarea></div>
-          <div class="form-field"><label>Interpretación del Personaje</label><textarea id="char-interp" placeholder="Mi personaje es leal, tímida…" style="min-height:90px;"></textarea></div>
-          <div class="form-field" style="margin-bottom:0;"><label>Historia</label><textarea id="char-historia" placeholder="Juliette nació en Noruega…" style="min-height:120px;"></textarea></div>
-        </div>
-      </div>
-      <div class="ficha-actions">
-        <button class="btn-outline" onclick="clearFicha()">Limpiar</button>
-        <button class="btn-primary" onclick="siguientePaso()">Siguiente →</button>
-      </div>
-    </div>
+            <p class="safe-text">Tus datos son seguros. Solo usamos tu nombre e imagen de Discord.</p>
+        </section>
 
-    <div id="ficha-paso-estudiante" style="display:none;">
-      <div id="quiz-seccion">
-        <div class="ficha-card" style="margin-bottom:1.5rem;">
-          <h3>Test de Personalidad — Tu Casa te Espera</h3>
-          <p class="quiz-intro">Responde con sinceridad. No hay respuestas correctas o incorrectas;<br>cada elección revela quién eres verdaderamente.</p>
+    </main>
 
-          <!-- Barra de progreso -->
-          <div class="quiz-progress" id="quiz-progress">
-            <div class="quiz-progress-dot active" id="qdot-1"></div>
-            <div class="quiz-progress-dot" id="qdot-2"></div>
-            <div class="quiz-progress-dot" id="qdot-3"></div>
-            <div class="quiz-progress-dot" id="qdot-4"></div>
-            <div class="quiz-progress-dot" id="qdot-5"></div>
-            <div class="quiz-progress-dot" id="qdot-6"></div>
-          </div>
-
-          <!-- Pregunta 1 -->
-          <div class="quiz-pregunta" data-q="1">
-            <p class="quiz-enunciado"><span class="quiz-num">I</span> Encuentras un antiguo libro lleno de secretos. ¿Qué haces?</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q1" value="A"><span class="quiz-letra">A</span><span>Lo estudias con calma para comprender toda su sabiduría.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q1" value="B"><span class="quiz-letra">B</span><span>Buscas rápidamente cómo aprovechar su conocimiento para obtener ventaja.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q1" value="C"><span class="quiz-letra">C</span><span>Lo compartes con tus compañeros para investigarlo juntos.</span></label>
-            </div>
-          </div>
-
-          <!-- Pregunta 2 -->
-          <div class="quiz-pregunta" data-q="2">
-            <p class="quiz-enunciado"><span class="quiz-num">II</span> Surge un conflicto entre dos amigos.</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q2" value="A"><span class="quiz-letra">A</span><span>Escuchas ambas partes antes de intervenir.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q2" value="B"><span class="quiz-letra">B</span><span>Tomas una decisión firme para resolverlo cuanto antes.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q2" value="C"><span class="quiz-letra">C</span><span>Intentas mediar para que ambos lleguen a un acuerdo.</span></label>
-            </div>
-          </div>
-
-          <!-- Pregunta 3 -->
-          <div class="quiz-pregunta" data-q="3">
-            <p class="quiz-enunciado"><span class="quiz-num">III</span> ¿Qué te motiva más?</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q3" value="A"><span class="quiz-letra">A</span><span>Comprender el mundo y crecer como persona.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q3" value="B"><span class="quiz-letra">B</span><span>Alcanzar grandes metas y superar desafíos.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q3" value="C"><span class="quiz-letra">C</span><span>Proteger a las personas que te importan.</span></label>
-            </div>
-          </div>
-
-          <!-- Pregunta 4 -->
-          <div class="quiz-pregunta" data-q="4">
-            <p class="quiz-enunciado"><span class="quiz-num">IV</span> Ante una decisión importante, normalmente...</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q4" value="A"><span class="quiz-letra">A</span><span>Reflexionas durante bastante tiempo antes de actuar.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q4" value="B"><span class="quiz-letra">B</span><span>Analizas las opciones y eliges la más efectiva.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q4" value="C"><span class="quiz-letra">C</span><span>Consideras cómo afectará a los demás.</span></label>
-            </div>
-          </div>
-
-          <!-- Pregunta 5 -->
-          <div class="quiz-pregunta" data-q="5">
-            <p class="quiz-enunciado"><span class="quiz-num">V</span> ¿Cuál de estos lugares te atrae más?</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q5" value="A"><span class="quiz-letra">A</span><span>Un bosque antiguo lleno de misterio.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q5" value="B"><span class="quiz-letra">B</span><span>Una fortaleza poderosa desde la que dirigir estrategias.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q5" value="C"><span class="quiz-letra">C</span><span>Una gran sala donde amigos y aliados se reúnen.</span></label>
-            </div>
-          </div>
-
-          <!-- Pregunta 6 -->
-          <div class="quiz-pregunta" data-q="6">
-            <p class="quiz-enunciado"><span class="quiz-num">VI</span> Si fueras líder de un grupo, ¿qué cualidad destacarías?</p>
-            <div class="quiz-opciones">
-              <label class="quiz-opcion"><input type="radio" name="q6" value="A"><span class="quiz-letra">A</span><span>Sabiduría y comprensión.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q6" value="B"><span class="quiz-letra">B</span><span>Determinación y ambición.</span></label>
-              <label class="quiz-opcion"><input type="radio" name="q6" value="C"><span class="quiz-letra">C</span><span>Justicia y lealtad.</span></label>
-            </div>
-          </div>
-
-          <div class="quiz-error-msg" id="quiz-error">✦ Responde todas las preguntas antes de revelar tu casa ✦</div>
-        </div>
-
-        <!-- Resultado del quiz -->
-        <div id="quiz-resultado" style="display:none;" class="quiz-resultado-card">
-          <div id="quiz-resultado-inner"></div>
-        </div>
-
-        <div class="ficha-actions">
-          <button class="btn-outline" onclick="volverFicha()">← Volver</button>
-          <button class="btn-primary" id="btn-quiz-calcular" onclick="calcularQuiz()">Revelar mi Casa ✦</button>
-          <button class="btn-primary" id="btn-quiz-enviar" style="display:none;" onclick="enviarFicha()">Enviar Solicitud ✦</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="ficha-paso-profesor" style="display:none;">
-      <div class="ficha-card">
-        <h3>Postulación a Profesorado</h3>
-        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Postulación a profesorado.</p>
-      </div>
-      <div class="ficha-actions">
-        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
-        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ ADMIN ══ -->
-<div class="page" id="page-admin">
-  <nav>
-    <span class="nav-brand" onclick="navigate('home')">Crónicas del Vacío</span>
-    <button class="nav-link" onclick="navigate('home')">Inicio</button>
-    <button class="nav-link" onclick="navigate('lore')">Lore</button>
-    <button class="nav-link" onclick="navigate('ficha')">Ficha de Personaje</button>
-    <button class="nav-link admin-link active" onclick="navigate('admin')">⚑ Admin</button>
-    <div class="nav-user">
-      <img class="nav-avatar" id="nav4-avatar" src="" alt="Avatar">
-      <span class="nav-username" id="nav4-username">—</span>
-      <button class="nav-logout" onclick="logout()">Salir</button>
-    </div>
-  </nav>
-  <div class="content-wrap">
-    <div class="page-header">
-      <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:#a855f7;text-transform:uppercase;display:block;margin-bottom:0.75rem;">Acceso Restringido</span>
-      <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
-    </div>
-
-    <!-- TABS -->
-    <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchTab('fichas', this)">Fichas</button>
-      <button class="admin-tab" onclick="switchTab('admins', this)">Gestión de Admins</button>
-    </div>
-
-    <!-- TAB: FICHAS -->
-    <div class="admin-tab-content active" id="tab-fichas">
-      <div class="admin-stats" id="admin-stats"></div>
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
-        <button class="filter-btn" onclick="setFilter('pendiente', this)">Pendientes</button>
-        <button class="filter-btn" onclick="setFilter('aceptada', this)">Aceptadas</button>
-        <button class="filter-btn" onclick="setFilter('denegada', this)">Denegadas</button>
-      </div>
-      <div class="ficha-card" style="padding:0;overflow:hidden;">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Personaje</th><th>Raza</th><th>Ocupación</th><th>Estado</th><th>Enviada</th><th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="admin-tbody"></tbody>
-        </table>
-        <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
-      </div>
-    </div>
-
-    <!-- TAB: ADMINS -->
-    <div class="admin-tab-content" id="tab-admins">
-      <div class="ficha-card">
-        <h3>Administradores del sistema</h3>
-        <p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1.5rem;font-style:italic;">
-          Los IDs marcados como <span style="color:#a855f7;font-family:'Cinzel',serif;font-size:0.75rem;">HARDCODED</span> están fijados en el código fuente y no pueden eliminarse.
-          Solo los dos administradores raíz pueden añadir o quitar admins adicionales.
-        </p>
-        <ul class="admin-id-list" id="admin-id-list"></ul>
-        <!-- Este bloque solo se muestra si eres super admin -->
-        <div id="add-admin-section" style="display:none;">
-          <div class="add-admin-row">
-            <input type="text" id="new-admin-id" placeholder="ID de Discord (ej: 123456789012345678)" maxlength="20">
-            <input type="text" id="new-admin-note" placeholder="Nota / nombre (opcional)" style="max-width:220px;">
-            <button class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.8rem;" onclick="addAdmin()">+ Añadir</button>
-          </div>
-        </div>
-        <div id="add-admin-locked" class="no-perms-notice" style="display:none;">
-          Solo los administradores raíz pueden gestionar los accesos de administrador.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL DETALLE ══ -->
-<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
-  <div class="modal" id="modal-ficha">
-    <div class="modal-header">
-      <h2 id="modal-title">Ficha de Personaje</h2>
-      <button class="modal-close" onclick="closeModal()">×</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-footer" id="modal-footer"></div>
-  </div>
-</div>
-
-<!-- Flash -->
-<div class="flash" id="flash"></div>
-
-<script src="script.js"></script>
 </body>
 </html>
