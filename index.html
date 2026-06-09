@@ -191,6 +191,40 @@
     .admin-table th:nth-child(3),.admin-table td:nth-child(3),
     .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
+
+  /* QUIZ DE CASA */
+  .quiz-wrap { display:flex; flex-direction:column; gap:1.5rem; }
+  .quiz-question { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.4rem 1.6rem; }
+  .quiz-question-text { font-family:'Cinzel',serif; font-size:0.88rem; font-weight:600; color:var(--gold-light); letter-spacing:0.04em; margin-bottom:1rem; line-height:1.5; }
+  .quiz-question-num { color:var(--gold-dim); margin-right:0.5rem; }
+  .quiz-options { display:flex; flex-direction:column; gap:0.5rem; }
+  .quiz-option { display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.9rem; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; cursor:pointer; transition:border-color 0.2s, background 0.2s; }
+  .quiz-option:hover { border-color:var(--gold-dim); background:rgba(201,168,76,0.05); }
+  .quiz-option.selected { border-color:var(--gold); background:rgba(201,168,76,0.1); }
+  .quiz-option input[type="radio"] { display:none; }
+  .quiz-option-letter { font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700; color:var(--gold); letter-spacing:0.1em; min-width:1.2rem; margin-top:0.1rem; }
+  .quiz-option-text { font-size:0.97rem; color:var(--text-main); line-height:1.5; }
+  .quiz-option.selected .quiz-option-letter { color:var(--gold-light); }
+  .quiz-option.selected .quiz-option-text { color:var(--gold-light); }
+
+  /* RESULTADO DE CASA */
+  .casa-result { display:none; }
+  .casa-result.visible { display:block; }
+  .casa-result-card { border-radius:2px; padding:2rem; text-align:center; margin-bottom:1rem; position:relative; overflow:hidden; }
+  .casa-result-card::before { content:''; position:absolute; inset:0; opacity:0.06; pointer-events:none; }
+  .casa-elenar { background:linear-gradient(135deg, rgba(34,85,34,0.25) 0%, rgba(20,50,20,0.4) 100%); border:1px solid rgba(80,180,80,0.35); }
+  .casa-caraxes { background:linear-gradient(135deg, rgba(100,20,20,0.3) 0%, rgba(60,10,10,0.4) 100%); border:1px solid rgba(200,60,60,0.35); }
+  .casa-varnethir { background:linear-gradient(135deg, rgba(30,50,100,0.3) 0%, rgba(20,30,70,0.4) 100%); border:1px solid rgba(80,120,220,0.35); }
+  .casa-result-icon { font-size:3rem; margin-bottom:0.75rem; display:block; }
+  .casa-result-name { font-family:'Cinzel',serif; font-size:1.6rem; font-weight:700; letter-spacing:0.1em; margin-bottom:0.3rem; }
+  .casa-elenar .casa-result-name { color:#7dd87d; }
+  .casa-caraxes .casa-result-name { color:#e07070; }
+  .casa-varnethir .casa-result-name { color:#7090e0; }
+  .casa-result-motto { font-style:italic; font-size:1rem; color:var(--text-dim); margin-bottom:1rem; }
+  .casa-result-desc { font-size:1rem; color:var(--text-main); line-height:1.7; max-width:520px; margin:0 auto; }
+  .quiz-progress { display:flex; gap:0.3rem; margin-bottom:1.5rem; }
+  .quiz-progress-dot { flex:1; height:3px; background:var(--border); border-radius:2px; transition:background 0.3s; }
+  .quiz-progress-dot.done { background:var(--gold); }
 </style>
 </head>
 <body>
@@ -336,14 +370,42 @@
     </div>
 
     <div id="ficha-paso-estudiante" style="display:none;">
-      <div class="ficha-card">
-        <h3>Solicitud de Estudiante</h3>
-        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Esto se hará luego.</p>
+
+      <!-- QUIZ (visible por defecto dentro del paso) -->
+      <div id="quiz-section">
+        <div class="ficha-card" style="margin-bottom:1.5rem;">
+          <h3>Selección de Casa</h3>
+          <p style="font-size:1rem;color:var(--text-dim);font-style:italic;line-height:1.6;">Responde con sinceridad. Tus elecciones revelarán a qué casa perteneces.</p>
+        </div>
+
+        <div class="quiz-progress" id="quiz-progress">
+          <div class="quiz-progress-dot" id="qdot-0"></div>
+          <div class="quiz-progress-dot" id="qdot-1"></div>
+          <div class="quiz-progress-dot" id="qdot-2"></div>
+          <div class="quiz-progress-dot" id="qdot-3"></div>
+          <div class="quiz-progress-dot" id="qdot-4"></div>
+          <div class="quiz-progress-dot" id="qdot-5"></div>
+        </div>
+
+        <div class="quiz-wrap" id="quiz-wrap"></div>
+
+        <!-- Resultado -->
+        <div class="casa-result" id="casa-result">
+          <div class="casa-result-card" id="casa-result-card">
+            <span class="casa-result-icon" id="casa-result-icon"></span>
+            <div class="casa-result-name" id="casa-result-name"></div>
+            <div class="casa-result-motto" id="casa-result-motto"></div>
+            <p class="casa-result-desc" id="casa-result-desc"></p>
+          </div>
+        </div>
+
+        <div class="ficha-actions">
+          <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+          <button class="btn-primary" id="btn-calcular-casa" onclick="calcularCasa()" style="display:none;">Ver mi Casa →</button>
+          <button class="btn-primary" id="btn-enviar-estudiante" onclick="enviarFicha()" style="display:none;">Enviar Solicitud</button>
+        </div>
       </div>
-      <div class="ficha-actions">
-        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
-        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
-      </div>
+
     </div>
 
     <div id="ficha-paso-profesor" style="display:none;">
@@ -825,6 +887,7 @@ function openModal(id) {
       <div class="modal-row"><span class="ml">Raza</span><span class="mv">${f.raza || '—'}</span></div>
       <div class="modal-row"><span class="ml">Estatus sangre</span><span class="mv">${f.sangre || '—'}</span></div>
       <div class="modal-row"><span class="ml">Ocupación</span><span class="mv" style="text-transform:capitalize;">${f.ocupacion || '—'}</span></div>
+      ${f.casa ? `<div class="modal-row"><span class="ml">Casa</span><span class="mv" style="font-family:'Cinzel',serif;font-size:0.85rem;color:var(--gold-light);">${f.casa}</span></div>` : ''}
     </div>
     ${f.fisica ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
     ${f.interp ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
@@ -998,6 +1061,210 @@ function showFlash(msg) {
   }
   showPage('login');
 })();
-</script>
+
+// ═══════════════════════════════════════
+// QUIZ DE CASA (Estudiante)
+// ═══════════════════════════════════════
+const QUIZ_PREGUNTAS = [
+  {
+    texto: 'Encuentras un antiguo libro lleno de secretos. ¿Qué haces?',
+    opciones: [
+      { letra:'A', texto:'Lo estudias con calma para comprender toda su sabiduría.' },
+      { letra:'B', texto:'Buscas rápidamente cómo aprovechar su conocimiento para obtener ventaja.' },
+      { letra:'C', texto:'Lo compartes con tus compañeros para investigarlo juntos.' }
+    ]
+  },
+  {
+    texto: 'Surge un conflicto entre dos amigos.',
+    opciones: [
+      { letra:'A', texto:'Escuchas ambas partes antes de intervenir.' },
+      { letra:'B', texto:'Tomas una decisión firme para resolverlo cuanto antes.' },
+      { letra:'C', texto:'Intentas mediar para que ambos lleguen a un acuerdo.' }
+    ]
+  },
+  {
+    texto: '¿Qué te motiva más?',
+    opciones: [
+      { letra:'A', texto:'Comprender el mundo y crecer como persona.' },
+      { letra:'B', texto:'Alcanzar grandes metas y superar desafíos.' },
+      { letra:'C', texto:'Proteger a las personas que te importan.' }
+    ]
+  },
+  {
+    texto: 'Ante una decisión importante, normalmente...',
+    opciones: [
+      { letra:'A', texto:'Reflexionas durante bastante tiempo antes de actuar.' },
+      { letra:'B', texto:'Analizas las opciones y eliges la más efectiva.' },
+      { letra:'C', texto:'Consideras cómo afectará a los demás.' }
+    ]
+  },
+  {
+    texto: '¿Cuál de estos lugares te atrae más?',
+    opciones: [
+      { letra:'A', texto:'Un bosque antiguo lleno de misterio.' },
+      { letra:'B', texto:'Una fortaleza poderosa desde la que dirigir estrategias.' },
+      { letra:'C', texto:'Una gran sala donde amigos y aliados se reúnen.' }
+    ]
+  },
+  {
+    texto: 'Si fueras líder de un grupo, ¿qué cualidad destacarías?',
+    opciones: [
+      { letra:'A', texto:'Sabiduría y comprensión.' },
+      { letra:'B', texto:'Determinación y ambición.' },
+      { letra:'C', texto:'Justicia y lealtad.' }
+    ]
+  }
+];
+
+const CASAS = {
+  A: {
+    clase: 'casa-elenar',
+    icono: '🦌',
+    nombre: 'ELENARË',
+    lema: '"En la naturaleza hallamos verdad"',
+    desc: 'Sabiduría, armonía y conexión con la naturaleza definen tu camino. Eres una persona reflexiva, paciente y empática, que busca comprender antes de actuar. Tu fortaleza reside en la observación y el conocimiento profundo.'
+  },
+  B: {
+    clase: 'casa-caraxes',
+    icono: '🦂',
+    nombre: 'CARAXES',
+    lema: '"La astucia forja el destino"',
+    desc: 'La determinación y la ambición impulsan tus pasos. Afrontas los desafíos de frente, piensas estratégicamente y rara vez te rindes. Tu capacidad para convertir obstáculos en oportunidades te distingue.'
+  },
+  C: {
+    clase: 'casa-varnethir',
+    icono: '🐺',
+    nombre: 'VARNËTHIR',
+    lema: '"Unidos en equilibrio, fuertes en lealtad"',
+    desc: 'La lealtad, el honor y la justicia son tus pilares. Valoras a tu comunidad, defiendes lo que consideras correcto y sabes trabajar en equipo para alcanzar objetivos comunes.'
+  }
+};
+
+// Respuestas seleccionadas (índice pregunta → letra)
+let quizRespuestas = {};
+
+function initQuiz() {
+  quizRespuestas = {};
+  // Ocultar resultado y botones condicionales
+  document.getElementById('casa-result').classList.remove('visible');
+  document.getElementById('btn-calcular-casa').style.display = 'none';
+  document.getElementById('btn-enviar-estudiante').style.display = 'none';
+  // Resetear barra de progreso
+  for (let i = 0; i < 6; i++) {
+    document.getElementById('qdot-' + i).classList.remove('done');
+  }
+  // Renderizar preguntas
+  const wrap = document.getElementById('quiz-wrap');
+  wrap.innerHTML = QUIZ_PREGUNTAS.map((q, qi) => `
+    <div class="quiz-question" id="qblock-${qi}">
+      <div class="quiz-question-text">
+        <span class="quiz-question-num">${qi + 1}.</span>${q.texto}
+      </div>
+      <div class="quiz-options">
+        ${q.opciones.map(op => `
+          <label class="quiz-option" id="qopt-${qi}-${op.letra}" onclick="seleccionarOpcion(${qi}, '${op.letra}', this)">
+            <input type="radio" name="q${qi}" value="${op.letra}">
+            <span class="quiz-option-letter">${op.letra}</span>
+            <span class="quiz-option-text">${op.texto}</span>
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function seleccionarOpcion(preguntaIdx, letra, el) {
+  // Deseleccionar todas las opciones de esta pregunta
+  QUIZ_PREGUNTAS[preguntaIdx].opciones.forEach(op => {
+    const opt = document.getElementById(`qopt-${preguntaIdx}-${op.letra}`);
+    if (opt) opt.classList.remove('selected');
+  });
+  // Seleccionar la elegida
+  el.classList.add('selected');
+  quizRespuestas[preguntaIdx] = letra;
+  // Marcar progreso
+  document.getElementById('qdot-' + preguntaIdx).classList.add('done');
+  // Mostrar botón calcular si todas respondidas
+  if (Object.keys(quizRespuestas).length === QUIZ_PREGUNTAS.length) {
+    document.getElementById('btn-calcular-casa').style.display = 'inline-flex';
+  }
+}
+
+function calcularCasa() {
+  // Contar votos
+  const conteo = { A: 0, B: 0, C: 0 };
+  Object.values(quizRespuestas).forEach(l => { if (conteo[l] !== undefined) conteo[l]++; });
+  // Casa ganadora
+  const ganadora = Object.entries(conteo).sort((a,b) => b[1]-a[1])[0][0];
+  const casa = CASAS[ganadora];
+
+  // Guardar en la ficha
+  window._casaSeleccionada = casa.nombre;
+
+  // Mostrar resultado
+  const card = document.getElementById('casa-result-card');
+  card.className = 'casa-result-card ' + casa.clase;
+  document.getElementById('casa-result-icon').textContent = casa.icono;
+  document.getElementById('casa-result-name').textContent = casa.nombre;
+  document.getElementById('casa-result-motto').textContent = casa.lema;
+  document.getElementById('casa-result-desc').textContent = casa.desc;
+  document.getElementById('casa-result').classList.add('visible');
+
+  // Scroll suave al resultado
+  document.getElementById('casa-result').scrollIntoView({ behavior:'smooth', block:'center' });
+
+  // Ocultar calcular, mostrar enviar
+  document.getElementById('btn-calcular-casa').style.display = 'none';
+  document.getElementById('btn-enviar-estudiante').style.display = 'inline-flex';
+}
+
+// Sobrescribir siguientePaso para inicializar el quiz al ir a estudiante
+const _siguientePasoOriginal = siguientePaso;
+function siguientePaso() {
+  const ocupacion = document.getElementById('char-ocupacion').value;
+  if (!ocupacion) { showFlash('Elige una ocupación primero'); return; }
+  document.getElementById('ficha-paso1').style.display = 'none';
+  if (ocupacion === 'estudiante') {
+    initQuiz();
+    document.getElementById('ficha-paso-estudiante').style.display = 'block';
+  } else if (ocupacion === 'profesor') {
+    document.getElementById('ficha-paso-profesor').style.display = 'block';
+  } else {
+    enviarFicha();
+  }
+}
+
+// Parchar enviarFicha para incluir la casa elegida
+const _enviarFichaOriginal = enviarFicha;
+function enviarFicha() {
+  const data = {
+    id: 'ficha_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    discord_id: document.getElementById('char-discord-id').value || currentUser?.id || '',
+    discord_username: currentUser?.username || '',
+    steam_id: document.getElementById('char-steam-id').value,
+    nombre: document.getElementById('char-nombre').value,
+    apellido: document.getElementById('char-apellido').value,
+    fnac: document.getElementById('char-fnac').value,
+    nac: document.getElementById('char-nac').value,
+    sangre: document.getElementById('char-sangre').value,
+    ocupacion: document.getElementById('char-ocupacion').value,
+    raza: document.getElementById('char-raza').value,
+    fisica: document.getElementById('char-fisica').value,
+    interp: document.getElementById('char-interp').value,
+    historia: document.getElementById('char-historia').value,
+    casa: window._casaSeleccionada || '',
+    estado: 'pendiente',
+    fecha_envio: new Date().toISOString(),
+    historial: [{ accion: 'Enviada', por: currentUser?.username || 'Jugador', fecha: new Date().toISOString(), mensaje: '' }]
+  };
+  if (!data.nombre || !data.ocupacion) { showFlash('Completa al menos nombre y ocupación'); return; }
+  const fichas = getAllFichas();
+  fichas.push(data);
+  saveAllFichas(fichas);
+  localStorage.setItem('ficha_personaje', JSON.stringify(data));
+  window._casaSeleccionada = null;
+  showFlash('¡Ficha enviada! Los administradores la revisarán pronto.');
+  volverFicha();
+}</script>
 </body>
 </html>
