@@ -411,11 +411,24 @@
     <div id="ficha-paso-profesor" style="display:none;">
       <div class="ficha-card">
         <h3>Postulación a Profesorado</h3>
-        <p style="font-size:1.1rem;font-style:italic;color:var(--text-dim);text-align:center;padding:2rem 0;">Postulación a profesorado.</p>
+        <p style="font-size:1rem;color:var(--text-dim);font-style:italic;line-height:1.6;margin-bottom:1.5rem;">Completa los siguientes campos para presentar tu candidatura al cuerpo docente.</p>
+
+        <div class="form-field">
+          <label>Nombre de la Asignatura</label>
+          <input type="text" id="prof-asignatura" placeholder="Ej: Defensa Contra las Artes Oscuras">
+        </div>
+        <div class="form-field">
+          <label>¿Por qué quieres dar esta asignatura?</label>
+          <textarea id="prof-motivo" placeholder="Explica tu motivación, experiencia o vínculo con la materia…" style="min-height:130px;"></textarea>
+        </div>
+        <div class="form-field" style="margin-bottom:0;">
+          <label>Postulación <span style="font-size:0.75rem;font-style:italic;color:var(--text-dim);text-transform:none;letter-spacing:0;">(enlace al documento o formulario)</span></label>
+          <input type="url" id="prof-enlace" placeholder="https://docs.google.com/…">
+        </div>
       </div>
       <div class="ficha-actions">
         <button class="btn-outline" onclick="volverFicha()">← Volver</button>
-        <button class="btn-primary" onclick="enviarFicha()">Enviar Solicitud</button>
+        <button class="btn-primary" onclick="enviarFichaProfesor()">Enviar Solicitud</button>
       </div>
     </div>
   </div>
@@ -892,6 +905,12 @@ function openModal(id) {
     ${f.fisica ? `<div class="modal-section"><h4>Descripción Física</h4><p class="modal-text">${f.fisica}</p></div>` : ''}
     ${f.interp ? `<div class="modal-section"><h4>Interpretación</h4><p class="modal-text">${f.interp}</p></div>` : ''}
     ${f.historia ? `<div class="modal-section"><h4>Historia</h4><p class="modal-text">${f.historia}</p></div>` : ''}
+    ${f.prof_asignatura ? `<div class="modal-section">
+      <h4>Postulación a Profesorado</h4>
+      <div class="modal-row"><span class="ml">Asignatura</span><span class="mv" style="font-family:'Cinzel',serif;font-size:0.85rem;color:var(--gold-light);">${f.prof_asignatura}</span></div>
+      <div class="modal-row" style="flex-direction:column;gap:0.4rem;"><span class="ml">Motivación</span><p class="modal-text" style="margin-top:0.4rem;">${f.prof_motivo || '—'}</p></div>
+      ${f.prof_enlace ? `<div class="modal-row"><span class="ml">Enlace</span><span class="mv"><a href="${f.prof_enlace}" target="_blank" style="color:var(--gold);text-decoration:underline;font-size:0.88rem;word-break:break-all;">${f.prof_enlace}</a></span></div>` : ''}
+    </div>` : ''}
     <div class="modal-section">
       <h4>Historial de Acciones</h4>
       ${historialHTML || '<p style="color:var(--text-dim);font-style:italic;">Sin historial.</p>'}
@@ -1264,6 +1283,56 @@ function enviarFicha() {
   localStorage.setItem('ficha_personaje', JSON.stringify(data));
   window._casaSeleccionada = null;
   showFlash('¡Ficha enviada! Los administradores la revisarán pronto.');
+  volverFicha();
+}
+
+// ═══════════════════════════════════════
+// ENVÍO FICHA PROFESOR
+// ═══════════════════════════════════════
+function enviarFichaProfesor() {
+  const asignatura = document.getElementById('prof-asignatura').value.trim();
+  const motivo = document.getElementById('prof-motivo').value.trim();
+  const enlace = document.getElementById('prof-enlace').value.trim();
+
+  if (!asignatura) { showFlash('Indica el nombre de la asignatura'); return; }
+  if (!motivo) { showFlash('Explica por qué quieres dar esta asignatura'); return; }
+
+  const base = {
+    id: 'ficha_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    discord_id: document.getElementById('char-discord-id').value || currentUser?.id || '',
+    discord_username: currentUser?.username || '',
+    steam_id: document.getElementById('char-steam-id').value,
+    nombre: document.getElementById('char-nombre').value,
+    apellido: document.getElementById('char-apellido').value,
+    fnac: document.getElementById('char-fnac').value,
+    nac: document.getElementById('char-nac').value,
+    sangre: document.getElementById('char-sangre').value,
+    ocupacion: 'profesor',
+    raza: document.getElementById('char-raza').value,
+    fisica: document.getElementById('char-fisica').value,
+    interp: document.getElementById('char-interp').value,
+    historia: document.getElementById('char-historia').value,
+    prof_asignatura: asignatura,
+    prof_motivo: motivo,
+    prof_enlace: enlace,
+    estado: 'pendiente',
+    fecha_envio: new Date().toISOString(),
+    historial: [{ accion: 'Enviada', por: currentUser?.username || 'Jugador', fecha: new Date().toISOString(), mensaje: '' }]
+  };
+
+  if (!base.nombre || !base.ocupacion) { showFlash('Completa al menos nombre y ocupación'); return; }
+
+  const fichas = getAllFichas();
+  fichas.push(base);
+  saveAllFichas(fichas);
+  localStorage.setItem('ficha_personaje', JSON.stringify(base));
+
+  // Limpiar campos del paso profesor
+  document.getElementById('prof-asignatura').value = '';
+  document.getElementById('prof-motivo').value = '';
+  document.getElementById('prof-enlace').value = '';
+
+  showFlash('¡Postulación enviada! Los administradores la revisarán pronto.');
   volverFicha();
 }</script>
 </body>
