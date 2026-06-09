@@ -431,6 +431,19 @@
         <button class="btn-primary" onclick="enviarFichaProfesor()">Enviar Solicitud</button>
       </div>
     </div>
+
+    <div id="ficha-paso-adulto" style="display:none;">
+      <div class="ficha-card" style="text-align:center;padding:2.5rem 2rem;">
+        <div style="font-size:2.8rem;margin-bottom:1rem;">⚠️</div>
+        <h3 style="font-size:1rem;letter-spacing:0.2em;margin-bottom:1.2rem;">Confirmación</h3>
+        <p style="font-size:1.2rem;color:var(--text-main);line-height:1.8;max-width:480px;margin:0 auto 0.75rem;">¿Estás seguro de que quieres enviar tu solicitud como <span style="font-family:'Cinzel',serif;color:var(--gold-light);">Adulto</span>?</p>
+        <p style="font-size:0.95rem;color:var(--text-dim);font-style:italic;max-width:420px;margin:0 auto;">Una vez enviada, los administradores revisarán tu ficha antes de aprobarla.</p>
+      </div>
+      <div class="ficha-actions">
+        <button class="btn-outline" onclick="volverFicha()">← Volver</button>
+        <button class="btn-primary" onclick="enviarFicha()">Sí, enviar solicitud</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -985,6 +998,7 @@ function siguientePaso() {
 function volverFicha() {
   document.getElementById('ficha-paso-estudiante').style.display = 'none';
   document.getElementById('ficha-paso-profesor').style.display = 'none';
+  document.getElementById('ficha-paso-adulto').style.display = 'none';
   document.getElementById('ficha-paso1').style.display = 'block';
 }
 
@@ -1248,6 +1262,8 @@ function siguientePaso() {
     document.getElementById('ficha-paso-estudiante').style.display = 'block';
   } else if (ocupacion === 'profesor') {
     document.getElementById('ficha-paso-profesor').style.display = 'block';
+  } else if (ocupacion === 'adulto') {
+    document.getElementById('ficha-paso-adulto').style.display = 'block';
   } else {
     enviarFicha();
   }
