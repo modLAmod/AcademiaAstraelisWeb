@@ -31,7 +31,7 @@
   .page.active { display:flex; flex-direction:column; }
   .ornament { text-align:center; color:var(--gold-dim); font-size:1.2rem; letter-spacing:0.5rem; margin:1.5rem 0; opacity:0.6; }
   .ornament::before,.ornament::after { content:'──────'; color:var(--gold-dim); margin:0 0.5rem; }
-
+ 
   /* LOGIN */
   #page-login { align-items:center; justify-content:center; text-align:center; padding:2rem; }
   .login-seal { width:120px; height:120px; margin:0 auto 2rem; }
@@ -44,7 +44,7 @@
   .btn-discord { display:inline-flex; align-items:center; gap:0.75rem; background:#5865F2; color:#fff; font-family:'Cinzel',serif; font-size:0.95rem; font-weight:600; letter-spacing:0.08em; padding:0.9rem 2rem; border:none; border-radius:2px; cursor:pointer; text-decoration:none; transition:background 0.2s,transform 0.15s; width:100%; justify-content:center; }
   .btn-discord:hover { background:#4752c4; transform:translateY(-1px); }
   .login-footer { margin-top:1.5rem; font-size:0.85rem; color:var(--text-dim); font-style:italic; }
-
+ 
   /* NAV */
   nav { background:rgba(8,8,16,0.9); border-bottom:1px solid var(--border); backdrop-filter:blur(8px); padding:0 2rem; display:flex; align-items:center; height:60px; position:sticky; top:0; z-index:100; }
   .nav-brand { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:700; color:var(--gold); letter-spacing:0.08em; margin-right:auto; cursor:pointer; }
@@ -61,13 +61,13 @@
   .nav-username { font-family:'Cinzel',serif; font-size:0.78rem; color:var(--text-dim); letter-spacing:0.05em; }
   .nav-logout { font-size:0.75rem; color:var(--text-dim); cursor:pointer; background:none; border:none; font-family:inherit; padding:0.25rem 0.5rem; transition:color 0.2s; }
   .nav-logout:hover { color:var(--red-light); }
-
+ 
   /* BUTTONS */
   .btn-primary { font-family:'Cinzel',serif; font-size:0.85rem; font-weight:600; letter-spacing:0.12em; color:var(--bg-deep); background:var(--gold); border:none; padding:0.85rem 2.2rem; cursor:pointer; border-radius:1px; transition:background 0.2s,transform 0.15s; text-transform:uppercase; }
   .btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
   .btn-outline { font-family:'Cinzel',serif; font-size:0.85rem; font-weight:600; letter-spacing:0.12em; color:var(--gold); background:transparent; border:1px solid var(--border-bright); padding:0.85rem 2.2rem; cursor:pointer; border-radius:1px; transition:border-color 0.2s,color 0.2s,transform 0.15s; text-transform:uppercase; }
   .btn-outline:hover { border-color:var(--gold); color:var(--gold-light); transform:translateY(-1px); }
-
+ 
   /* HERO */
   .hero { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:4rem 2rem; }
   .hero-eyebrow { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:1.5rem; }
@@ -77,7 +77,7 @@
   .page-header { margin-bottom:3rem; }
   .page-header .eyebrow { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; display:block; margin-bottom:0.75rem; }
   .page-header h1 { font-family:'Cinzel',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--gold-light); letter-spacing:0.06em; }
-
+ 
   /* FICHA */
   .ficha-card { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.5rem; }
   .ficha-card h3 { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.25em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:1.2rem; border-bottom:1px solid var(--border); padding-bottom:0.6rem; }
@@ -88,10 +88,10 @@
   .form-field textarea { resize:vertical; min-height:80px; }
   .form-field select option { background:var(--bg-card); }
   .ficha-actions { margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:flex-end; }
-
+ 
   /* CONTENT WRAP */
   .content-wrap { max-width:1100px; margin:0 auto; padding:3rem 2rem; flex:1; }
-
+ 
   /* ADMIN STATS */
   .admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem; }
   .admin-stat { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.25rem; text-align:center; display:flex; flex-direction:column; gap:0.3rem; }
@@ -100,13 +100,13 @@
   .admin-stat.pending .s-num { color:#f5a623; }
   .admin-stat.accepted .s-num { color:var(--green-light); }
   .admin-stat.denied .s-num { color:var(--red-light); }
-
+ 
   /* FILTER BAR */
   .filter-bar { display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; }
   .filter-btn { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.5rem 1.25rem; background:var(--bg-card); border:1px solid var(--border); color:var(--text-dim); cursor:pointer; border-radius:1px; transition:all 0.2s; }
   .filter-btn:hover { color:var(--gold-light); border-color:var(--border-bright); }
   .filter-btn.active { color:var(--gold-light); border-color:var(--gold); background:rgba(201,168,76,0.08); }
-
+ 
   /* ADMIN TABLE */
   .admin-table { width:100%; border-collapse:collapse; }
   .admin-table th { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; padding:0.85rem 1rem; text-align:left; border-bottom:1px solid var(--border); background:var(--bg-surface); }
@@ -131,7 +131,7 @@
   .action-btn-revert:hover { background:rgba(138,128,112,0.08); border-color:rgba(138,128,112,0.6); color:var(--text-main); }
   .action-btn-delete { color:var(--red-light); border-color:rgba(196,48,48,0.25); }
   .action-btn-delete:hover { background:rgba(196,48,48,0.08); border-color:rgba(196,48,48,0.5); }
-
+ 
   /* MODAL */
   .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(8,8,16,0.85); z-index:500; align-items:center; justify-content:center; padding:2rem; }
   .modal-backdrop.open { display:flex; }
@@ -148,23 +148,23 @@
   .modal-row .mv { color:var(--text-main); }
   .modal-text { font-size:1rem; line-height:1.7; color:var(--text-main); font-style:italic; border-left:2px solid var(--gold-dim); padding-left:1rem; }
   .modal-footer { padding:1rem 2rem; border-top:1px solid var(--border); display:flex; gap:0.75rem; justify-content:flex-end; background:var(--bg-card); position:sticky; bottom:0; }
-
+ 
   /* ADMIN MESSAGE */
   .admin-msg-wrap { margin-top:1rem; }
   .admin-msg-wrap label { font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; display:block; margin-bottom:0.4rem; }
   .admin-msg-wrap textarea { width:100%; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; resize:vertical; min-height:70px; }
-
+ 
   /* HISTORIAL */
   .history-entry { padding:0.6rem 0; border-bottom:1px solid rgba(201,168,76,0.06); font-size:0.88rem; }
   .history-entry:last-child { border-bottom:none; }
   .history-entry .h-action { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.08em; }
   .history-entry .h-by { color:var(--text-dim); font-size:0.8rem; }
   .history-entry .h-msg { font-style:italic; color:var(--text-dim); margin-top:0.2rem; }
-
+ 
   /* FLASH */
   .flash { position:fixed; top:1rem; right:1rem; background:var(--bg-card); border:1px solid var(--border-bright); border-left:3px solid var(--gold); padding:0.75rem 1.25rem; font-family:'Cinzel',serif; font-size:0.8rem; color:var(--gold-light); letter-spacing:0.05em; z-index:999; border-radius:1px; opacity:0; transform:translateY(-8px); transition:opacity 0.3s,transform 0.3s; pointer-events:none; }
   .flash.show { opacity:1; transform:translateY(0); }
-
+ 
   /* GESTIÓN DE ADMINS */
   .admin-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:2rem; }
   .admin-tab { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.75rem 1.5rem; background:none; border:none; color:var(--text-dim); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:all 0.2s; }
@@ -182,16 +182,16 @@
   .add-admin-row { display:flex; gap:0.75rem; margin-top:0.5rem; flex-wrap:wrap; }
   .add-admin-row input { flex:1; min-width:160px; background:var(--bg-surface); border:1px solid var(--border); border-radius:1px; padding:0.6rem 0.85rem; font-family:'Crimson Text',serif; font-size:1rem; color:var(--text-main); outline:none; transition:border-color 0.2s; }
   .add-admin-row input:focus { border-color:var(--gold-dim); }
-
+ 
   /* SUPERADMIN NOTICE */
   .superadmin-notice { display:flex; align-items:center; gap:0.6rem; background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-radius:2px; padding:0.75rem 1rem; margin-bottom:1.5rem; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.08em; color:#c084fc; }
-
+ 
   @media(max-width:700px) {
     .admin-stats { grid-template-columns:1fr 1fr; }
     .admin-table th:nth-child(3),.admin-table td:nth-child(3),
     .admin-table th:nth-child(4),.admin-table td:nth-child(4) { display:none; }
   }
-
+ 
   /* QUIZ DE CASA */
   .quiz-wrap { display:flex; flex-direction:column; gap:1.5rem; }
   .quiz-question { background:var(--bg-card); border:1px solid var(--border); border-radius:2px; padding:1.4rem 1.6rem; }
@@ -206,7 +206,7 @@
   .quiz-option-text { font-size:0.97rem; color:var(--text-main); line-height:1.5; }
   .quiz-option.selected .quiz-option-letter { color:var(--gold-light); }
   .quiz-option.selected .quiz-option-text { color:var(--gold-light); }
-
+ 
   /* RESULTADO DE CASA */
   .casa-result { display:none; }
   .casa-result.visible { display:block; }
@@ -225,7 +225,7 @@
   .quiz-progress { display:flex; gap:0.3rem; margin-bottom:1.5rem; }
   .quiz-progress-dot { flex:1; height:3px; background:var(--border); border-radius:2px; transition:background 0.3s; }
   .quiz-progress-dot.done { background:var(--gold); }
-
+ 
   /* ESTADO FICHA ENVIADA */
   #ficha-estado-wrap { display:none; }
   .ficha-estado-card { background:var(--bg-card); border-radius:2px; padding:2.5rem 2rem; text-align:center; margin-bottom:1.5rem; }
@@ -246,7 +246,7 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- ══ LOGIN ══ -->
 <div class="page active" id="page-login">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;">
@@ -270,7 +270,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ HOME ══ -->
 <div class="page" id="page-home">
   <nav id="nav-home-bar">
@@ -295,7 +295,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ LORE ══ -->
 <div class="page" id="page-lore">
   <nav>
@@ -322,7 +322,7 @@
     <div class="ornament">✦</div>
   </div>
 </div>
-
+ 
 <!-- ══ FICHA ══ -->
 <div class="page" id="page-ficha">
   <nav>
@@ -342,7 +342,7 @@
       <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:0.75rem;">Tu Aventurero</span>
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:var(--gold-light);letter-spacing:0.06em;">Ficha de Personaje</h1>
     </div>
-
+ 
     <!-- ESTADO FICHA: se muestra cuando ya hay una ficha enviada -->
     <div id="ficha-estado-wrap">
       <div class="ficha-estado-card" id="ficha-estado-card">
@@ -360,7 +360,7 @@
         <button class="btn-primary" id="btn-reeditar-ficha" onclick="reeditarFicha()" style="display:none;">✏️ Editar y reenviar</button>
       </div>
     </div>
-
+ 
     <div id="ficha-paso1">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
         <div class="ficha-card" style="grid-column:1/-1;">
@@ -404,16 +404,16 @@
         <button class="btn-primary" onclick="siguientePaso()">Siguiente →</button>
       </div>
     </div>
-
+ 
     <div id="ficha-paso-estudiante" style="display:none;">
-
+ 
       <!-- QUIZ (visible por defecto dentro del paso) -->
       <div id="quiz-section">
         <div class="ficha-card" style="margin-bottom:1.5rem;">
           <h3>Selección de Casa</h3>
           <p style="font-size:1rem;color:var(--text-dim);font-style:italic;line-height:1.6;">Responde con sinceridad. Tus elecciones revelarán a qué casa perteneces.</p>
         </div>
-
+ 
         <div class="quiz-progress" id="quiz-progress">
           <div class="quiz-progress-dot" id="qdot-0"></div>
           <div class="quiz-progress-dot" id="qdot-1"></div>
@@ -422,9 +422,9 @@
           <div class="quiz-progress-dot" id="qdot-4"></div>
           <div class="quiz-progress-dot" id="qdot-5"></div>
         </div>
-
+ 
         <div class="quiz-wrap" id="quiz-wrap"></div>
-
+ 
         <!-- Resultado -->
         <div class="casa-result" id="casa-result">
           <div class="casa-result-card" id="casa-result-card">
@@ -434,21 +434,21 @@
             <p class="casa-result-desc" id="casa-result-desc"></p>
           </div>
         </div>
-
+ 
         <div class="ficha-actions">
           <button class="btn-outline" onclick="volverFicha()">← Volver</button>
           <button class="btn-primary" id="btn-calcular-casa" onclick="calcularCasa()" style="display:none;">Ver mi Casa →</button>
           <button class="btn-primary" id="btn-enviar-estudiante" onclick="enviarFicha()" style="display:none;">Enviar Solicitud</button>
         </div>
       </div>
-
+ 
     </div>
-
+ 
     <div id="ficha-paso-profesor" style="display:none;">
       <div class="ficha-card">
         <h3>Postulación a Profesorado</h3>
         <p style="font-size:1rem;color:var(--text-dim);font-style:italic;line-height:1.6;margin-bottom:1.5rem;">Completa los siguientes campos para presentar tu candidatura al cuerpo docente.</p>
-
+ 
         <div class="form-field">
           <label>Nombre de la Asignatura</label>
           <input type="text" id="prof-asignatura" placeholder="Ej: Defensa Contra las Artes Oscuras">
@@ -467,7 +467,7 @@
         <button class="btn-primary" onclick="enviarFichaProfesor()">Enviar Solicitud</button>
       </div>
     </div>
-
+ 
     <div id="ficha-paso-adulto" style="display:none;">
       <div class="ficha-card" style="text-align:center;padding:2.5rem 2rem;">
         <div style="font-size:2.8rem;margin-bottom:1rem;">⚠️</div>
@@ -482,7 +482,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ ADMIN ══ -->
 <div class="page" id="page-admin">
   <nav>
@@ -502,13 +502,13 @@
       <span class="eyebrow" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:#a855f7;text-transform:uppercase;display:block;margin-bottom:0.75rem;">Acceso Restringido</span>
       <h1 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;color:#c084fc;letter-spacing:0.06em;">Panel de Administración</h1>
     </div>
-
+ 
     <!-- TABS — la pestaña Admins solo se muestra a superadmins -->
     <div class="admin-tabs" id="admin-tabs-bar">
       <button class="admin-tab active" onclick="switchTab('fichas', this)">Fichas</button>
       <!-- El botón de Gestión de Admins se inserta dinámicamente si es superadmin -->
     </div>
-
+ 
     <!-- TAB: FICHAS -->
     <div class="admin-tab-content active" id="tab-fichas">
       <div class="admin-stats" id="admin-stats"></div>
@@ -530,7 +530,7 @@
         <div id="admin-empty" style="display:none;text-align:center;padding:3rem;font-style:italic;color:var(--text-dim);">No hay fichas en esta categoría.</div>
       </div>
     </div>
-
+ 
     <!-- TAB: ADMINS — solo visible para superadmins -->
     <div class="admin-tab-content" id="tab-admins">
       <div class="ficha-card">
@@ -548,7 +548,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ MODAL DETALLE ══ -->
 <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
   <div class="modal" id="modal-ficha">
@@ -560,10 +560,10 @@
     <div class="modal-footer" id="modal-footer"></div>
   </div>
 </div>
-
+ 
 <!-- Flash -->
 <div class="flash" id="flash"></div>
-
+ 
 <script>
 // ═══════════════════════════════════════
 // IDs HARDCODED — únicos con permisos de superadmin
@@ -573,33 +573,33 @@ const HARDCODED_ADMIN_IDS = [
   '966402052962017321',
   '1129889778691751968'
 ];
-
+ 
 const DISCORD_CONFIG = {
   client_id: '1506739511969714237',
   redirect_uri: encodeURIComponent(window.location.href.split('?')[0].split('#')[0]),
   scope: 'identify'
 };
-
+ 
 let currentUser = null;
-
+ 
 // ═══════════════════════════════════════
 // NIVELES DE ACCESO
 // ═══════════════════════════════════════
-
+ 
 /** Superadmin: puede gestionar la lista de admins. Solo las dos IDs hardcoded. */
 function isSuperAdmin() {
   return currentUser && HARDCODED_ADMIN_IDS.includes(currentUser.id);
 }
-
+ 
 /** Admin normal: puede revisar fichas. Incluye hardcoded + los añadidos dinámicamente. */
 function isAdmin() {
   return currentUser && getAllAdminIds().includes(currentUser.id);
 }
-
+ 
 function getAllAdminIds() {
   return [...HARDCODED_ADMIN_IDS, ...getExtraAdmins().map(a => a.id)];
 }
-
+ 
 // ═══════════════════════════════════════
 // DISCORD OAUTH
 // ═══════════════════════════════════════
@@ -608,7 +608,7 @@ document.getElementById('btn-discord-login').addEventListener('click', function(
   const url = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CONFIG.client_id}&redirect_uri=${DISCORD_CONFIG.redirect_uri}&response_type=token&scope=${DISCORD_CONFIG.scope}`;
   window.location.href = url;
 });
-
+ 
 async function handleDiscordCallback() {
   const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
@@ -631,7 +631,7 @@ async function handleDiscordCallback() {
     return false;
   }
 }
-
+ 
 // ═══════════════════════════════════════
 // FICHAS (almacenadas en localStorage)
 // ═══════════════════════════════════════
@@ -644,7 +644,7 @@ function saveAllFichas(fichas) {
 function getFichaById(id) {
   return getAllFichas().find(f => f.id === id);
 }
-
+ 
 // ═══════════════════════════════════════
 // GESTIÓN DE ADMINS EXTRA
 // ═══════════════════════════════════════
@@ -654,7 +654,7 @@ function getExtraAdmins() {
 function saveExtraAdmins(list) {
   localStorage.setItem('extra_admins', JSON.stringify(list));
 }
-
+ 
 function addAdmin() {
   // Solo superadmins pueden añadir
   if (!isSuperAdmin()) {
@@ -665,11 +665,11 @@ function addAdmin() {
   const noteEl = document.getElementById('new-admin-note');
   const id = idEl.value.trim();
   const note = noteEl.value.trim();
-
+ 
   if (!id) { showFlash('Introduce un ID de Discord'); return; }
   if (!/^\d{17,20}$/.test(id)) { showFlash('El ID debe ser numérico (17-20 dígitos)'); return; }
   if (getAllAdminIds().includes(id)) { showFlash('Ese ID ya es admin'); return; }
-
+ 
   const extras = getExtraAdmins();
   extras.push({ id, note: note || '', addedBy: currentUser.username, addedAt: new Date().toISOString() });
   saveExtraAdmins(extras);
@@ -677,7 +677,7 @@ function addAdmin() {
   showFlash('Admin añadido correctamente');
   renderAdminList();
 }
-
+ 
 function removeAdmin(id) {
   // Solo superadmins pueden eliminar
   if (!isSuperAdmin()) {
@@ -690,12 +690,12 @@ function removeAdmin(id) {
   showFlash('Admin eliminado');
   renderAdminList();
 }
-
+ 
 function renderAdminList() {
   const extras = getExtraAdmins();
   const ul = document.getElementById('admin-id-list');
   if (!ul) return;
-
+ 
   const hardcodedRows = HARDCODED_ADMIN_IDS.map(id => `
     <li class="admin-id-row">
       <div class="admin-id-info">
@@ -703,7 +703,7 @@ function renderAdminList() {
         <span class="admin-id-hardcoded">⚑ Fundador · Superadmin · No eliminable</span>
       </div>
     </li>`).join('');
-
+ 
   const extraRows = extras.length === 0 ? '' : extras.map(a => {
     const fecha = a.addedAt ? new Date(a.addedAt).toLocaleDateString('es-ES') : '—';
     // El botón quitar solo aparece si el usuario actual es superadmin
@@ -718,10 +718,10 @@ function renderAdminList() {
       ${btnQuitar}
     </li>`;
   }).join('');
-
+ 
   ul.innerHTML = hardcodedRows + (extraRows || `<li class="admin-id-row"><span style="color:var(--text-dim);font-style:italic;font-size:0.9rem;">No hay admins adicionales.</span></li>`);
 }
-
+ 
 // ═══════════════════════════════════════
 // NAVEGACIÓN
 // ═══════════════════════════════════════
@@ -729,7 +729,7 @@ function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
 }
-
+ 
 function navigate(name) {
   if (name === 'admin' && !isAdmin()) { showFlash('Acceso denegado'); return; }
   updateNavAvatars();
@@ -737,7 +737,7 @@ function navigate(name) {
   if (name === 'admin') renderAdminPanel();
   if (name === 'ficha') checkFichaEstado();
 }
-
+ 
 function updateNavAvatars() {
   if (!currentUser) return;
   [['nav-avatar','nav-username'], ['nav2-avatar','nav2-username'], ['nav3-avatar','nav3-username'], ['nav4-avatar','nav4-username']].forEach(([avId, unId]) => {
@@ -750,35 +750,35 @@ function updateNavAvatars() {
     if (el) el.style.display = isAdmin() ? 'flex' : 'none';
   });
 }
-
+ 
 function logout() {
   localStorage.removeItem('discord_user');
   currentUser = null;
   showPage('login');
 }
-
+ 
 // ═══════════════════════════════════════
 // PANEL ADMIN
 // ═══════════════════════════════════════
 let adminFilter = 'all';
-
+ 
 function setFilter(f, btn) {
   adminFilter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderAdminTable();
 }
-
+ 
 function renderAdminPanel() {
   renderAdminStats();
   renderAdminTable();
   injectAdminTab(); // Inyecta la pestaña de Admins solo si es superadmin
 }
-
+ 
 function injectAdminTab() {
   const bar = document.getElementById('admin-tabs-bar');
   const existing = document.getElementById('tab-btn-admins');
-
+ 
   if (isSuperAdmin()) {
     if (!existing) {
       const btn = document.createElement('button');
@@ -795,7 +795,7 @@ function injectAdminTab() {
     switchTabSilent('fichas');
   }
 }
-
+ 
 function renderAdminStats() {
   const fichas = getAllFichas();
   const pending = fichas.filter(f => f.estado === 'pendiente').length;
@@ -808,25 +808,25 @@ function renderAdminStats() {
     <div class="admin-stat denied"><span class="s-num">${denied}</span><span class="s-label">Denegadas</span></div>
   `;
 }
-
+ 
 function renderAdminTable() {
   const fichas = getAllFichas();
   const filtered = adminFilter === 'all' ? fichas : fichas.filter(f => f.estado === adminFilter);
   const tbody = document.getElementById('admin-tbody');
   const empty = document.getElementById('admin-empty');
-
+ 
   if (filtered.length === 0) {
     tbody.innerHTML = '';
     empty.style.display = 'block';
     return;
   }
   empty.style.display = 'none';
-
+ 
   tbody.innerHTML = filtered.map(f => {
     const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
     const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
     const fecha = f.fecha_envio ? new Date(f.fecha_envio).toLocaleDateString('es-ES') : '—';
-
+ 
     let actions = `<button class="action-btn action-btn-view" onclick="openModal('${f.id}')">Ver ficha</button>`;
     if (f.estado === 'pendiente') {
       actions = `<button class="action-btn action-btn-accept" onclick="accionFicha('${f.id}','aceptar')">✓ Aceptar</button>
@@ -836,7 +836,7 @@ function renderAdminTable() {
       actions += ` <button class="action-btn action-btn-revert" onclick="accionFicha('${f.id}','revertir')">↩ Revertir</button>
                    <button class="action-btn action-btn-delete" onclick="accionFicha('${f.id}','eliminar')">🗑 Eliminar</button>`;
     }
-
+ 
     return `<tr>
       <td><span class="char-name">${f.nombre || '—'} ${f.apellido || ''}</span><span class="char-discord">@${f.discord_username || f.discord_id || '—'}</span></td>
       <td>${f.raza || '—'}</td>
@@ -847,12 +847,12 @@ function renderAdminTable() {
     </tr>`;
   }).join('');
 }
-
+ 
 function accionFicha(id, accion) {
   const fichas = getAllFichas();
   const idx = fichas.findIndex(f => f.id === id);
   if (idx === -1) return;
-
+ 
   if (accion === 'eliminar') {
     if (!confirm('¿Eliminar esta ficha permanentemente? Esta acción no se puede deshacer.')) return;
     fichas.splice(idx, 1);
@@ -862,16 +862,16 @@ function accionFicha(id, accion) {
     renderAdminPanel();
     return;
   }
-
+ 
   let mensaje = '';
   if (accion === 'denegar') {
     mensaje = prompt('Motivo de denegación (opcional):') || '';
   }
   if (accion === 'aceptar' && !confirm('¿Aceptar esta ficha?')) return;
-
+ 
   const nuevoEstado = accion === 'aceptar' ? 'aceptada' : accion === 'denegar' ? 'denegada' : 'pendiente';
   const accionLabel = accion === 'aceptar' ? 'Aceptada' : accion === 'denegar' ? 'Denegada' : 'Revertida a pendiente';
-
+ 
   fichas[idx].estado = nuevoEstado;
   fichas[idx].historial = fichas[idx].historial || [];
   fichas[idx].historial.push({
@@ -881,12 +881,12 @@ function accionFicha(id, accion) {
     mensaje
   });
   saveAllFichas(fichas);
-
+ 
   closeModal();
   showFlash(`Ficha ${accionLabel.toLowerCase()} correctamente.`);
   renderAdminPanel();
 }
-
+ 
 // ═══════════════════════════════════════
 // TABS
 // ═══════════════════════════════════════
@@ -905,7 +905,7 @@ function switchTab(tab, btn) {
     renderAdminList();
   }
 }
-
+ 
 function switchTabSilent(tab) {
   document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
@@ -914,19 +914,19 @@ function switchTabSilent(tab) {
   const tabEl = document.getElementById('tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
 }
-
+ 
 // ═══════════════════════════════════════
 // MODAL
 // ═══════════════════════════════════════
 function openModal(id) {
   const f = getFichaById(id);
   if (!f) return;
-
+ 
   const badgeClass = f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'aceptada' ? 'badge-accepted' : 'badge-denied';
   const badgeText = f.estado === 'pendiente' ? 'Pendiente' : f.estado === 'aceptada' ? 'Aceptada' : 'Denegada';
-
+ 
   document.getElementById('modal-title').innerHTML = `${f.nombre || '—'} ${f.apellido || ''} <span class="badge ${badgeClass}" style="font-size:0.65rem;vertical-align:middle;margin-left:0.5rem;">${badgeText}</span>`;
-
+ 
   const historialHTML = (f.historial || []).slice().reverse().map(h => {
     const d = new Date(h.fecha).toLocaleString('es-ES');
     return `<div class="history-entry">
@@ -935,7 +935,7 @@ function openModal(id) {
       ${h.mensaje ? `<div class="h-msg">"${h.mensaje}"</div>` : ''}
     </div>`;
   }).join('');
-
+ 
   document.getElementById('modal-body').innerHTML = `
     <div class="modal-section">
       <h4>Identificación</h4>
@@ -967,7 +967,7 @@ function openModal(id) {
     </div>
     ${f.estado === 'pendiente' ? `<div class="admin-msg-wrap"><label>Mensaje al jugador (al aceptar/denegar)</label><textarea id="modal-admin-msg" placeholder="Bienvenido al servidor…"></textarea></div>` : ''}
   `;
-
+ 
   let footerHTML = `<button class="btn-outline" onclick="closeModal()">Cerrar</button>`;
   if (f.estado === 'pendiente') {
     footerHTML += `
@@ -983,15 +983,15 @@ function openModal(id) {
   document.getElementById('modal-footer').innerHTML = footerHTML;
   document.getElementById('modal-backdrop').classList.add('open');
 }
-
+ 
 function accionFichaConMsg(id, accion) {
   const msgEl = document.getElementById('modal-admin-msg');
   const mensaje = msgEl ? msgEl.value.trim() : '';
-
+ 
   const fichas = getAllFichas();
   const idx = fichas.findIndex(f => f.id === id);
   if (idx === -1) return;
-
+ 
   if (accion === 'denegar') {
     const motivo = mensaje || (prompt('Motivo de denegación (opcional):') || '');
     fichas[idx].estado = 'denegada';
@@ -1002,23 +1002,23 @@ function accionFichaConMsg(id, accion) {
     fichas[idx].historial = fichas[idx].historial || [];
     fichas[idx].historial.push({ accion: 'Aceptada', por: currentUser.username, fecha: new Date().toISOString(), mensaje });
   }
-
+ 
   saveAllFichas(fichas);
   closeModal();
   showFlash(`Ficha ${accion === 'aceptar' ? 'aceptada' : 'denegada'} correctamente.`);
   renderAdminPanel();
 }
-
+ 
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal-backdrop')) return;
   document.getElementById('modal-backdrop').classList.remove('open');
 }
-
+ 
 // ═══════════════════════════════════════
 // FICHA DEL JUGADOR
 // ═══════════════════════════════════════
 function onOcupacionChange() {}
-
+ 
 function siguientePaso() {
   const ocupacion = document.getElementById('char-ocupacion').value;
   if (!ocupacion) { showFlash('Elige una ocupación primero'); return; }
@@ -1031,14 +1031,14 @@ function siguientePaso() {
     enviarFicha();
   }
 }
-
+ 
 function volverFicha() {
   document.getElementById('ficha-paso-estudiante').style.display = 'none';
   document.getElementById('ficha-paso-profesor').style.display = 'none';
   document.getElementById('ficha-paso-adulto').style.display = 'none';
   document.getElementById('ficha-paso1').style.display = 'block';
 }
-
+ 
 function enviarFicha() {
   const data = {
     id: 'ficha_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
@@ -1067,7 +1067,7 @@ function enviarFicha() {
   showFlash('¡Ficha enviada! Los administradores la revisarán pronto.');
   volverFicha();
 }
-
+ 
 function loadFicha() {
   const saved = localStorage.getItem('ficha_personaje');
   if (!saved) return;
@@ -1083,14 +1083,14 @@ function loadFicha() {
     if (d.raza) document.getElementById('char-raza').value = d.raza;
   } catch(e) {}
 }
-
+ 
 function clearFicha() {
   if (!confirm('¿Limpiar todos los datos del personaje?')) return;
   localStorage.removeItem('ficha_personaje');
   ['char-discord-id','char-steam-id','char-nombre','char-apellido','char-fnac','char-nac','char-fisica','char-interp','char-historia'].forEach(id => { document.getElementById(id).value = ''; });
   ['char-sangre','char-ocupacion','char-raza'].forEach(id => { document.getElementById(id).value = ''; });
 }
-
+ 
 // ═══════════════════════════════════════
 // FLASH
 // ═══════════════════════════════════════
@@ -1100,7 +1100,7 @@ function showFlash(msg) {
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2800);
 }
-
+ 
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
@@ -1118,7 +1118,7 @@ function showFlash(msg) {
     }
     return;
   }
-
+ 
   const saved = localStorage.getItem('discord_user');
   if (saved) {
     try {
@@ -1133,7 +1133,7 @@ function showFlash(msg) {
   }
   showPage('login');
 })();
-
+ 
 // ═══════════════════════════════════════
 // QUIZ DE CASA (Estudiante)
 // ═══════════════════════════════════════
@@ -1187,7 +1187,7 @@ const QUIZ_PREGUNTAS = [
     ]
   }
 ];
-
+ 
 const CASAS = {
   A: {
     clase: 'casa-elenar',
@@ -1211,10 +1211,10 @@ const CASAS = {
     desc: 'La lealtad, el honor y la justicia son tus pilares. Valoras a tu comunidad, defiendes lo que consideras correcto y sabes trabajar en equipo para alcanzar objetivos comunes.'
   }
 };
-
+ 
 // Respuestas seleccionadas (índice pregunta → letra)
 let quizRespuestas = {};
-
+ 
 function initQuiz() {
   quizRespuestas = {};
   // Ocultar resultado y botones condicionales
@@ -1244,7 +1244,7 @@ function initQuiz() {
     </div>
   `).join('');
 }
-
+ 
 function seleccionarOpcion(preguntaIdx, letra, el) {
   // Deseleccionar todas las opciones de esta pregunta
   QUIZ_PREGUNTAS[preguntaIdx].opciones.forEach(op => {
@@ -1261,7 +1261,7 @@ function seleccionarOpcion(preguntaIdx, letra, el) {
     document.getElementById('btn-calcular-casa').style.display = 'inline-flex';
   }
 }
-
+ 
 function calcularCasa() {
   // Contar votos
   const conteo = { A: 0, B: 0, C: 0 };
@@ -1269,10 +1269,10 @@ function calcularCasa() {
   // Casa ganadora
   const ganadora = Object.entries(conteo).sort((a,b) => b[1]-a[1])[0][0];
   const casa = CASAS[ganadora];
-
+ 
   // Guardar en la ficha
   window._casaSeleccionada = casa.nombre;
-
+ 
   // Mostrar resultado
   const card = document.getElementById('casa-result-card');
   card.className = 'casa-result-card ' + casa.clase;
@@ -1281,15 +1281,15 @@ function calcularCasa() {
   document.getElementById('casa-result-motto').textContent = casa.lema;
   document.getElementById('casa-result-desc').textContent = casa.desc;
   document.getElementById('casa-result').classList.add('visible');
-
+ 
   // Scroll suave al resultado
   document.getElementById('casa-result').scrollIntoView({ behavior:'smooth', block:'center' });
-
+ 
   // Ocultar calcular, mostrar enviar
   document.getElementById('btn-calcular-casa').style.display = 'none';
   document.getElementById('btn-enviar-estudiante').style.display = 'inline-flex';
 }
-
+ 
 // Sobrescribir siguientePaso para inicializar el quiz al ir a estudiante
 const _siguientePasoOriginal = siguientePaso;
 function siguientePaso() {
@@ -1307,7 +1307,7 @@ function siguientePaso() {
     enviarFicha();
   }
 }
-
+ 
 // Parchar enviarFicha para incluir la casa elegida
 const _enviarFichaOriginal = enviarFicha;
 function enviarFicha() {
@@ -1340,7 +1340,7 @@ function enviarFicha() {
   showFlash('¡Ficha enviada! Los administradores la revisarán pronto.');
   volverFicha();
 }
-
+ 
 // ═══════════════════════════════════════
 // ENVÍO FICHA PROFESOR
 // ═══════════════════════════════════════
@@ -1348,10 +1348,10 @@ function enviarFichaProfesor() {
   const asignatura = document.getElementById('prof-asignatura').value.trim();
   const motivo = document.getElementById('prof-motivo').value.trim();
   const enlace = document.getElementById('prof-enlace').value.trim();
-
+ 
   if (!asignatura) { showFlash('Indica el nombre de la asignatura'); return; }
   if (!motivo) { showFlash('Explica por qué quieres dar esta asignatura'); return; }
-
+ 
   const base = {
     id: 'ficha_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
     discord_id: document.getElementById('char-discord-id').value || currentUser?.id || '',
@@ -1374,26 +1374,26 @@ function enviarFichaProfesor() {
     fecha_envio: new Date().toISOString(),
     historial: [{ accion: 'Enviada', por: currentUser?.username || 'Jugador', fecha: new Date().toISOString(), mensaje: '' }]
   };
-
+ 
   if (!base.nombre || !base.ocupacion) { showFlash('Completa al menos nombre y ocupación'); return; }
-
+ 
   const fichas = getAllFichas();
   fichas.push(base);
   saveAllFichas(fichas);
   localStorage.setItem('ficha_personaje', JSON.stringify(base));
-
+ 
   // Limpiar campos del paso profesor
   document.getElementById('prof-asignatura').value = '';
   document.getElementById('prof-motivo').value = '';
   document.getElementById('prof-enlace').value = '';
-
+ 
   showFlash('¡Postulación enviada! Los administradores la revisarán pronto.');
   volverFicha();
 }
 // ═══════════════════════════════════════
 // ESTADO DE FICHA DEL JUGADOR
 // ═══════════════════════════════════════
-
+ 
 /**
  * Busca la ficha más reciente del usuario actual en all_fichas.
  * Si existe y NO está denegada → muestra el banner y oculta el formulario.
@@ -1409,19 +1409,19 @@ function getMiFicha() {
   // Devolver la más reciente
   return mias.sort((a,b) => new Date(b.fecha_envio) - new Date(a.fecha_envio))[0];
 }
-
+ 
 function checkFichaEstado() {
   const ficha = getMiFicha();
   const estadoWrap = document.getElementById('ficha-estado-wrap');
   const paso1 = document.getElementById('ficha-paso1');
-
+ 
   if (!ficha) {
     // Sin ficha: mostrar formulario normal
     estadoWrap.style.display = 'none';
     paso1.style.display = 'block';
     return;
   }
-
+ 
   const card = document.getElementById('ficha-estado-card');
   const icon = document.getElementById('ficha-estado-icon');
   const title = document.getElementById('ficha-estado-title');
@@ -1430,10 +1430,10 @@ function checkFichaEstado() {
   const avisoWrap = document.getElementById('ficha-denegada-aviso');
   const avisoMsg = document.getElementById('ficha-denegada-msg');
   const btnReeditar = document.getElementById('btn-reeditar-ficha');
-
+ 
   // Nombre del personaje
   const nombreChar = [ficha.nombre, ficha.apellido].filter(Boolean).join(' ') || '—';
-
+ 
   if (ficha.estado === 'pendiente') {
     card.className = 'ficha-estado-card estado-pendiente';
     icon.textContent = '⏳';
@@ -1442,7 +1442,7 @@ function checkFichaEstado() {
     charSpan.textContent = '✦ ' + nombreChar + ' ✦';
     avisoWrap.style.display = 'none';
     btnReeditar.style.display = 'none';
-
+ 
   } else if (ficha.estado === 'aceptada') {
     card.className = 'ficha-estado-card estado-aceptada';
     icon.textContent = '✅';
@@ -1451,14 +1451,14 @@ function checkFichaEstado() {
     charSpan.textContent = '✦ ' + nombreChar + ' ✦';
     avisoWrap.style.display = 'none';
     btnReeditar.style.display = 'none';
-
+ 
   } else if (ficha.estado === 'denegada') {
     card.className = 'ficha-estado-card estado-denegada';
     icon.textContent = '❌';
     title.textContent = 'Solicitud denegada';
     desc.textContent = 'Tu ficha no ha sido aprobada. Puedes revisarla y volver a enviarla.';
     charSpan.textContent = '✦ ' + nombreChar + ' ✦';
-
+ 
     // Buscar último mensaje de denegación en el historial
     const ultimaDenegacion = (ficha.historial || []).slice().reverse().find(h => h.accion === 'Denegada');
     if (ultimaDenegacion && ultimaDenegacion.mensaje) {
@@ -1469,12 +1469,12 @@ function checkFichaEstado() {
     }
     btnReeditar.style.display = 'inline-flex';
   }
-
+ 
   // Ocultar formulario, mostrar banner
   estadoWrap.style.display = 'block';
   paso1.style.display = 'none';
 }
-
+ 
 function reeditarFicha() {
   // Precarga los datos de la ficha denegada en el formulario
   const ficha = getMiFicha();
@@ -1487,19 +1487,19 @@ function reeditarFicha() {
     if (ficha.sangre) document.getElementById('char-sangre').value = ficha.sangre;
     if (ficha.ocupacion) document.getElementById('char-ocupacion').value = ficha.ocupacion;
     if (ficha.raza) document.getElementById('char-raza').value = ficha.raza;
-
+ 
     // Eliminar la ficha denegada de la lista para que pueda reenviar
     const fichas = getAllFichas().filter(f => f.id !== ficha.id);
     saveAllFichas(fichas);
     localStorage.removeItem('ficha_personaje');
   }
-
+ 
   // Mostrar formulario, ocultar banner
   document.getElementById('ficha-estado-wrap').style.display = 'none';
   document.getElementById('ficha-paso1').style.display = 'block';
   showFlash('Edita tu ficha y vuelve a enviarla.');
 }
-
+ 
 </script>
 </body>
 </html>
