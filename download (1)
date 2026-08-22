@@ -1,0 +1,81 @@
+# Archivo de Rol — web con login Discord + fichas + panel de staff
+
+Stack: **Node.js + Express**, plantillas **EJS**, base de datos **SQLite** (vía `better-sqlite3`).
+La sesión también se guarda en SQLite (`connect-sqlite3`), así que si reinicias el
+servidor los usuarios siguen con la sesión iniciada (dura 30 días, cookie `httpOnly`).
+
+## 1. Crear la app de Discord
+
+1. Ve a https://discord.com/developers/applications → **New Application**.
+2. En **OAuth2 → General** copia el **Client ID** y el **Client Secret**.
+3. En **OAuth2 → Redirects**, añade exactamente:
+   `http://localhost:3000/auth/discord/callback`
+   (cuando lo subas a un dominio real, añade también la URL de producción, ej.
+   `https://tu-dominio.com/auth/discord/callback`).
+
+## 2. Configurar el proyecto
+
+```bash
+npm install
+cp .env.example .env
+```
+
+Edita `.env` y rellena:
+
+- `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_CALLBACK_URL`
+- `SESSION_SECRET`: cualquier cadena larga aleatoria
+- `ADMIN_DISCORD_IDS`: los IDs de Discord (clic derecho sobre el perfil → "Copiar
+  ID de usuario", necesitas el modo desarrollador activado) de quienes quieres
+  que sean **staff automáticamente** la primera vez que inicien sesión.
+- `DISCORD_GUILD_ID` (opcional): si lo rellenas, solo podrá entrar quien esté en
+  ese servidor de Discord.
+
+## 3. Arrancar
+
+```bash
+npm start
+```
+
+Abre `http://localhost:3000`.
+
+## Cómo funciona
+
+- **Login**: `/login` → botón "Entrar con Discord" → OAuth2 → se crea/actualiza el
+  usuario en la tabla `users` y se guarda la sesión.
+- **Convertir a alguien en staff después**: como es SQLite, puedes editarlo con
+  cualquier cliente SQLite abriendo `data/app.sqlite`, tabla `users`, columna
+  `is_staff` (0 o 1). Instala por ejemplo la extensión "SQLite Viewer" o usa
+  `sqlite3 data/app.sqlite "UPDATE users SET is_staff = 1 WHERE discord_id = 'ID_AQUI';"`.
+- **Ficha de personaje** (`/ficha`): cada usuario tiene como máximo una ficha.
+  - Si no tiene ficha, o si fue **denegada**, puede rellenar/editar el formulario.
+  - Si está **pendiente** o **aprobada**, el formulario se bloquea y se muestra
+    solo en modo lectura (esto se comprueba también en el servidor, no solo en
+    la vista, para que no se pueda saltar editando el HTML).
+- **Panel de staff** (`/staff`, solo visible/accesible si `is_staff = 1`):
+  - **Aceptar**: pasa la ficha a `aprobada`.
+  - **Denegar**: pide un motivo y pasa la ficha a `denegada`; el motivo se le
+    muestra al dueño de la ficha y esta vuelve a ser editable.
+  - **Eliminar**: borra la ficha por completo; el usuario puede crear una desde
+    cero.
+
+## Estructura
+
+```
+server.js              punto de entrada
+src/db.js               conexión SQLite + creación de tablas
+src/passport.js          estrategia OAuth2 de Discord
+src/middleware/auth.js   ensureAuth / ensureStaff
+src/routes/auth.js       /login, /auth/discord, /logout
+src/routes/ficha.js      /ficha (GET/POST)
+src/routes/staff.js      /staff (GET) y acciones aprobar/denegar/eliminar
+views/                   plantillas EJS
+public/css/style.css     estilos
+data/                    aquí se crean app.sqlite y sessions.sqlite
+```
+
+## Siguientes pasos posibles
+
+- Permitir varias fichas por usuario en vez de una sola.
+- Notificar por Discord (webhook) cuando se aprueba/deniega una ficha.
+- Subida de imagen en vez de solo URL.
+- Roles de Discord como criterio de staff en vez de una lista de IDs.

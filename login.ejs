@@ -1,0 +1,32 @@
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand__mark">&#10023;</span>
+    <span class="brand__text">Archivo<br />de Rol</span>
+  </div>
+
+  <nav class="nav">
+    <a class="nav__link <%= typeof active !== 'undefined' && active === 'ficha' ? 'is-active' : '' %>" href="/ficha">
+      Mi ficha
+    </a>
+    <% if (user && user.is_staff) { %>
+      <a class="nav__link <%= typeof active !== 'undefined' && active === 'staff' ? 'is-active' : '' %>" href="/staff">
+        Panel de staff
+      </a>
+    <% } %>
+  </nav>
+
+  <div class="user-card">
+    <img
+      class="user-card__avatar"
+      src="<%= user.avatar ? `https://cdn.discordapp.com/avatars/${user.discord_id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/0.png` %>"
+      alt=""
+    />
+    <div class="user-card__meta">
+      <span class="user-card__name"><%= user.username %></span>
+      <span class="user-card__role"><%= user.is_staff ? 'Staff' : 'Miembro' %></span>
+    </div>
+  </div>
+  <form action="/logout" method="POST">
+    <button class="btn btn--ghost btn--block" type="submit">Cerrar sesión</button>
+  </form>
+</aside>

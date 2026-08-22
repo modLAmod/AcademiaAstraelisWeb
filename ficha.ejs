@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Entrar · Archivo de Rol</title>
+  <%- include('partials/head') %>
+</head>
+<body class="login-body">
+  <main class="login-card">
+    <span class="brand__mark brand__mark--big">&#10023;</span>
+    <h1>Archivo de Rol</h1>
+    <p class="login-card__subtitle">Presenta tu ficha. Que el consejo decida.</p>
+
+    <% if (error) { %>
+      <p class="alert alert--error"><%= error %></p>
+    <% } %>
+
+    <a class="btn btn--discord" href="/auth/discord">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path fill="currentColor" d="M20.3 4.4A19.8 19.8 0 0 0 15.7 3l-.3.6a14 14 0 0 1 4 1.6 15.9 15.9 0 0 0-14.8 0 14 14 0 0 1 4.2-1.6L8.4 3a19.7 19.7 0 0 0-4.6 1.4C1 9 .3 13.5.6 17.9a20 20 0 0 0 6 3l1-1.6a12.9 12.9 0 0 1-1.9-.9l.5-.4a14.3 14.3 0 0 0 12 0l.5.4c-.6.4-1.2.6-1.9.9l1 1.6a20 20 0 0 0 6-3c.4-5.1-.9-9.6-3.5-13.5ZM8.8 15c-.9 0-1.7-.9-1.7-2s.7-2 1.7-2c1 0 1.8.9 1.7 2 0 1.1-.7 2-1.7 2Zm6.4 0c-.9 0-1.7-.9-1.7-2s.7-2 1.7-2c1 0 1.8.9 1.7 2 0 1.1-.7 2-1.7 2Z"/>
+      </svg>
+      Entrar con Discord
+    </a>
+
+    <p class="login-card__hint">Necesitas una cuenta de Discord para acceder.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Mi ficha · Archivo de Rol</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <div class="layout">
+    <% var active = 'ficha' %>
+    <%- include('partials/nav', { user }) %>
+
+    <main class="content">
+      <header class="content__header">
+        <h1>Mi ficha de personaje</h1>
+        <p class="content__lede">
+          <% if (!ficha) { %>
+            Todavía no has presentado ninguna ficha.
+          <% } else if (ficha.status === 'pendiente') { %>
+            Tu ficha está en revisión. No puedes editarla mientras el staff la evalúa.
+          <% } else if (ficha.status === 'aprobada') { %>
+            Tu ficha fue aprobada. Ya no se puede editar desde aquí.
+          <% } else { %>
+            Tu ficha fue denegada. Corrígela y vuelve a enviarla cuando quieras.
+          <% } %>
+        </p>
+      </header>
+
+      <% if (ok) { %><p class="alert alert--ok"><%= ok %></p><% } %>
+      <% if (error) { %><p class="alert alert--error"><%= error %></p><% } %>
+
+      <section class="dossier">
+        <% if (ficha) { %>
+          <div class="stamp stamp--<%= ficha.status %>">
+            <%= ficha.status === 'pendiente' ? 'Pendiente' : ficha.status === 'aprobada' ? 'Aprobada' : 'Denegada' %>
+          </div>
+        <% } %>
+
+        <% if (ficha && ficha.status === 'denegada' && ficha.motivo_denegacion) { %>
+          <div class="callout callout--denegada">
+            <strong>Motivo de la denegación:</strong> <%= ficha.motivo_denegacion %>
+          </div>
+        <% } %>
+
+        <% if (editable) { %>
+          <form class="ficha-form" action="/ficha" method="POST">
+            <label>
+              Nombre del personaje
+              <input type="text" name="nombre_personaje" required maxlength="80"
+                value="<%= ficha ? ficha.nombre_personaje : '' %>" placeholder="Ej. Lyra Vaelthorn" />
+            </label>
+
+            <div class="ficha-form__row">
+              <label>
+                Edad
+                <input type="text" name="edad" maxlength="20"
+                  value="<%= ficha ? (ficha.edad || '') : '' %>" placeholder="Ej. 27" />
+              </label>
+              <label>
+                Raza / especie
+                <input type="text" name="raza" maxlength="60"
+                  value="<%= ficha ? (ficha.raza || '') : '' %>" placeholder="Ej. Elfa del bosque" />
+              </label>
+            </div>
+
+            <label>
+              Imagen de referencia (URL)
+              <input type="url" name="imagen_url" maxlength="300"
+                value="<%= ficha ? (ficha.imagen_url || '') : '' %>" placeholder="https://..." />
+            </label>
+
+            <label>
+              Apariencia física
+              <textarea name="apariencia" rows="3" placeholder="Descripción física del personaje"><%= ficha ? (ficha.apariencia || '') : '' %></textarea>
+            </label>
+
+            <label>
+              Historia / trasfondo
+              <textarea name="historia" rows="6" placeholder="Backstory del personaje"><%= ficha ? (ficha.historia || '') : '' %></textarea>
+            </label>
+
+            <label>
+              Habilidades
+              <textarea name="habilidades" rows="3" placeholder="Poderes, talentos, debilidades..."><%= ficha ? (ficha.habilidades || '') : '' %></textarea>
+            </label>
+
+            <button class="btn btn--gold" type="submit">
+              <%= ficha ? 'Reenviar ficha' : 'Enviar ficha' %>
+            </button>
+          </form>
+        <% } else { %>
+          <div class="ficha-view">
+            <% if (ficha.imagen_url) { %>
+              <img class="ficha-view__img" src="<%= ficha.imagen_url %>" alt="" />
+            <% } %>
+            <h2><%= ficha.nombre_personaje %></h2>
+            <dl class="ficha-view__meta">
+              <% if (ficha.edad) { %><div><dt>Edad</dt><dd><%= ficha.edad %></dd></div><% } %>
+              <% if (ficha.raza) { %><div><dt>Raza</dt><dd><%= ficha.raza %></dd></div><% } %>
+            </dl>
+            <% if (ficha.apariencia) { %>
+              <h3>Apariencia</h3><p><%= ficha.apariencia %></p>
+            <% } %>
+            <% if (ficha.historia) { %>
+              <h3>Historia</h3><p><%= ficha.historia %></p>
+            <% } %>
+            <% if (ficha.habilidades) { %>
+              <h3>Habilidades</h3><p><%= ficha.habilidades %></p>
+            <% } %>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

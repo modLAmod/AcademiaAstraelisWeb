@@ -1,0 +1,63 @@
+require("dotenv").config();
+const path = require("path");
+const express = require("express");
+const session = require("express-session");
+const SQLiteStore = require("connect-sqlite3")(session);
+const passport = require("./src/passport");
+
+const authRoutes = require("./src/routes/auth");
+const fichaRoutes = require("./src/routes/ficha");
+const staffRoutes = require("./src/routes/staff");
+
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+// La sesión se guarda en un archivo SQLite (data/sessions.sqlite),
+// así que si reinicias el servidor la gente sigue conectada.
+app.use(
+  session({
+    store: new SQLiteStore({ db: "sessions.sqlite", dir: path.join(__dirname, "data") }),
+    secret: process.env.SESSION_SECRET || "cambia_esto",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 30, // 30 días
+      httpOnly: true,
+      sameSite: "lax",
+      // secure: true, // actívalo cuando sirvas la web por HTTPS
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// El usuario (o null) queda disponible en todas las vistas
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null;
+  next();
+});
+
+app.get("/", (req, res) => res.redirect(req.user ? "/ficha" : "/login"));
+
+app.use(authRoutes);
+app.use(fichaRoutes);
+app.use(staffRoutes);
+
+app.use((req, res) => {
+  res.status(404).render("error", {
+    user: req.user || null,
+    titulo: "Página no encontrada",
+    mensaje: "Esa ruta no existe.",
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});

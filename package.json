@@ -1,1 +1,23 @@
+# Puerto donde corre el servidor
+PORT=3000
 
+# URL base pública de tu web (sin barra al final)
+BASE_URL=http://localhost:3000
+
+# Clave para firmar las cookies de sesión. Pon algo largo y aleatorio.
+SESSION_SECRET=cambia_esto_por_una_cadena_aleatoria_larga
+
+# --- Discord OAuth2 ---
+# Sácalos de https://discord.com/developers/applications -> tu app -> OAuth2
+DISCORD_CLIENT_ID=
+DISCORD_CLIENT_SECRET=
+# Debe coincidir EXACTO con el que pongas en el panel de Discord (Redirects)
+DISCORD_CALLBACK_URL=http://localhost:3000/auth/discord/callback
+
+# (Opcional) Si quieres exigir que el usuario esté en tu servidor de Discord
+# para poder iniciar sesión, pon el ID de tu server aquí. Déjalo vacío si no.
+DISCORD_GUILD_ID=
+
+# IDs de Discord (separados por coma) que serán staff automáticamente
+# al iniciar sesión por primera vez. Ej: 123456789012345678,987654321098765432
+ADMIN_DISCORD_IDS=
